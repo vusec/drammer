@@ -31,18 +31,20 @@ devices in the wild, so please consider sharing them for science.
 # Native installation
 To build the native binary, you need an Android NDK toolchain. I used
 android-ndk-r11c:
-```
-wget https://dl.google.com/android/repository/android-ndk-r11c-linux-x86_64.zip
-unzip android-ndk-r11c-linux-x86_64.zip
-cd android-ndk-r11c
-./build/tools/make-standalone-toolschain.sh --ndk-dir=`pwd` --arch=arm --platform=android-24 --install-dir=./sysroot-arm/ --verbose
-```
-You should then update the `STANDALONE_TOOLCHAIN` variable and be able to compile the binary:
-```
-cd native
-sed -i 's#^\(STANDALONE_TOOLCHAIN=\s*\).*$#\1/path/to/android-ndk-r11c/sysroot-arm/bin#' Makefile
-make
-```
+
+    wget https://dl.google.com/android/repository/android-ndk-r11c-linux-x86_64.zip
+    unzip android-ndk-r11c-linux-x86_64.zip
+    cd android-ndk-r11c
+    ./build/tools/make-standalone-toolschain.sh --ndk-dir=`pwd` \
+      --arch=arm --platform=android-24 \
+      --install-dir=./sysroot-arm/ \
+      --verbose
+
+You can then build the program setting `STANDALONE_TOOLCHAIN` variable to point
+to the toolchain:
+
+    STANDALONE_TOOLCHAIN=path/to/android-ndk-r11c/sysroot-arm/bin make
+
 This gives you a stripped ARMv7 binary that you can run on both ARMv7 (32-bit)
 and ARMv8 (64-bit) devices. The Makefile provides an install feature that uses
 the Android Debug Bridge (adb) to push the binary to your device's
@@ -50,17 +52,16 @@ the Android Debug Bridge (adb) to push the binary to your device's
 android-tools-adb` (on Ubuntu) or by installing the Android SDK via
 [android.com](https://developer.android.com/studio/index.html#downloads). Then
 do a:
-```
-make install
-make test
-```
+
+    make install
+    make test
+
 to install and start the Rowhammer test binary. Once installed, you may also
 invoke it from the shell directly:
-```
-adb shell
-cd /data/local/tmp
-./rh-test
-```
+
+    adb shell
+    cd /data/local/tmp
+    ./rh-test
 
 ## Command line options
 The native binary provides a number of command line options:
