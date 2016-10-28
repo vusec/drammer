@@ -50,7 +50,8 @@ std::vector<struct model> models = {
 // Snapdragon 808
    {"Nexus 5X",  "bullhead",         "bullhead",      "msm8992", 21,  K(64),  "LG Nexus 5X"},
    {"LG-H960",   "pplus_global_com", "msm8992",       "msm8992", 21,  K(64),  "LG V10"},
- 
+   {"LG-H815",   "p1_global_com",    "msm8992",       "msm8992", 21,  K(64),  "LG G4"},
+
 // Snapdragon 805
    {"SM-G901F",  "kccat6xx",         "APQ8084",       "apq8084", 21,  K(128), "Samsung Galaxy S5 Plus"}, 
 // {"SM-N910V",  "trltevzw",         "APQ8084",       "apq8084", 21,  0,      "Samsung Galaxy Note 4"},
