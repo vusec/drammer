@@ -135,7 +135,8 @@ void defrag(int alloc_timer) {
         data->handle = ION_alloc(len);
         if (data->handle == 0) {
             printf("Exhausted *all* memory?\n");
-            exit(EXIT_FAILURE);
+            break;
+//          exit(EXIT_FAILURE);
         }
         data->len = len;
         data->mapping = NULL;
