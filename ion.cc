@@ -273,6 +273,11 @@ void ION_init(void) {
             chipset = CHIPSET_KIRIN;
             break;
         }
+        if (line.find("Kirin") != std::string::npos) {
+            print("Detected chipset Kirin\n");
+            chipset = CHIPSET_KIRIN;
+            break;
+        }
     }
     
     ion_fd = open("/dev/ion", O_RDONLY);
