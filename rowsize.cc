@@ -32,7 +32,7 @@
 #include "rowsize.h"
 
 #define ROWSIZE_READCOUNT 2500000 // 2.5 million reads
-#define ROWSIZE_PAGES 128
+#define ROWSIZE_PAGES 64 
 
 #define DEFAULT_ROWSIZE K(64)
 
@@ -94,7 +94,7 @@ std::vector<struct model> models = {
 // {"AOSP on Mako", "full_mako",     "MAKO",          "msm8960", 21,  0,      ""},
 
    {"ALE-L21",   "ALE-L21",          "BalongV8R1SFT", "hi6210sft",1,  K(32),   "Huawei P8 Lite"},
-
+   {"EVA-L09",   "EVA-L09",          "EVA-L09",       "hi3650",  1,   K(64),   "Huawei P9"},
    {"HUAWEI VNS-L31", "VNS-L31",     "VNS-L31",       "hi6250",   1,  K(32),   "Huawei P9 Lite"},
 
    {"NEO6_LTE", "NEO6_LTE",          "",              "mt6735",   1,  K(32),   "Odys Neo 6"},
