@@ -54,8 +54,7 @@ android-tools-adb` (on Ubuntu) or by installing the Android SDK via
 do a:
 
     make install
-    make test
-
+    
 to install and start the Rowhammer test binary. Once installed, you may also
 invoke it from the shell directly:
 
@@ -63,6 +62,10 @@ invoke it from the shell directly:
     cd /data/local/tmp
     ./rh-test
 
+or 
+
+    make test
+    
 ## Command line options
 The native binary provides a number of command line options:
 
