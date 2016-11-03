@@ -46,6 +46,7 @@ int chipset;
 #define CHIPSET_UNIVERSAL   1
 #define CHIPSET_KIRIN       1 
 #define CHIPSET_SPREADTRUM  2
+#define CHIPSET_QCT         22
 
 int ion_fd;
 extern int rowsize;
@@ -277,6 +278,10 @@ void ION_init(void) {
             print("Detected chipset Kirin\n");
             chipset = CHIPSET_KIRIN;
             break;
+        }
+        if (line.find("MSM8627") != std::string::npos) {
+            print("Detected cihpset MSM8627\n");
+            chipset = CHIPSET_QCT;
         }
     }
     
