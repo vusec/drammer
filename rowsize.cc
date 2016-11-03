@@ -31,8 +31,6 @@
 #include "ion.h"
 #include "rowsize.h"
 
-#define ROWSIZE_READCOUNT 2500000 // 2.5 million reads
-#define ROWSIZE_PAGES 64 
 
 #define DEFAULT_ROWSIZE K(64)
 
@@ -204,45 +202,52 @@ struct model *get_model(int *familiarity) {
 
 
 /* auto detect row size */
-int RS_autodetect(void) {
+int RS_autodetect(bool always) {
 
     print("[RS] Trying getprop\n");
     int familiarity;
     struct model *m = get_model(&familiarity);
     if (familiarity == KNOWN_MODEL) {
         rowsize = m->rowsize;
-        return rowsize;
+        if (!always) return rowsize;
     }
 
+#define RS_CHUNKSIZE K(256)
+#define ROWSIZE_READCOUNT 2000000 // 1 million reads
+#define STEP 1
 
-    print("[RS] Allocating 256 ion chunk\n");
+    print("[RS] Allocating ion chunk of size %d\n", RS_CHUNKSIZE);
     struct ion_data data;
-    data.handle = ION_alloc(K(256));
+    data.handle = ION_alloc(RS_CHUNKSIZE);
     if (data.handle == 0) {
-        perror("Could not allocate 256K chunk for row size detection");
+        perror("Could not allocate chunk");
         exit(EXIT_FAILURE);
     }
-    data.len = K(256);
+    data.len = RS_CHUNKSIZE;
     ION_mmap(&data);
+
    
-    print("[RS] Reading from page 0 and page x (x = 0..%d)\n",ROWSIZE_PAGES);
+//  print("[RS] Reading from page 0 and page x (x = 0..%d)\n",pages);
     std::vector<uint64_t> deltas;
-    int page1 = 0;
-    volatile uintptr_t *virt1 = (volatile uintptr_t *) ((uint64_t) data.mapping + (page1 * PAGESIZE));
-    for (int page2 = 0; page2 < ROWSIZE_PAGES; page2++) {
-        volatile uintptr_t *virt2 = (volatile uintptr_t *) ((uint64_t) data.mapping + (page2 * PAGESIZE));
 
-        uint64_t t1 = get_ns();
-        for (int i = 0; i < ROWSIZE_READCOUNT; i++) {
-            *virt1;
-            *virt2;
+    for (int addr1 = 0; addr1 < RS_CHUNKSIZE; addr1+=STEP) {
+        volatile uint8_t *virt1 = (volatile uint8_t *) ((uint64_t) data.mapping + addr1);
+
+        for (int addr2 = 0; addr2 < RS_CHUNKSIZE; addr2+=STEP) {
+            volatile uint8_t *virt2 = (volatile uint8_t *) ((uint64_t) data.mapping + addr2);
+
+            uint64_t t1 = get_ns();
+            for (int i = 0; i < ROWSIZE_READCOUNT; i++) {
+                *virt1;
+                *virt2;
+            }
+            uint64_t t2 = get_ns();
+            int ns_per_read = (t2 - t1) / (ROWSIZE_READCOUNT * 2);
+    
+            print("%d ", ns_per_read);
         }
-        uint64_t t2 = get_ns();
-        deltas.push_back((t2 - t1) / ROWSIZE_READCOUNT);
-
-        print("%llu ", deltas.back());
+        print("\n");
     }
-    print("\n");
 
     if (munmap(data.mapping, data.len)) {
         perror("Could not munmap");
@@ -256,6 +261,8 @@ int RS_autodetect(void) {
         perror("Could not free");
         exit(EXIT_FAILURE);
     }
+
+    exit(0);
 
     uint64_t q1, q2, q3;
     uint64_t    iqr = compute_iqr   (deltas, &q1, &q2, &q3);

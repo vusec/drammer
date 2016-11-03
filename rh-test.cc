@@ -48,6 +48,7 @@ extern int rowsize;
 void usage(char *main_program) {
     fprintf(stderr,"Usage: %s [-a] [-c count] [-d seconds] [-f file] [-h] [-i] [-q cpu] [-r rowsize] [-t timer]\n", main_program);
     fprintf(stderr,"   -a        : Run all pattern combinations\n");
+    fprintf(stderr,"   -A        : Always do rowsize detection\n");
     fprintf(stderr,"   -c count  : Number of memory accesses per hammer round (default is %d)\n",HAMMER_READCOUNT);
     fprintf(stderr,"   -d seconds: Number of seconds to run defrag (default is disabled)\n");
     fprintf(stderr,"   -f file   : Write output to this file\n"); 
@@ -80,12 +81,16 @@ int main(int argc, char *argv[]) {
     bool heap_type_detector = false;
     bool do_conservative = false;
     bool all_patterns = false;
+    bool always_rs_detection = false;
     int cpu_pinning = -1;
     opterr = 0;
-    while ((c = getopt(argc, argv, "sac:d:f:hiq:r:t:")) != -1) {
+    while ((c = getopt(argc, argv, "Asac:d:f:hiq:r:t:")) != -1) {
         switch (c) {
             case 'a':
                 all_patterns = true;
+                break;
+            case 'A':
+                always_rs_detection = true;
                 break;
             case 'c':
                 hammer_readcount = strtol(optarg, NULL, 10);
@@ -171,7 +176,7 @@ int main(int argc, char *argv[]) {
     /*** ROW SIZE DETECTION (if not specified) */
     if (!VALID_ROWSIZES.count(rowsize)) {
         printf("[MAIN] No or weird row size provided, trying auto detect\n");
-        rowsize = RS_autodetect();
+        rowsize = RS_autodetect(always_rs_detection);
     }
     print("[MAIN] Row size: %d\n", rowsize);
 
