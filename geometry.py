@@ -21,13 +21,13 @@ for line in f:
     print "%20s:" % (bin(phys)),
     for delta in deltas:
         if deltas_printed < 20:
-            print "%2d" % (int(delta)/10),
+            print "%2d" % (int(delta)),
             subset.append(delta)
         if deltas_printed == 20:
             print "...",
             conflict = True
             for x in subset:
-                if int(x) < 100:
+                if int(x) < 50:
                     conflict = False
                     break
             subset = []

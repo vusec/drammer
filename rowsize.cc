@@ -213,7 +213,7 @@ int RS_autodetect(bool always) {
     }
 
 #define RS_CHUNKSIZE K(256)
-#define ROWSIZE_READCOUNT 2000000 // 1 million reads
+#define ROWSIZE_READCOUNT 10000 // 1 million reads
 #define STEP 1
 
     print("[RS] Allocating ion chunk of size %d\n", RS_CHUNKSIZE);
@@ -236,15 +236,25 @@ int RS_autodetect(bool always) {
         for (int addr2 = 0; addr2 < RS_CHUNKSIZE; addr2+=STEP) {
             volatile uint8_t *virt2 = (volatile uint8_t *) ((uint64_t) data.mapping + addr2);
 
-            uint64_t t1 = get_ns();
-            for (int i = 0; i < ROWSIZE_READCOUNT; i++) {
-                *virt1;
-                *virt2;
+
+            #define MEASUREMENTS 100
+            #define LOOPCOUNT 500
+
+            int min_ns_per_read = 9999;
+            for (int m = 0; m < MEASUREMENTS; m++) {
+                uint64_t t1 = get_ns();
+                for (int i = 0; i < LOOPCOUNT; i++) {
+                    *virt1;
+                    *virt2;
+                }
+                uint64_t t2 = get_ns();
+                int ns_per_read = ((t2 - t1) / LOOPCOUNT / 2.0) + .5;
+                if (ns_per_read < min_ns_per_read) {
+                    min_ns_per_read = ns_per_read;
+                }
             }
-            uint64_t t2 = get_ns();
-            int ns_per_read = (t2 - t1) / (ROWSIZE_READCOUNT * 2);
     
-            print("%d ", ns_per_read);
+            print("%d ", min_ns_per_read);
         }
         print("\n");
     }
