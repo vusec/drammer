@@ -26,8 +26,7 @@ To build the native binary, you need an Android NDK toolchain. I used `android-n
 		--install-dir=./sysroot-arm/ \
 		--verbose
 
-You can then build the program setting `STANDALONE_TOOLCHAIN` variable to point
-to the toolchain:
+You can then build the program setting `STANDALONE_TOOLCHAIN` variable to point to the toolchain:
 
 	STANDALONE_TOOLCHAIN=path/to/android-ndk-r11c/sysroot-arm/bin make
 
