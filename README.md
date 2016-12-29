@@ -35,7 +35,7 @@ android-ndk-r11c:
     wget https://dl.google.com/android/repository/android-ndk-r11c-linux-x86_64.zip
     unzip android-ndk-r11c-linux-x86_64.zip
     cd android-ndk-r11c
-    ./build/tools/make-standalone-toolschain.sh --ndk-dir=`pwd` \
+    ./build/tools/make-standalone-toolchain.sh --ndk-dir=`pwd` \
       --arch=arm --platform=android-24 \
       --install-dir=./sysroot-arm/ \
       --verbose
