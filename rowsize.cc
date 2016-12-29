@@ -1,60 +1,3 @@
-/* Would like to test:
- * - APQ8084 (e.g., Galaxy Note 4)
- *      - SM-N910A / SM-N910F / SM-G935F / SM-N910V / SM-G901F / HTC One
- * - exynos3
- *      - universal3475 
- *      - universal3470
- * - exynos4
- *      - smdk4x12   <--  GT-I9100
-  *      - smdk4x10   <-- GT-I9300
- * - exynos5
- *      - universal7420  <--- SM-G920V / SM-G920F / SM-G920P / SM-G925F (Galaxy S6)
- *      - universal7870
- *      - universal7580  <--- SM-A510F / SM-A310F / SM-G03F  (Galaxy A3, A5
- *      - universal8890  <--- SM-G30F / SM-G35F (galaxy S7)
- *      - universal5433
- *      - uinversal5420
- * - hi3630
- * - hi3635
- *      - PLK-L01
- *      - HUAWEI GRA-L09
- * - hi3650
- * - hi6210sft
- * - hi6250
- *      - VNS-L11 / VNS-L31
- * - msm8084  <-- Nexus 6
- * - msm8226
- * - msm8610
- * - msm8909
- * - msm8916 <-- Moto G3
- * - msm8952 <-- Moto G(4) / Redmi Note 3 
- * - msm8960 <-- GT-I9505 / GT-I9195 / Nexus 4
- * - msm8974 <-- HTC One M8 / One Plus 1 / Nexus 5
- * - msm8992 <-- LG-H815 / 
- * - m2m8994 <-- One Plus 2 / HTC One M9 / LG-H955 / Nexus 6p
- * - msm8996 <-- Pixel / OnePlus 3 
- * 
- * - mt6580
- * - mt6735
- * - mt6735m
- * - mt6753
- * - tegra3 <-- Nexus 7
- *
- * - astar / baytrail / capri / clovertrail / gmin / hawaii / moorefield
- *
- *
- *  Huawei CRR-L09 Mate S triggers a reboot when allocating from heap id 3...
- *
- */
-
-
-
-
-
-
-
-
-
 /*
  * Copyright 2016, Victor van der Veen
  *
@@ -71,12 +14,15 @@
  * limitations under the License.
  */
 
-/* This autodetect module will try to detect the following device specific
+/* December 29. The comments below might be a bit out-dated already. Leaving
+ * them here for now.
+ *
+ * This autodetect module tries to detect the following device specific
  * features:
  *      1) Rowsize
  *      2) ION heap for contiguous memory
  *      3) Treshold for bank conflicts
- *      4) DRAM addressing functions
+ *    [ 4) DRAM addressing functions    ] --> disabled for now
  * Of this list, features 1) and 2) are crucial for correct operation of
  * drammer, while 3) and 4) are nice to have. Since autodetect may fail, several
  * fallback options are in place. For this, we first search this device in our
@@ -973,7 +919,7 @@ bool BankConflicts::findRowsize(uint8_t *base, int len) {
        */
 
 //#define SKIP_A
-#define SKIP_B
+//#define SKIP_B
 
 
 #ifdef SKIP_A
@@ -1334,26 +1280,6 @@ bool BankConflicts::findMask() {
                 //*_mask = selector;
 
 
-
-/*   1st pass:
- *    0. ROW 1  <--
- *   32. ROW 2  <-- offset = rowsize
- *
- *   2nd pass
- *    0. ROW 1 <--
- *   32. ROW 2
- *   64. ROW 3 <-- offset = rowsize * 2
- *
- *   3rd pass
- *     0. ROW 1 <--
- *    32. ROW 2
- *    64. ROW 3
- *    96. ROW 4
- *   128. ROW 5 <-- offset = rowsize * 4
- *   ROW 6
- *   ROW 7
- *   ROW 8   <--
- */
 
 
 
