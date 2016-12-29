@@ -21,11 +21,14 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <sys/sysinfo.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 #include <algorithm>
-#include <cmath>
-#include <numeric>
+#include <fstream>
+#include <memory>
+#include <set>
 
 #define G(x) (x << 30)
 #define M(x) (x << 20)
@@ -44,7 +47,18 @@
 #define BILLION 1000000000L
 #define MILLION 1000000L
 
-extern FILE *global_of;
+#define FENCING_NONE 0
+#define FENCING_ONCE 1
+#define FENCING_TWICE 2
+#define FENCING_OPTIONS 3
+
+#define MAX_CORES 16
+
+#define CACHELINE_SIZE 64
+
+#include "logger.h"
+
+extern Logger *logger;
 
 static inline uint64_t get_ns(void) {
   struct timespec t;
@@ -52,7 +66,7 @@ static inline uint64_t get_ns(void) {
   return BILLION * (uint64_t) t.tv_sec + (uint64_t) t.tv_nsec;
 }
 
-static inline uint64_t get_ms(void) {
+static inline uint64_t get_us(void) {
     struct timeval tv;
     gettimeofday(&tv, NULL);
     return MILLION * (uint64_t) tv.tv_sec + tv.tv_usec;
@@ -60,7 +74,7 @@ static inline uint64_t get_ms(void) {
 
 static int pagemap_fd = 0;
 static bool got_pagemap = true;
-
+    
 static inline uintptr_t get_phys_addr(uintptr_t virtual_addr) {
     if (!got_pagemap) return 0;
     if (pagemap_fd == 0) {
@@ -70,21 +84,21 @@ static inline uintptr_t get_phys_addr(uintptr_t virtual_addr) {
             return 0;
         }
     }
-    uint64_t value;
-    off_t offset = (virtual_addr / PAGESIZE) * sizeof(value);
-    int got = pread(pagemap_fd, &value, sizeof(value), offset);
+    uint64_t value = 0;
+    uint64_t offset;
+    offset = (virtual_addr / PAGESIZE) * 8;
+    int got = pread(pagemap_fd, &value, sizeof(value), (off_t) offset);
+
     assert(got == 8);
   
     // Check the "page present" flag.
-    if ((value & (1ULL << 63)) == 0) {
-        printf("page not present? virtual address: %p | value: %p\n", virtual_addr, value);
+    if ((value & (1ULL << 63)) == 0) 
         return 0;
-    }
 
     uint64_t frame_num = (value & ((1ULL << 54) - 1));
     return (frame_num * PAGESIZE) | (virtual_addr & (PAGESIZE-1));
 }
-
+  
 static inline uint64_t compute_median(std::vector<uint64_t> &v) {
     if (v.size() == 0) return 0;
     std::vector<uint64_t> tmp = v;
@@ -93,12 +107,195 @@ static inline uint64_t compute_median(std::vector<uint64_t> &v) {
     return tmp[n];
 }
 
-static inline void print(const char *format, ...) {
-    va_list args;
-    va_start(args, format);
-    vfprintf(stdout, format, args);
-    if (global_of != NULL) vfprintf(global_of, format, args);
-    va_end(args);
+static inline int hibit(uint32_t n) {
+    n |= (n >>  1);
+    n |= (n >>  2);
+    n |= (n >>  4);
+    n |= (n >>  8);
+    n |= (n >> 16);
+    return n - (n >> 1);
 }
 
+
+static inline uint64_t get_mem_size() {
+  struct sysinfo info;
+  sysinfo(&info);
+  return (size_t)info.totalram * (size_t)info.mem_unit;
+}
+
+
+static inline int hammer(volatile uint8_t *p1, volatile uint8_t *p2, int count, bool fence) {
+    uint64_t t1, t2;
+
+    asm volatile("dsb ish;");
+    asm volatile("isb;");
+
+    if (fence == FENCING_NONE) {
+        t1 = get_ns();
+        for (int i = 0; i < count; i++) {
+            *p1;
+            *p2;
+        }
+        t2 = get_ns();
+    } else if (fence == FENCING_ONCE) {
+        t1 = get_ns();
+        for (int i = 0; i < count; i++) {
+            *p1;
+            *p2;
+            asm volatile("dsb ish;");
+            asm volatile("isb;");
+        }
+        t2 = get_ns();
+    } else if (fence == FENCING_TWICE) {
+        t1 = get_ns();
+        for (int i = 0; i < count; i++) {
+            *p1;
+            asm volatile("dsb ish;");
+            asm volatile("isb;");
+            *p2;
+            asm volatile("dsb ish;");
+            asm volatile("isb;");
+        }
+        t2 = get_ns();
+    }
+    
+    asm volatile("dsb ish;");
+    asm volatile("isb;");
+
+    return (t2 - t1) / count / 2;
+   
+}
+
+#define lprint(...) logger->log(__VA_ARGS__)
+
+static inline void dumpfile(const char *filename) {
+    std::ifstream f(filename);
+    f.clear();
+    f.seekg(0, std::ios::beg);
+    for (std::string line; getline(f, line); ) {
+        if (!line.empty()) lprint("%s\n", line.c_str());
+    }
+}
+
+static inline void *load(void *info) {
+    int ret = 0;
+    for (int i = 0; i < 65536; i++) {
+        ret += rand();
+    }
+    return NULL;
+}
+
+static inline int getcpus(int *slowest_cpu, int *fastest_cpu) {
+    printf("[CPU] Generating some load to enable all cores\n");
+    pthread_t threads[MAX_CORES];
+    for (int i = 0; i < MAX_CORES; i++) {
+        if(pthread_create(&threads[i], NULL, load, NULL)) {
+            perror("Could not create ptread");
+            exit(EXIT_FAILURE);
+        }
+    }
+    for (int i = 0; i < 16; i++) 
+        pthread_join(threads[i], NULL);
+    
+    printf("[CPU] Looking for core with lowest/highest frequency\n"); 
+    std::string cmd = "/system/bin/cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_max_freq";
+    char buffer[256];
+    std::shared_ptr<FILE> pipe(popen(cmd.c_str(), "r"), pclose);
+    if (!pipe) {
+        perror("popen failed");
+        return -1;
+    }
+
+    int max_freq = 0;
+    int min_freq = 0;
+    int max_cpu  = 0;
+    int min_cpu  = 0;
+    int cpu = 0;
+    while (!feof(pipe.get())) {
+        if (fgets(buffer, 256, pipe.get()) != NULL) {
+            int freq = atoi(buffer);
+            printf("[CPU] Max frequency for core %d is %dKHz\n", cpu, freq);
+            if (freq > max_freq) {
+                max_freq = freq;
+                max_cpu = cpu;
+            }
+            if (min_freq == 0 || freq < min_freq) {
+                min_freq = freq;
+                min_cpu = cpu;
+            }
+            cpu++;
+        }
+    }
+    *slowest_cpu = min_cpu;
+    *fastest_cpu = max_cpu;
+    return cpu;
+}
+
+static inline int pincpu(int cpu) {
+    printf("[CPU] Generating some load to enable all cores\n");
+    pthread_t threads[MAX_CORES];
+    for (int i = 0; i < MAX_CORES; i++) {
+        if(pthread_create(&threads[i], NULL, load, NULL)) {
+            perror("Could not create ptread");
+            exit(EXIT_FAILURE);
+        }
+    }
+    for (int i = 0; i < 16; i++) 
+        pthread_join(threads[i], NULL);
+
+    printf("[CPU] Pinning to core %d... ", cpu);
+    cpu_set_t cpuset;
+    CPU_ZERO(&cpuset);
+    CPU_SET(cpu, &cpuset);
+    if (sched_setaffinity(0, sizeof(cpuset), &cpuset)) {
+        perror("Failed to pin cpu");
+        return -1;
+    } 
+    
+    printf("Success\n");
+    return 0;
+}
+
+static inline std::string run(std::string cmd) {
+    char buffer[128];
+    std::string value = "";
+    std::shared_ptr<FILE> pipe(popen(cmd.c_str(), "r"), pclose);
+    if (!pipe) {
+        perror("popen failed");
+        return value;
+    }
+    while (!feof(pipe.get())) {
+        if (fgets(buffer, 128, pipe.get()) != NULL)
+            value += buffer;
+    }
+    return value;
+}
+
+
+static inline std::string getprop(std::string property) {
+    std::string cmd = "/system/bin/getprop ";
+    cmd += property;
+
+    std::string value = run(cmd);
+    value.erase(std::remove(value.begin(), value.end(), '\n'), value.end());
+    return value;
+}
+
+static inline uint8_t *random_element(std::set<uint8_t *> group) {
+    int random_index = rand() % group.size();
+    std::set<uint8_t *>::const_iterator it(group.begin());
+    std::advance(it, random_index);
+    return *it;
+}
+
+static inline void unblock_signals(void) {
+    int err;
+    sigset_t sigset;
+    
+    err = sigfillset(&sigset);
+    if (err != 0) perror("sigfillset");
+    
+    err = sigprocmask(SIG_UNBLOCK, &sigset, NULL); 
+    if (err != 0) perror("sigprocmask");
+}    
 #endif // __HELPER_H__

@@ -21,7 +21,7 @@ CXX   = $(STANDALONE_TOOLCHAIN)/arm-linux-androideabi-g++
 CPP   = $(STANDALONE_TOOLCHAIN)/arm-linux-androideabi-g++
 STRIP = $(STANDALONE_TOOLCHAIN)/arm-linux-androideabi-strip
 
-CPPFLAGS = -std=c++11 -O3 -Wall
+CPPFLAGS = -std=c++11 -O3 -Wall -march=armv7-a
 LDFLAGS  = -pthread -static
 INCLUDES = -I$(PWD)/../include
 
@@ -30,7 +30,7 @@ TARGET ?= rh-test
 
 all: $(TARGET)
 
-rh-test: rh-test.o ion.o rowsize.o templating.o massage.o
+rh-test: rh-test.o ion.o rowsize.o templating.o massage.o logger.o helper.h
 	$(CPP) $(CPPFLAGS) -o $@ $^ $(LDFLAGS)
 	$(STRIP) $@
 

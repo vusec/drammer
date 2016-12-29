@@ -14,11 +14,24 @@
  * limitations under the License.
  */
 
+#include <stdio.h>
+#include <time.h>
 
-#ifndef __MASSAGE_H__
-#define __MASSAGE_H__
+class Logger {
+    public:
+        Logger(const char *basename, int log_rotate);
+        void log(const char *format, ...); 
+        void fprint(const char *format, ...); // write to log file only
 
-int defrag(int alloc_timer, int heap_id);
-int ionExhaust(std::vector<struct ion_data *> &chunks, int min_bytes, int heap_id, bool mmap = true);
+    private:
+        void rotate(void);
+        void openFile(time_t c_time);
+        void closeFile(void);
 
-#endif
+        time_t l_time;
+        const char *l_basename;
+        char l_filename[128];
+        FILE *l_fp;
+        int l_rotate;
+};
+

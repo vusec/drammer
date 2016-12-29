@@ -37,53 +37,38 @@
 #include "rowsize.h"
 #include "templating.h"
 
-extern bool lowmem;
 
-bool alloc_timeout;
-void alloc_alarm(int signal) {
-    printf("Allocation timeout\n");
-    alloc_timeout = true;
-}
+bool stop_defrag;
 
-std::ifstream meminfo("/proc/meminfo");
-size_t read_meminfo(std::string type) {
-    meminfo.clear();
-    meminfo.seekg(0, std::ios::beg);
-    for (std::string line; getline(meminfo, line); ) {
-        if (line.find(type) != std::string::npos) {
-            std::string kb = line.substr( line.find(':') + 1, line.length() - type.length() - 3 );
-            return std::atoi(kb.c_str());
-        }
+void signal_handler(int signal) {
+    if (signal == SIGALRM) {
+        printf("[SIGNALRM] Time is up\n");
+    } else if (signal == SIGUSR1) {
+        printf("[SIGUSR1] OOM-killer\n");
     }
-    return 0;
+    stop_defrag = true;
 }
-size_t get_LowFree(void) { return read_meminfo("LowFree"); }
 
-int exhaust(std::vector<struct ion_data *> &chunks, int min_bytes, bool mmap) { 
+
+
+
+int ionExhaust(std::vector<struct ion_data *> &chunks, int min_bytes, int heap_id, bool mmap) { 
     int total_kb;
 
     total_kb = 0;
     for (int order = MAX_ORDER; order >= B_TO_ORDER(min_bytes); order--) {
-        int count = ION_bulk(ORDER_TO_B(order), chunks, 0, mmap);
-        print("[EXHAUST] - order %2d (%4d KB) - got %3d chunks\n", 
+        int count = ION_bulk(ORDER_TO_B(order), chunks, heap_id, 0, mmap);
+        lprint("[EXHAUST] - order %2d (%4d KB) - got %3d chunks\n", 
                     order, ORDER_TO_KB(order), count);
         total_kb += ORDER_TO_KB(order) * count;
-
-        if (lowmem) break;
     }
-    print("[EXHAUST] allocated %d KB (%d MB)\n", total_kb, total_kb / 1024);
+    lprint("[EXHAUST] allocated %d KB (%d MB)\n", total_kb, total_kb / 1024);
 
     return total_kb;
 }
 
 
 
-
-/* stop defrag when it has been working for more than ALLOC_TIMEOUT seconds */
-#define ALLOC_TIMEOUT 10
-
-/* stop defrag when the system has less than MIN_LOWFREE KB low memory left */
-#define MIN_LOWFREE 4 * 1024
 
 /* stop defrag when none of the last <INTERVAL> allocations yield more than MIN_COUNT blocks */
 #define INTERVAL 10
@@ -99,14 +84,12 @@ int exhaust(std::vector<struct ion_data *> &chunks, int min_bytes, bool mmap) {
  * background processes are already forced to use smaller contiguous memory
  * chunks (up to 32KB). Since we cannot simply exhaust *all* 4KB chunks (we
  * would go completely out of memory), we then allocate chunks until:
- * - a timeout occurs (after ALLOC_TIMEOUT seconds); or
- * - the system has little free low memory left (MIN_LOWFREE KB); or
+ * - a timeout occurs (after n seconds); or
  * - we did not get many new blocks during the last x seconds (INTERAL /
  *   MINCOUNT)
  */
-void defrag(int alloc_timer) {
+int defrag(int timer, int heap_id) {
     std::vector<struct ion_data *> defrag_chunks;
-    
     time_t start_time = 0;
     time_t  prev_time = 0;
     int      count = 0;
@@ -115,84 +98,92 @@ void defrag(int alloc_timer) {
     for (int i = 0; i < INTERVAL; i++) alloc_count[i] = MIN_COUNT + 1;
     int    alloc_count_index = 0;
     int len = K(4);
-    
-    exhaust(defrag_chunks, K(64), false);
+    stop_defrag = false;
 
-    if (lowmem) goto bail;
 
-    alloc_timeout = false;
-    signal(SIGALRM, alloc_alarm);
-    alarm(alloc_timer);
-    
+    /* Exhaust */
+    ionExhaust(defrag_chunks, K(64), heap_id, false);
+
+    int fixed_size_ion = 0;
+
+    /* Install one signal handler for:
+     * - SIGALRM: if our timer runs out
+     * - SIGUSR1: if the system is on low-memory (detected and sent by our app) */
+    struct sigaction new_action, old_ALARM, old_USR1;
+    new_action.sa_handler = signal_handler;
+    sigemptyset(&new_action.sa_mask);
+    new_action.sa_flags = 0;
+    sigaction(SIGALRM, &new_action, &old_ALARM);
+    sigaction(SIGUSR1, &new_action, &old_USR1);
+    alarm(timer);
+
+    /* Let's go! */ 
     start_time = time(NULL);
-
     while (true) {
         struct ion_data *data = new ion_data;
         if (data == NULL) {
             perror("Could not allocate memory");
             exit(EXIT_FAILURE);
         }
-        data->handle = ION_alloc(len);
+        data->handle = ION_alloc(len, heap_id);
         if (data->handle == 0) {
-            printf("Exhausted *all* memory?\n");
+            printf("Could not allocate 4KB. ION heap may be of a fixed-size\n");
+            fixed_size_ion = 1;
             break;
-//          exit(EXIT_FAILURE);
         }
         data->len = len;
         data->mapping = NULL;
+        defrag_chunks.push_back(data);
         count++;
 
         time_t curr_time = time(NULL);
         if (curr_time != prev_time) {
-            int lowfree = get_LowFree();
             int timerunning = (curr_time - start_time);
-            int timeleft = alloc_timer - timerunning;
+            int timeleft = timer - timerunning;
 
             alloc_count[alloc_count_index] = (count - prev_count);
-            alloc_count_index = (alloc_count_index + 1) % 10;
+            alloc_count_index = (alloc_count_index + 1) % INTERVAL;
             bool progress = false;
-            print("[DEFRAG] Blocks allocated last %d intervals: ", 10);
-            for (int i = 9; i >= 0; i--) {
-                printf("%5d ", alloc_count[(alloc_count_index + i) % 10]);
+            lprint("[DEFRAG] Blocks allocated last %d intervals: ", INTERVAL);
+            for (int i = INTERVAL-1; i >= 0; i--) {
+                printf("%5d ", alloc_count[(alloc_count_index + i) % INTERVAL]);
                 if (alloc_count[i] > MIN_COUNT) 
                     progress = true;
             }
-            print(" | time left: %3d | low free: %8d KB | blocks: %8d\n", 
-                        timeleft, lowfree, count);
+            lprint(" | time left: %3d | blocks: %8d\n", 
+                        timeleft, count);
 
             if (!progress) { 
-                print("[DEFRAG] Not enough progress\n");
+                lprint("[DEFRAG] Not enough progress\n");
                 break;
             }
            
-            // some devices do not report LowFree in /proc/meminfo
-            if (lowfree > 0 && lowfree < MIN_LOWFREE) {
-                print("[DEFRAG] Not enough low memory\n");
-                break;
-            }
-
-            if (alloc_timeout) {
-                print("[DEFRAG] Timeout\n");
-                break;
-            }
-            
             prev_count = count;
             prev_time = curr_time;
         }
-        defrag_chunks.push_back(data);
+
+        if (stop_defrag) {
+            lprint("[DEFRAG] Signal received\n");
+            break;
+        }
     }
    
-    print("[DEFRAG] Additionally got %d chunks of size %d KB (%d bytes in total = %d MB)\n", 
+    lprint("[DEFRAG] Additionally got %d chunks of size %d KB (%d bytes in total = %d MB)\n", 
                  count,           len,   count * len,        count * len / 1024 / 1024);
 
-bail:
     ION_clean_all(defrag_chunks);
+   
+    alarm(0);
+    sigaction(SIGALRM, &old_ALARM, NULL);
+    sigaction(SIGUSR1, &old_USR1, NULL);
     
     printf("[DEFRAG] Dumping /proc/pagetypeinfo\n");
     std::ifstream pagetypeinfo("/proc/pagetypeinfo");
     pagetypeinfo.clear();
     pagetypeinfo.seekg(0, std::ios::beg);
     for (std::string line; getline(pagetypeinfo, line); ) {
-        if (!line.empty()) print("%s\n", line.c_str());
+        if (!line.empty()) lprint("%s\n", line.c_str());
     }
+
+    return fixed_size_ion;
 }

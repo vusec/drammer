@@ -31,8 +31,8 @@ struct ion_data {
     ion_user_handle_t handle;
     int fd, len;
     void *mapping = NULL;
-
-    std::vector<uintptr_t> hammerable_rows;
+    uintptr_t virt = 0;
+    uintptr_t phys = 0;
 };
 
 
@@ -42,8 +42,9 @@ int  ION_share(ion_user_handle_t handle);
 int  ION_free (ion_user_handle_t handle);
 
 int  ION_mmap (struct ion_data *data, int prot = -1, int flags = -1, void *addr = NULL);
+int  ION_alloc_mmap(struct ion_data *data, int len, int id);
 void ION_clean(struct ion_data *data);
-int  ION_bulk(int len, std::vector<struct ion_data *> &chunks, int max = 0, bool mmap = true);
+int  ION_bulk(int len, std::vector<struct ion_data *> &chunks, int heap_id, int max = 0, bool mmap = true);
 void ION_clean_all(    std::vector<struct ion_data *> &chunks, int max = 0);
 void ION_get_hammerable_rows(struct ion_data *chunk);
 

@@ -20,74 +20,162 @@
 #include <vector>
 
 #include "ion.h"
+#include "rowsize.h"
 
-#define ONE_TO_ZERO 1
-#define ZERO_TO_ONE 0
+extern struct model device;
 
-#define FLIP_DIRECTION_STR(x) (((x) == ONE_TO_ZERO) ? "1-to-0" : "0-to-1")
+class Pattern {
+    public:
+        Pattern(int c);
+        void fill(uintptr_t p, int len);
 
-struct template_t {
-    uintptr_t virt_page;      // virtual address of the vulnerable page 
-    uintptr_t virt_addr;      // virutal address of the vulnerable byte
-    uintptr_t virt_row;
-    uintptr_t phys_addr;
-    uintptr_t phys_page;
-    int virt_index;  
-    uint8_t org_byte;         // the original value of the vulnerable byte
-    uint32_t org_word;
-    uint8_t new_byte;         // the new value
-    uint32_t new_word;
-    struct ion_data *ion_chunk;
-    int ion_len;
-            
-    uint8_t xorred_byte;
-    uint32_t xorred_word;
-    int bits_set;
-    int bit_offset;
-    int org_bit;
-    int direction;
-    bool maybe_exploitable;
-    bool likely_exploitable;
-    int rel_pfn;
-    int rel_address;
-    int rel_row_index;
-    uint32_t source_pte;
-    uint32_t target_pte;
-    uint32_t target_16k_pfn;
-    uint32_t source_16k_pfn;
-    uint32_t source_pfn, target_pfn;
-    uint32_t source_page_index_in_row, target_page_index_in_row;
-    uint32_t source_pfn_row, target_pfn_row;
-    int byte_index_in_row;
-    int byte_index_in_page;
-    int word_index_in_page;
-    int word_index_in_pt;
-    int bit_index_in_word;
-    int bit_index_in_byte;
-    uintptr_t virt_above;
-    uintptr_t virt_below;
-    bool confirmed;
-    time_t found_at;
+    private:
+        void rerandomize(void);
+
+        int c;
+        int cur_use;
+        int max_use;
+        uint8_t r[K(16)];
 };
 
-struct pattern_t {
-    uint8_t *above;
-    uint8_t *victim;
-    uint8_t *below;
-    int cur_use;
-    int max_use;
-    void (*reset_above) (uint8_t *);
-    void (*reset_victim)(uint8_t *);
-    void (*reset_below) (uint8_t *);
+class PatternCollection {
+    public:
+         PatternCollection(const char *name, int ck, int a1, int a2); 
+        ~PatternCollection(void);
+        
+        void fill(uintptr_t ck, int ck_len, 
+                  uintptr_t a1, int a1_len,
+                  uintptr_t a2, int a2_len); 
+    private:
+        const char *p_name;
+        Pattern *p_ck;
+        Pattern *p_a1;
+        Pattern *p_a2;
 };
 
 
 
-struct template_t *templating(void);
-void TMPL_run(std::vector<struct ion_data *> &chunks, 
-              std::vector<struct template_t *> &templates,
-              std::vector<struct pattern_t *> &patterns, int timer, int hammer_readcount,
-              bool do_conservative);
-struct template_t *find_template_in_rows(std::vector<struct ion_data *> &chunks, struct template_t *needle);
+class Aggressor {
+    public:
+        Aggressor(struct ion_data *ion_chunk, int row_in_chunk, int offset_in_row);
+        
+        int getBank(void);
+        void incrementAccesses(int accesses) { a_accessesM += accesses / MILLION; };
+
+        uintptr_t getVirt(void)     { return a_virt;            };
+        uintptr_t getPhys(void)     { return a_phys;            };
+        uintptr_t getRowVirt(void)  { return a_row_virt;        };
+        int getRowInChunk(void)     { return a_row_in_chunk;    };
+        int getOffsetInRow(void)    { return a_offset_in_row;   };
+        int getOffsetInChunk(void)  { return a_offset_in_chunk; };
+        int getPhysRow(void)        { return a_phys / device.rowsize; };
+        uint64_t getAccesses(void) { return a_accessesM; };
+
+    private:
+        uintptr_t a_virt;
+        uintptr_t a_phys;
+        uintptr_t a_row_virt;
+        int a_row_in_chunk;
+        int a_offset_in_row;
+        int a_offset_in_chunk;
+        uint64_t a_accessesM; // in million
+};
+
+
+class Flip {
+    public:
+        Flip(struct ion_data *chunk, int index, uint8_t before, 
+                                                uint8_t after, Aggressor *a1, 
+                                                               Aggressor *a2);
+        uintptr_t getVirt(void) { return f_virt; };
+        uintptr_t getPhys(void) { return f_phys; };
+        Aggressor *getA1(void) { return f_a1; };
+        Aggressor *getA2(void) { return f_a2; };
+        uint8_t getBits(void) { return f_bits; };
+        uint64_t hit(void) { f_count++; return f_count; };
+        uint64_t getCount(void) { return f_count; };
+        int compare(Flip *f);
+        void dump(struct ion_data *ion_chunk, uint64_t count);
+
+    private:
+        uintptr_t f_virt;
+        uintptr_t f_phys;
+        Aggressor *f_a1;
+        Aggressor *f_a2;
+        uint8_t f_before;
+        uint8_t f_after;
+        uint8_t f_bits; // before ^ after
+        uint64_t f_count; 
+};
+
+
+class Chunk {
+    public:
+         Chunk(struct ion_data *ion_chunk, int id);
+        ~Chunk();
+
+        void doHammer(std::vector<PatternCollection *> &patterns, int acceses);
+        size_t getHammerPairs(void);
+        int getRows(void) { return c_rows_in_chunk; };
+        int getId(void) { return c_id; };
+        uint64_t getBitFlips(bool only_unique); 
+        size_t getPairsHammered(void) { return c_pairs_hammered; };
+        uint64_t getAccesses(void);
+        int getSize(void) { return c_len; };
+        uintptr_t getVirt(void) { return c_virt; };
+        uintptr_t getPhys(void) { return c_phys; };
+
+    private:
+        void selectAggressors(void);
+        int collectFlips(void *org, Aggressor *a1, Aggressor *a2);
+
+
+        struct cmpByAggressor {
+            bool operator()(Aggressor *a, Aggressor *b) {
+                return (a->getVirt() < b->getVirt());
+            }
+        };
+
+
+
+        std::map<Aggressor *, std::vector<Aggressor *>, cmpByAggressor> c_aggressors;
+        std::vector<Flip *> c_flips; // TODO avoid OOM
+        uintptr_t c_virt;
+        uintptr_t c_phys;
+        int c_len;
+        struct ion_data *c_ion_chunk;
+        uint64_t c_rounds_completed;
+        int c_rows_in_chunk;
+        int c_id;
+        size_t c_pairs_hammered;
+};
+
+
+class Memory {
+    public:
+        Memory();
+        void doHammer(std::vector<PatternCollection *> &patterns, int timer, int accesses, int rounds);
+        void exhaust(void);
+        void cleanup(void);
+
+        uint64_t getBitFlips(void);
+        uint64_t getUniqueBitFlips(void);
+        size_t getPairsHammered(void); 
+        uint64_t getAccesses(void); 
+
+
+    private:
+        std::vector<Chunk *> m_chunks;
+        std::vector<struct ion_data *> m_ion_chunks;
+        int m_kb;
+        int m_rounds_completed;
+        size_t m_pairs;
+};
+
+
+
+
+void TMPL_run(std::vector<PatternCollection *> &patterns, int timer, int accesses, int rounds);
+              
 
 #endif // __TEMPLATING_H__
