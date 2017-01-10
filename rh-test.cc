@@ -151,16 +151,17 @@ int main(int argc, char *argv[]) {
     lprint("=============================================================\n");
 
     /*** PIN CPU */
+    lprint("[MAIN] Pinning to CPU\n");
     pincpu(device.fastest_cpu);
 
     /*** DEFRAG MEMORY */
     if (defrag_timer) {
-        printf("[MAIN] Defragment memory\n");
+        lprint("[MAIN] Defragment memory\n");
         defrag(defrag_timer, device.ion_heap); 
     }
 
     
-    printf("[MAIN] Initializing patterns\n");
+    lprint("[MAIN] Initializing patterns\n");
     /*                                               
      *                                                Chunk
      *                              Pattern name \      |     /---------- Aggressor 1 (-1 --> random)
@@ -199,7 +200,7 @@ int main(int argc, char *argv[]) {
                            &p00r, &p0r0, &p0rr, &pr00, &pr0r, &prr0, &prrr,
                            &p11r, &p1r1, &p1rr, &pr11, &pr1r, &prr1};
     else
-        patterns = {&p100};
+        patterns = {&p100, &prrr};
 
 
 #ifdef AGGRESSIVE_PATTERNS
@@ -210,7 +211,7 @@ int main(int argc, char *argv[]) {
 #endif
 
     /*** TEMPLATE */
-    printf("[MAIN] Start templating\n");
+    lprint("[MAIN] Start templating\n");
     TMPL_run(patterns, timer, hammer_readcount, rounds);
-    printf("ok bye\n");
+    lprint("[MAIN] Done\n");
 }

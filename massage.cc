@@ -42,9 +42,9 @@ bool stop_defrag;
 
 void signal_handler(int signal) {
     if (signal == SIGALRM) {
-        printf("[SIGNALRM] Time is up\n");
+        lprint("[SIGALRM] Time is up\n");
     } else if (signal == SIGUSR1) {
-        printf("[SIGUSR1] OOM-killer\n");
+        lprint("[SIGUSR1] OOM-killer\n");
     }
     stop_defrag = true;
 }

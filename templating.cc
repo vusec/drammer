@@ -53,7 +53,13 @@ time_t start_time;
 
 bool times_up;
 void alarm_handler(int signal) {
-    lprint("\n[TIME] is up, wrapping up\n");
+    if (signal == SIGALRM) {
+        lprint("[SIGALRM] Time is up\n");
+    } else if (signal == SIGUSR1) {
+        lprint("[SIGUSR1] OOM-killer\n");
+    } else if (signal == SIGTERM) {
+        lprint("[SIGTERM]\n");
+    }
     times_up = true;
 }
 
@@ -239,7 +245,7 @@ int Chunk::collectFlips(void *org, Aggressor *a1, Aggressor *a2) {
             int count = 1;    
             for (auto f: c_flips) {
                 if (f->compare(flip)) {
-                    count = f->hit();
+                    count = f->hit(); // will be 2 at least
                     break;
                 }
             }
@@ -571,12 +577,15 @@ void Memory::doHammer(std::vector<PatternCollection *> &patterns, int timer, int
 
         
     times_up = false;
-    struct sigaction new_action, old_action;
+    struct sigaction new_action, old_TERM, old_ALARM, old_USR1;
+    
+    new_action.sa_handler = alarm_handler;
+    sigemptyset(&new_action.sa_mask);
+    new_action.sa_flags = 0;
+    sigaction(SIGTERM, &new_action, &old_TERM);
+    sigaction(SIGUSR1, &new_action, &old_USR1);
     if (timer) {
-        new_action.sa_handler = alarm_handler;
-        sigemptyset(&new_action.sa_mask);
-        new_action.sa_flags = 0;
-        sigaction(SIGALRM, &new_action, &old_action);
+        sigaction(SIGALRM, &new_action, &old_ALARM);
         alarm(timer);
     }
 
@@ -660,8 +669,10 @@ void Memory::doHammer(std::vector<PatternCollection *> &patterns, int timer, int
     /* Restore the signal handler for SIGALRM */
     if (timer) {
         alarm(0);
-        sigaction(SIGALRM, &old_action, NULL);
+        sigaction(SIGALRM, &old_ALARM, NULL);
     }
+    sigaction(SIGTERM, &old_TERM, NULL);
+    sigaction(SIGUSR1, &old_USR1, NULL);
 }
 
 void Memory::cleanup(void) {

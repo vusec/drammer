@@ -186,7 +186,7 @@ static inline void *load(void *info) {
 }
 
 static inline int getcpus(int *slowest_cpu, int *fastest_cpu) {
-    printf("[CPU] Generating some load to enable all cores\n");
+    lprint("[CPU] Generating some load to enable all cores\n");
     pthread_t threads[MAX_CORES];
     for (int i = 0; i < MAX_CORES; i++) {
         if(pthread_create(&threads[i], NULL, load, NULL)) {
@@ -197,7 +197,7 @@ static inline int getcpus(int *slowest_cpu, int *fastest_cpu) {
     for (int i = 0; i < 16; i++) 
         pthread_join(threads[i], NULL);
     
-    printf("[CPU] Looking for core with lowest/highest frequency\n"); 
+    lprint("[CPU] Looking for core with lowest/highest frequency\n"); 
     std::string cmd = "/system/bin/cat /sys/devices/system/cpu/cpu*/cpufreq/cpuinfo_max_freq";
     char buffer[256];
     std::shared_ptr<FILE> pipe(popen(cmd.c_str(), "r"), pclose);
@@ -214,7 +214,7 @@ static inline int getcpus(int *slowest_cpu, int *fastest_cpu) {
     while (!feof(pipe.get())) {
         if (fgets(buffer, 256, pipe.get()) != NULL) {
             int freq = atoi(buffer);
-            printf("[CPU] Max frequency for core %d is %dKHz\n", cpu, freq);
+            lprint("[CPU] Max frequency for core %d is %dKHz\n", cpu, freq);
             if (freq > max_freq) {
                 max_freq = freq;
                 max_cpu = cpu;
@@ -232,7 +232,7 @@ static inline int getcpus(int *slowest_cpu, int *fastest_cpu) {
 }
 
 static inline int pincpu(int cpu) {
-    printf("[CPU] Generating some load to enable all cores\n");
+    lprint("[CPU] Generating some load to enable all cores\n");
     pthread_t threads[MAX_CORES];
     for (int i = 0; i < MAX_CORES; i++) {
         if(pthread_create(&threads[i], NULL, load, NULL)) {
@@ -243,7 +243,7 @@ static inline int pincpu(int cpu) {
     for (int i = 0; i < 16; i++) 
         pthread_join(threads[i], NULL);
 
-    printf("[CPU] Pinning to core %d... ", cpu);
+    lprint("[CPU] Pinning to core %d... ", cpu);
     cpu_set_t cpuset;
     CPU_ZERO(&cpuset);
     CPU_SET(cpu, &cpuset);
@@ -252,7 +252,7 @@ static inline int pincpu(int cpu) {
         return -1;
     } 
     
-    printf("Success\n");
+    lprint("[CPU] Success\n");
     return 0;
 }
 

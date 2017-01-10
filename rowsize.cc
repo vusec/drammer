@@ -167,7 +167,7 @@ extern int ion_fd;
 std::vector<struct model> models = { 
 
 /**** QUALCOMM ****/
-
+#if 0
 //  generic name                ro.product.model    ro.product.name     board           platform   ion rowsize    ba2     ba1     ba0   rank
 // Snapdragon 400 - MSM8226:                                                                                    
    {"Motorola Moto G 1st Gen",  "XT1032",           "falcon_reteu",     "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, // @home
@@ -318,7 +318,7 @@ std::vector<struct model> models = {
    {"Archos 40 Helium",         "Archos 40 Helium", "SCAC40HE",    "sp9830aec_4m_h100", "sc8830",  3, K( 32), 0x04000, 0x2000, 0x1000, 0x000}, // @home
    {"Samsung Galaxy J3 2016",   "SM-J320FN",        "j3xnltexx",        "SC9830I",      "sc8830",  2, K( 32), 0x00000, 0x0000, 0x0000, 0x000}, // @nfi
 
-
+#endif
 
 
 
@@ -416,7 +416,7 @@ std::vector<int> ION_autodetect_bruteforce(int max_order) {
  */
 std::vector<int> ION_autodetect(std::string platform) {
     
-    printf("[ION] Looking for max block order in /proc/pagetypeinfo\n");
+    lprint("[ION] Looking for max block order in /proc/pagetypeinfo\n");
     int max_order = MAX_ORDER;
     std::ifstream pagetypeinfo("/proc/pagetypeinfo");
     pagetypeinfo.clear();
@@ -428,14 +428,14 @@ std::vector<int> ION_autodetect(std::string platform) {
             break;
         }
     }
-    printf("[ION] Assuming max order of %d == %dMB\n", max_order, ORDER_TO_MB(max_order));
-    printf("[ION] Running brute-force autodetect for contiguous system heap\n");
+    lprint("[ION] Assuming max order of %d == %dMB\n", max_order, ORDER_TO_MB(max_order));
+    lprint("[ION] Running brute-force autodetect for contiguous system heap\n");
     std::vector<int> possible_heaps = ION_autodetect_bruteforce(max_order);
-    printf("[ION] List of possible ids: ");
-    for (auto i: possible_heaps) printf("%d ", i);
-    printf("\n");
+    lprint("[ION] List of possible ids: ");
+    for (auto i: possible_heaps) lprint("%d ", i);
+    lprint("\n");
    
-    printf("[ION] Searching list of known platforms for %s\n", platform.c_str());
+    lprint("[ION] Searching list of known platforms for %s\n", platform.c_str());
 /* These are ION heap ids for the system contiguous heap on devices that we had
  * physical access to. */ 
 #define CHIPSET_MSM         21 // confirmed on a Nexus 5, Moto G (2013), Xiaomi Mi 4i, OnePlus One
@@ -571,32 +571,32 @@ std::vector<int> ION_autodetect(std::string platform) {
     else if (platform == ""            ) id = CHIPSET_SEEN;
 
     if (id == CHIPSET_UNKNOWN) {
-        printf("[ION] I have never seen this platform before\n");
+        lprint("[ION] I have never seen this platform before\n");
     } else if (id == CHIPSET_SEEN) {
-        printf("[ION] I have seen this platform before, but do not know the system-contiguous heap id\n");
+        lprint("[ION] I have seen this platform before, but do not know the system-contiguous heap id\n");
     } else {
-        printf("[ION] I have seen this platform before, with system-contiguous heap id: %d\n", id);
+        lprint("[ION] I have seen this platform before, with system-contiguous heap id: %d\n", id);
 
         bool found = false;
         for (auto it  = possible_heaps.begin(); 
                   it != possible_heaps.end();
                 ++it) {
             if (*it == id) {
-                printf("[ION] Moving this id to the front of the list\n");
-//              std::rotate(possible_heaps.begin(), it, it + 1);
+                lprint("[ION] Moving this id to the front of the list\n");
+                std::rotate(possible_heaps.begin(), it, it + 1);
                 found = true;
                 break;
             }
         }
         if (!found) {
-            printf("[ION] This id likely won't work, pushing it to the end of the list\n");
+            lprint("[ION] This id likely won't work, pushing it to the end of the list\n");
             possible_heaps.push_back(id);
         }
     }
 
-    printf("[ION] List of possible ids: ");
-    for (auto i: possible_heaps) printf("%d ", i);
-    printf("\n");
+    lprint("[ION] List of possible ids: ");
+    for (auto i: possible_heaps) lprint("%d ", i);
+    lprint("\n");
 
     return possible_heaps;
 } 
@@ -770,9 +770,9 @@ void Histogram::print() {
     for (auto it: histogram) {
         int delta = it.first;
         int count = it.second.size();
-        printf("%3d, %4d\n", delta, count);
+        lprint("%3d, %4d\n", delta, count);
     }
-      printf("[BC] min: %d | q1: %d | med: %d | q3: %d | max: %d\n", getMin(), q1, median, q3, getMax());
+      lprint("[BC] min: %d | q1: %d | med: %d | q3: %d | max: %d\n", getMin(), q1, median, q3, getMax());
 }
 
 std::set<uint8_t *> Histogram::getConflicts(int treshold) {
@@ -792,7 +792,7 @@ bool getAccessTimerExpired;
 
 void getAccessTimerSignal(int signal) {
     if (signal == SIGALRM) {
-        printf("\n[SIGALRM]\n");
+        lprint("\n[SIGALRM]\n");
         getAccessTimerExpired = true;
         alarm(0);
     }
@@ -837,7 +837,7 @@ Histogram *BankConflicts::getAccessTimes(uint8_t *base, std::vector<uint8_t *> c
         int median = compute_median(deltas);
         histogram[median].insert(candidate);
         if (do_print) 
-            printf("%3d ", median);
+            lprint("%3d ", median);
 
         /* Restore the signal handler for SIGALRM */
         if (timer) {
@@ -847,7 +847,7 @@ Histogram *BankConflicts::getAccessTimes(uint8_t *base, std::vector<uint8_t *> c
     }
 
     if (do_print) 
-        printf("\n");
+        lprint("\n");
 
     Histogram *h = new Histogram(histogram);
     return h;
@@ -858,7 +858,7 @@ Histogram *BankConflicts::getAccessTimes(uint8_t *base, std::vector<uint8_t *> c
 
 
 void BankConflicts::determineCount(uint8_t *base, int min_loop_time_us) {
-    printf("[Count] Determining loop count so that accessing two addresses takes at least %dus\n", min_loop_time_us);
+    lprint("[Count] Determining loop count so that accessing two addresses takes at least %dus\n", min_loop_time_us);
     this->count = 100;
 
     std::vector<uint8_t *>candidates;
@@ -874,7 +874,7 @@ void BankConflicts::determineCount(uint8_t *base, int min_loop_time_us) {
         uint64_t t2 = get_us();
         loop_time = t2 - t1;
 
-        printf("[Count] #measurements: %d | #count: %7d | delta: %7dus\n", this->measurements, this->count, loop_time);
+        lprint("[Count] #measurements: %d | #count: %7d | delta: %7dus\n", this->measurements, this->count, loop_time);
 
         double multiplyer = (double)min_loop_time_us / (double)loop_time;
         if (this->count * multiplyer > this->count + 100) 
@@ -889,7 +889,7 @@ bool BankConflicts::findRowsize(uint8_t *base, int len) {
     int min_rowsize = K(16);
     int max_rowsize = hibit(len/2);
     if (max_rowsize < min_rowsize) {
-        printf("Not enough contiguous memory for rowsize detection\n");
+        lprint("Not enough contiguous memory for rowsize detection\n");
         return false;
     }
       
@@ -914,8 +914,6 @@ bool BankConflicts::findRowsize(uint8_t *base, int len) {
        * - Archos 40 Helium    98  156  156   156      127   50637     0   0
        * - Xiaomi Mi 4i       131  131  158   158      144   47409     0   0
        * - HTC Desire 510      83  124  124   124      104   59362     0   0 
-       *
-       * --> TODO: test on Exynos chipsets...
        */
 
 //#define SKIP_A
@@ -925,10 +923,10 @@ bool BankConflicts::findRowsize(uint8_t *base, int len) {
 #ifdef SKIP_A
       goto method_b;
 #endif
-      printf("\n");
-      printf("------------------------------------+\n");
-      printf("[BC] Determining rowsize - Method A |\n");
-      printf("------------------------------------+\n");
+      lprint("\n");
+      lprint("------------------------------------+\n");
+      lprint("[BC] Determining rowsize - Method A |\n");
+      lprint("------------------------------------+\n");
       candidates.clear();
       for (int rowsize = min_rowsize; rowsize <= max_rowsize; rowsize = rowsize * 2) {
           candidates.push_back(base + rowsize);
@@ -937,8 +935,8 @@ bool BankConflicts::findRowsize(uint8_t *base, int len) {
       for (auto cpu: this->cpus) {
         pincpu(cpu);
         for (int fencing = 0; fencing < FENCING_OPTIONS; fencing++) {
-            printf("_______________________________________\n");
-            printf("[BC] Try %d/%d - cpu %d - fencing option %d\n", tries+1, MAX_TRIES, cpu, fencing);
+            lprint("_______________________________________\n");
+            lprint("[BC] Try %d/%d - cpu %d - fencing option %d\n", tries+1, MAX_TRIES, cpu, fencing);
             this->fence = fencing;
 
             int min_loop_time_us = 1000000; // 1 second
@@ -953,12 +951,12 @@ bool BankConflicts::findRowsize(uint8_t *base, int len) {
              * -  <low>: no bank conflict
              * - <high>:    bank conflict */
             int variation = h->getVariation();
-            printf("[BC] Variation: %d\n", variation);
+            lprint("[BC] Variation: %d\n", variation);
             if (variation < 2) {
-                printf("[BC] -> not enough\n");
+                lprint("[BC] -> not enough\n");
                 continue;
             } else if (variation > 2) {
-                printf("[BC] -> too much\n");
+                lprint("[BC] -> too much\n");
                 continue;
             }
 
@@ -996,8 +994,8 @@ bool BankConflicts::findRowsize(uint8_t *base, int len) {
             if (!treshold_reached) 
                 continue;
             
-            printf("[BC] --> Detected  rowsize: %3dKB\n", rowsize);
-            printf("[BC] --> Detected treshold: %3d\n", treshold);
+            lprint("[BC] --> Detected  rowsize: %3dKB\n", rowsize);
+            lprint("[BC] --> Detected treshold: %3d\n", treshold);
 
             this->our_model->rowsize      = rowsize;
             this->our_model->ba2          = 0;
@@ -1037,26 +1035,22 @@ method_b:
        * - Archos 40 Helium      8         1     8      144  11518     2
        * - Xiaomi Mi 4i         16         2     8      153  10629     2
        * - HTC Desire 510        8         1     8      108  14584     2
-       *
-       *
-       *
-       * --> TODO: test on Exynos chipsets...
        */
-      printf("\n");
-      printf("------------------------------------+\n");
-      printf("[BC] Determining rowsize - Method B |\n");
-      printf("------------------------------------+\n");
+      lprint("\n");
+      lprint("------------------------------------+\n");
+      lprint("[BC] Determining rowsize - Method B |\n");
+      lprint("------------------------------------+\n");
 
       for (auto cpu: this->cpus) {
         pincpu(cpu);
         std::set<int> rowsizes;
         for (int fencing = 0; fencing < FENCING_OPTIONS; fencing++) {
-            printf("_______________________________________\n");
-            printf("[BC] Try %d/%d - CPU %d - fencing option %d\n", tries+1, MAX_TRIES, cpu, fencing);
+            lprint("_______________________________________\n");
+            lprint("[BC] Try %d/%d - CPU %d - fencing option %d\n", tries+1, MAX_TRIES, cpu, fencing);
             this->fence = fencing;
             this->determineCount(base, 250000); // minimum loop time: .25 seconds
     
-            printf("[BC] Collecting access times\n");
+            lprint("[BC] Collecting access times\n");
             candidates.clear();
             for (int offset = min_rowsize; offset < 2*max_rowsize; offset += PAGESIZE) {
                 candidates.push_back(base + offset);
@@ -1066,7 +1060,7 @@ method_b:
 //          h->print();
 
             int treshold = h->getTreshold();
-            printf("[BC] Treshold: %d\n", treshold);;
+            lprint("[BC] Treshold: %d\n", treshold);;
             if (treshold == 0) continue;
 
             for (int rowsize = min_rowsize; rowsize <= max_rowsize; rowsize = rowsize * 2) {
@@ -1086,7 +1080,7 @@ method_b:
                 int conflicts_bits = std::bitset<32>(conflicts).count();
                 int banks_bits     = std::bitset<32>(banks).count();
 
-                printf("[BC] rowsize: %6d (pages: %2d) | conflicts: %d (bits: %d) | banks: %2d (bits: %2d)\n",
+                lprint("[BC] rowsize: %6d (pages: %2d) | conflicts: %d (bits: %d) | banks: %2d (bits: %2d)\n",
                              rowsize,      pages,        conflicts, conflicts_bits, banks, banks_bits);
 
                 if (conflicts &&
@@ -1096,8 +1090,8 @@ method_b:
                         banks      <= 16 &&
                     conflicts      < pages) {
                     
-                    printf("[BC] --> Detected  rowsize: %3dKB\n", rowsize/1024);
-                    printf("[BC] --> Detected treshold: %3d\n", treshold);
+                    lprint("[BC] --> Detected  rowsize: %3dKB\n", rowsize/1024);
+                    lprint("[BC] --> Detected treshold: %3d\n", treshold);
 
                     this->our_model->rowsize      = rowsize;
                     this->our_model->ba2          = 0;
@@ -1120,7 +1114,7 @@ method_b:
         if (rowsizes.size() == 1)
             return true;
         if (rowsizes.size() > 1) {
-            printf("[BC] Detected different rowsizes.\n");
+            lprint("[BC] Detected different rowsizes.\n");
             continue;
         }
 
@@ -1128,7 +1122,7 @@ method_b:
     
     } // TRIES LOOP
 
-    printf("Failed to detect the rowsize\n");
+    lprint("Failed to detect the rowsize\n");
     return false;
 }
 
@@ -1159,7 +1153,7 @@ bool BankConflicts::findMask() {
        
     struct ion_data data1;
     if (ION_alloc_mmap(&data1, M(1), this->our_model->ion_heap) < 0) {
-        printf("[BC] Could not allocate 1MB\n");
+        lprint("[BC] Could not allocate 1MB\n");
         return false;
     }
     
@@ -1169,7 +1163,7 @@ bool BankConflicts::findMask() {
 
     std::vector<Histogram *> histograms;
 
-    printf("[BC] Looking for conflicts in last bank\n");
+    lprint("[BC] Looking for conflicts in last bank\n");
     for (int tries = 0; tries < MAX_TRIES; tries++) {
 
       for (auto cpu: this->cpus) {
@@ -1185,8 +1179,8 @@ bool BankConflicts::findMask() {
             if (tries == 2) min_us =  100000; // 0.10s
             this->determineCount((uint8_t *)data1.mapping, min_us);
 
-            printf("___________________________________________\n");
-            printf("[BC] Try %d/%d - cpu %d - fencing option %d - count %d\n", 
+            lprint("___________________________________________\n");
+            lprint("[BC] Try %d/%d - cpu %d - fencing option %d - count %d\n", 
                         tries+1, MAX_TRIES, cpu, fencing, this->count);
     
             std::vector<uint8_t *> candidates;
@@ -1198,40 +1192,40 @@ bool BankConflicts::findMask() {
             h->print();
 
             int treshold = h->getTreshold();
-            printf("Treshold %d\n", treshold);
+            lprint("Treshold %d\n", treshold);
         
             std::set<uint8_t *>conflicts = h->getConflicts(treshold); 
             int conflict_count = (int) conflicts.size();
-            printf("[BC] - #conflicts: %d (min: %d | max: %d)\n", conflict_count, min_conflicts, max_conflicts);
+            lprint("[BC] - #conflicts: %d (min: %d | max: %d)\n", conflict_count, min_conflicts, max_conflicts);
 
             if (conflict_count > min_conflicts && 
                 conflict_count < max_conflicts && 
                 std::bitset<32>(conflict_count).count() == 1) {
-                printf("looks good\n");
+                lprint("looks good\n");
             } else {
                 continue;
             }
 
             int logical_banks = h->count() / h->countUp(treshold);
             int cachelines_in_bank = conflict_count;
-            printf("[BC] Number of logical banks: %d\n", logical_banks);
-            printf("[BC] Cachelines in bank: %d\n", cachelines_in_bank);
+            lprint("[BC] Number of logical banks: %d\n", logical_banks);
+            lprint("[BC] Cachelines in bank: %d\n", cachelines_in_bank);
 
             int selector = this->our_model->rowsize - 1;
-            printf("[BC] Computing bank select bits. Start: %x\n", selector);
+            lprint("[BC] Computing bank select bits. Start: %x\n", selector);
             for (auto addr: conflicts) {
                 uintptr_t rel_addr = (uintptr_t)addr - (uintptr_t) data1.mapping;
                 selector &= rel_addr;
             }
             std::string selector_str = std::bitset<24>(selector).to_string();
-            printf("[BC] Found selector: %x (%s)\n", selector, selector_str.c_str());
+            lprint("[BC] Found selector: %x (%s)\n", selector, selector_str.c_str());
             
            
 
 
 
             
-            printf("Moving one row away\n"); 
+            lprint("Moving one row away\n"); 
             candidates.clear();
             for (int offset = this->our_model->rowsize*2; offset < 3*this->our_model->rowsize; offset += CACHELINE_SIZE) {
                 candidates.push_back((uint8_t *)data1.mapping + offset);
@@ -1241,41 +1235,41 @@ bool BankConflicts::findMask() {
             h->print();
 
             treshold = h->getTreshold();
-            printf("Treshold %d\n", treshold);
+            lprint("Treshold %d\n", treshold);
         
             conflicts = h->getConflicts(treshold); 
             conflict_count = (int) conflicts.size();
-            printf("[BC] - #conflicts: %d (min: %d | max: %d)\n", conflict_count, min_conflicts, max_conflicts);
+            lprint("[BC] - #conflicts: %d (min: %d | max: %d)\n", conflict_count, min_conflicts, max_conflicts);
 
             if (conflict_count > min_conflicts && 
                 conflict_count < max_conflicts && 
                 std::bitset<32>(conflict_count).count() == 1) {
-                printf("looks good\n");
+                lprint("looks good\n");
             } else {
                 continue;
             }
 
             logical_banks = h->count() / h->countUp(treshold);
             cachelines_in_bank = conflict_count;
-            printf("[BC] Number of logical banks: %d\n", logical_banks);
-            printf("[BC] Cachelines in bank: %d\n", cachelines_in_bank);
+            lprint("[BC] Number of logical banks: %d\n", logical_banks);
+            lprint("[BC] Cachelines in bank: %d\n", cachelines_in_bank);
 
             int selector2 = this->our_model->rowsize - 1;
-            printf("[BC] Computing bank select bits. Start: %x\n", selector);
+            lprint("[BC] Computing bank select bits. Start: %x\n", selector);
             for (auto addr: conflicts) {
                 uintptr_t rel_addr = (uintptr_t)addr - (uintptr_t) data1.mapping;
                 selector2 &= rel_addr;
             }
             selector_str = std::bitset<24>(selector2).to_string();
-            printf("[BC] Found selector: %x (%s)\n", selector2, selector_str.c_str());
+            lprint("[BC] Found selector: %x (%s)\n", selector2, selector_str.c_str());
 
             if (selector != selector2) {
-                printf("looks liked an XOR with the rowsize bit\n");
+                lprint("looks liked an XOR with the rowsize bit\n");
                 int xorred_bit = selector ^ selector2;
                 int other_bit = this->our_model->rowsize*2;
-                printf("xorred_bit: %x\n", xorred_bit);
-                printf("other_bit: %x\n", other_bit);
-                printf("ba0 = %x\n", (xorred_bit | other_bit));
+                lprint("xorred_bit: %x\n", xorred_bit);
+                lprint("other_bit: %x\n", other_bit);
+                lprint("ba0 = %x\n", (xorred_bit | other_bit));
             }
                 //*_mask = selector;
 
@@ -1284,7 +1278,7 @@ bool BankConflicts::findMask() {
 
 
 
-            printf("Moving three rows away\n"); 
+            lprint("Moving three rows away\n"); 
             candidates.clear();
             for (int offset = this->our_model->rowsize*4; offset < 5*this->our_model->rowsize; offset += CACHELINE_SIZE) {
                 candidates.push_back((uint8_t *)data1.mapping + offset);
@@ -1294,46 +1288,46 @@ bool BankConflicts::findMask() {
             h->print();
 
             treshold = h->getTreshold();
-            printf("Treshold %d\n", treshold);
+            lprint("Treshold %d\n", treshold);
         
             conflicts = h->getConflicts(treshold); 
             conflict_count = (int) conflicts.size();
-            printf("[BC] - #conflicts: %d (min: %d | max: %d)\n", conflict_count, min_conflicts, max_conflicts);
+            lprint("[BC] - #conflicts: %d (min: %d | max: %d)\n", conflict_count, min_conflicts, max_conflicts);
 
             if (conflict_count > min_conflicts && 
                 conflict_count < max_conflicts && 
                 std::bitset<32>(conflict_count).count() == 1) {
-                printf("looks good\n");
+                lprint("looks good\n");
             } else {
                 continue;
             }
 
             logical_banks = h->count() / h->countUp(treshold);
             cachelines_in_bank = conflict_count;
-            printf("[BC] Number of logical banks: %d\n", logical_banks);
-            printf("[BC] Cachelines in bank: %d\n", cachelines_in_bank);
+            lprint("[BC] Number of logical banks: %d\n", logical_banks);
+            lprint("[BC] Cachelines in bank: %d\n", cachelines_in_bank);
 
             int selector3 = this->our_model->rowsize - 1;
-            printf("[BC] Computing bank select bits. Start: %x\n", selector);
+            lprint("[BC] Computing bank select bits. Start: %x\n", selector);
             for (auto addr: conflicts) {
                 uintptr_t rel_addr = (uintptr_t)addr - (uintptr_t) data1.mapping;
                 selector3 &= rel_addr;
             }
             selector_str = std::bitset<24>(selector3).to_string();
-            printf("[BC] Found selector: %x (%s)\n", selector3, selector_str.c_str());
+            lprint("[BC] Found selector: %x (%s)\n", selector3, selector_str.c_str());
 
             if (selector != selector3) {
-                printf("looks liked an XOR with the rowsize bit\n");
+                lprint("looks liked an XOR with the rowsize bit\n");
                 int xorred_bit = selector ^ selector3;
                 int other_bit = this->our_model->rowsize*4;
-                printf("xorred_bit: %x\n", xorred_bit);
-                printf("other_bit: %x\n", other_bit);
-                printf("ba1 = %x\n", (xorred_bit | other_bit));
+                lprint("xorred_bit: %x\n", xorred_bit);
+                lprint("other_bit: %x\n", other_bit);
+                lprint("ba1 = %x\n", (xorred_bit | other_bit));
             }
 
 
 
-            printf("Moving eight rows away\n"); 
+            lprint("Moving eight rows away\n"); 
             candidates.clear();
             for (int offset = this->our_model->rowsize*8; offset < 9*this->our_model->rowsize; offset += CACHELINE_SIZE) {
                 candidates.push_back((uint8_t *)data1.mapping + offset);
@@ -1343,49 +1337,49 @@ bool BankConflicts::findMask() {
             h->print();
 
             treshold = h->getTreshold();
-            printf("Treshold %d\n", treshold);
+            lprint("Treshold %d\n", treshold);
         
             conflicts = h->getConflicts(treshold); 
             conflict_count = (int) conflicts.size();
-            printf("[BC] - #conflicts: %d (min: %d | max: %d)\n", conflict_count, min_conflicts, max_conflicts);
+            lprint("[BC] - #conflicts: %d (min: %d | max: %d)\n", conflict_count, min_conflicts, max_conflicts);
 
             if (conflict_count > min_conflicts && 
                 conflict_count < max_conflicts && 
                 std::bitset<32>(conflict_count).count() == 1) {
-                printf("looks good\n");
+                lprint("looks good\n");
             } else {
                 continue;
             }
 
             logical_banks = h->count() / h->countUp(treshold);
             cachelines_in_bank = conflict_count;
-            printf("[BC] Number of logical banks: %d\n", logical_banks);
-            printf("[BC] Cachelines in bank: %d\n", cachelines_in_bank);
+            lprint("[BC] Number of logical banks: %d\n", logical_banks);
+            lprint("[BC] Cachelines in bank: %d\n", cachelines_in_bank);
 
             int selector4 = this->our_model->rowsize - 1;
-            printf("[BC] Computing bank select bits. Start: %x\n", selector);
+            lprint("[BC] Computing bank select bits. Start: %x\n", selector);
             for (auto addr: conflicts) {
                 uintptr_t rel_addr = (uintptr_t)addr - (uintptr_t) data1.mapping;
                 selector4 &= rel_addr;
             }
             selector_str = std::bitset<24>(selector4).to_string();
-            printf("[BC] Found selector: %x (%s)\n", selector4, selector_str.c_str());
+            lprint("[BC] Found selector: %x (%s)\n", selector4, selector_str.c_str());
 
             if (selector != selector4) {
-                printf("looks liked an XOR with the rowsize bit\n");
+                lprint("looks liked an XOR with the rowsize bit\n");
                 int xorred_bit = selector ^ selector4;
                 int other_bit = this->our_model->rowsize*8;
-                printf("xorred_bit: %x\n", xorred_bit);
-                printf("other_bit: %x\n", other_bit);
-                printf("ba2 = %x\n", (xorred_bit | other_bit));
+                lprint("xorred_bit: %x\n", xorred_bit);
+                lprint("other_bit: %x\n", other_bit);
+                lprint("ba2 = %x\n", (xorred_bit | other_bit));
             }
 
 
 
 
-            printf("[BC] Verifying...\n");
+            lprint("[BC] Verifying...\n");
     //        bool verified = verifyMask(base, len, rowsize, treshold, *_mask);
-    //        printf("[BC] Verified? %d\n", verified);
+    //        lprint("[BC] Verified? %d\n", verified);
     //
             exit(0);
         }
@@ -1393,7 +1387,7 @@ bool BankConflicts::findMask() {
     }
 
 
-    printf("STOP\n");
+    lprint("STOP\n");
     exit(0);
 
     return true;
@@ -1451,17 +1445,17 @@ void writeSettings(const char *filename, struct model *m) {
 
 
 bool BankConflicts::verifyMask(uint8_t *base, int len, int rowsize, int treshold, uint32_t mask) {
-    printf("[BC] Verifying Bank Mask\n");
+    lprint("[BC] Verifying Bank Mask\n");
 
     std::string mask_str = std::bitset<24>(mask).to_string();
-    printf("[BC]    base: %p\n", base);
-    printf("[BC]     len: %5dKB\n", len/1024);
-    printf("[BC] rowsize: %5dKB\n", rowsize/1024);
-    printf("[BC]    mask: %5x (%sb)\n", mask, mask_str.c_str());
+    lprint("[BC]    base: %p\n", base);
+    lprint("[BC]     len: %5dKB\n", len/1024);
+    lprint("[BC] rowsize: %5dKB\n", rowsize/1024);
+    lprint("[BC]    mask: %5x (%sb)\n", mask, mask_str.c_str());
     int logical_banks = (1 << std::bitset<32>(mask).count());
     int cachelines_in_bank = rowsize / logical_banks / CACHELINE_SIZE;
-    printf("[BC]  #banks: %5d (logical)\n", logical_banks);
-    printf("[BC]  #lines: %5d (per bank)\n", cachelines_in_bank);
+    lprint("[BC]  #banks: %5d (logical)\n", logical_banks);
+    lprint("[BC]  #lines: %5d (per bank)\n", cachelines_in_bank);
 
     int bank = 0;
     for (uint32_t bank_selector = 0; 
@@ -1480,13 +1474,13 @@ bool BankConflicts::verifyMask(uint8_t *base, int len, int rowsize, int treshold
             }
             if (  conflict_candidates.size() < (size_t) cachelines_in_bank ||
                 noconflict_candidates.size() < (size_t) cachelines_in_bank) {
-                printf("Not enough conflict candidates found\n");
+                lprint("Not enough conflict candidates found\n");
                 return false;
             }
             uint8_t *  conflict_addr = random_element(  conflict_candidates);
             uint8_t *noconflict_addr = random_element(noconflict_candidates);
             
-            printf("[BC] Bank %2d | Select: %5x | addr1: %p | conflict: %p | non-conflict: %p ? ", 
+            lprint("[BC] Bank %2d | Select: %5x | addr1: %p | conflict: %p | non-conflict: %p ? ", 
                     bank, bank_selector, addr1, conflict_addr, noconflict_addr);
 
             std::vector<uint8_t *> candidates;
@@ -1495,15 +1489,15 @@ bool BankConflicts::verifyMask(uint8_t *base, int len, int rowsize, int treshold
             Histogram *h = getAccessTimes(addr1, candidates, false);
             std::set<uint8_t *> conflicts = h->getConflicts(treshold);
             if (conflicts.size() != 1) {
-                printf("Weird number of conflicts: %zu\n", conflicts.size());
+                lprint("Weird number of conflicts: %zu\n", conflicts.size());
                 return false;
             }
             if (conflicts.count(conflict_addr) != 1) {
-                printf("Expected conflict, but non measured\n");
+                lprint("Expected conflict, but non measured\n");
                 return false;
             }
 
-            printf("ok\n");
+            lprint("ok\n");
 
 
             bank++;
@@ -1542,10 +1536,10 @@ void dump_hardware(struct model *m) {
     dumpfile("/proc/meminfo");
 
     lprint("[RS] Output of ls -l /sys/kernel/mm:\n");
-    printf("%s",run("/system/bin/ls -l /sys/kernel/mm/").c_str());
+    lprint("%s",run("/system/bin/ls -l /sys/kernel/mm/").c_str());
 
     lprint("[RS] Output of ls -l /proc/self/pagemap:\n");
-    printf("%s",run("/system/bin/ls -l /proc/self/pagemap").c_str());
+    lprint("%s",run("/system/bin/ls -l /proc/self/pagemap").c_str());
 
     lprint("[RS] Testing whether we can use pagemap for normal pages:\n");
     m->pagemap = 0x0;
@@ -1705,7 +1699,7 @@ void BankConflicts::getModel(int force_autodetect, struct model *m) {
     int familiarity = lookupModel(this->our_model, &db_model);
     
     if (familiarity == EXACT_MODEL) {
-        printf("[BC] Successfully completed rowsize detection during a previous run\n");
+        lprint("[BC] Successfully completed rowsize detection during a previous run\n");
 
         if (!force_autodetect) {
             MergeModel(m, &db_model);
@@ -1714,7 +1708,7 @@ void BankConflicts::getModel(int force_autodetect, struct model *m) {
     }
 
     if (familiarity == KNOWN_MODEL) {
-        printf("[BC] Successfully completed rowsize detection on the same model\n");
+        lprint("[BC] Successfully completed rowsize detection on the same model\n");
 
         if (!force_autodetect) {
             MergeModel(m, &db_model);
@@ -1726,24 +1720,24 @@ void BankConflicts::getModel(int force_autodetect, struct model *m) {
     /* We have to do some actual work... */
     
 
-    printf("[BC] ION init: generating a list of possible ION system-contig heaps\n");
+    lprint("[BC] ION init: generating a list of possible ION system-contig heaps\n");
     std::vector<int> heap_ids = ION_autodetect(m->platform);
 
 //#define SKIP_ROWSIZE_DETECTION
 
     for (auto id: heap_ids) {
-        printf("\n");
-        printf("============================================\n");
-        printf("[BC] Autodetecting Rowsize with ION heap %2d\n", id);
-        printf("============================================\n");
-        printf("\n");
+        lprint("\n");
+        lprint("============================================\n");
+        lprint("[BC] Autodetecting Rowsize with ION heap %2d\n", id);
+        lprint("============================================\n");
+        lprint("\n");
 #ifdef SKIP_ROWSIZE_DETECTION
         this->our_model->rowsize = K(128);
         bool success = true;
 #else
         struct ion_data data;
         if (ION_alloc_mmap(&data, RS_CHUNKSIZE, id) < 0) {
-            printf("[BC] Could not allocate %dKB with id %d\n", RS_CHUNKSIZE / 1024, id);
+            lprint("[BC] Could not allocate %dKB with id %d\n", RS_CHUNKSIZE / 1024, id);
             continue;
         }
         bool success = this->findRowsize((uint8_t *) data.mapping, data.len);
@@ -1751,7 +1745,7 @@ void BankConflicts::getModel(int force_autodetect, struct model *m) {
 #endif
 
         if (success) {
-            printf("[BC] Successfully completed rowsize detection\n");
+            lprint("[BC] Successfully completed rowsize detection\n");
             this->our_model->ion_heap = id;
 
 //          this->findMask();
@@ -1761,7 +1755,7 @@ void BankConflicts::getModel(int force_autodetect, struct model *m) {
         }
     }
 
-    printf("[BC] Autodetection failed - falling back\n");
+    lprint("[BC] Autodetection failed - falling back\n");
     MergeModel(m, &db_model);
     m->ion_heap = heap_ids[0];
     m->ba2 = 0x0000;

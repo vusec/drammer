@@ -35,7 +35,11 @@ Logger::Logger(const char *basename, int log_rotate) {
 }
 
 void Logger::openFile(time_t c_time) {
-    sprintf(l_filename,"%s.%lu", l_basename, c_time);
+    if (l_rotate)
+        sprintf(l_filename,"%s.%lu", l_basename, c_time);
+    else
+        sprintf(l_filename,"%s", l_basename);
+
     l_fp = fopen(l_filename, "w");
     if (l_fp == NULL) {
         fprintf(stderr,"Could not open %s: %s\n", l_filename, strerror(errno));

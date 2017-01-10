@@ -139,7 +139,7 @@ class Chunk {
 
 
         std::map<Aggressor *, std::vector<Aggressor *>, cmpByAggressor> c_aggressors;
-        std::vector<Flip *> c_flips; // TODO avoid OOM
+        std::vector<Flip *> c_flips;
         uintptr_t c_virt;
         uintptr_t c_phys;
         int c_len;
