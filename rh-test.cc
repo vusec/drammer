@@ -166,14 +166,14 @@ int main(int argc, char *argv[]) {
      *                                                Chunk
      *                              Pattern name \      |     /---------- Aggressor 1 (-1 --> random)
      *                                           |      |     |     /---- Aggressor 2 (-1 --> random) */
-    PatternCollection p000 = PatternCollection("000", 0x00, 0x00, 0x00); // AGGRESSIVE
+    PatternCollection p000 = PatternCollection("000", 0x00, 0x00, 0x00); 
     PatternCollection p001 = PatternCollection("001", 0x00, 0x00, 0xff);
     PatternCollection p010 = PatternCollection("010", 0x00, 0xff, 0x00);
-    PatternCollection p011 = PatternCollection("011", 0x00, 0xff, 0xff); // default, AGGRESSIVE
-    PatternCollection p100 = PatternCollection("100", 0xff, 0x00, 0x00); // default, AGGRESSIVE
+    PatternCollection p011 = PatternCollection("011", 0x00, 0xff, 0xff); // default
+    PatternCollection p100 = PatternCollection("100", 0xff, 0x00, 0x00); // default
     PatternCollection p101 = PatternCollection("101", 0xff, 0x00, 0xff);
     PatternCollection p110 = PatternCollection("101", 0xff, 0xff, 0x00);
-    PatternCollection p111 = PatternCollection("111", 0xff, 0xff, 0xff); // AGGRESSIVE
+    PatternCollection p111 = PatternCollection("111", 0xff, 0xff, 0xff); 
 
     PatternCollection p00r = PatternCollection("00r", 0x00, 0x00,   -1);
     PatternCollection p0r0 = PatternCollection("0r0", 0x00,   -1, 0x00);
@@ -181,7 +181,7 @@ int main(int argc, char *argv[]) {
     PatternCollection pr00 = PatternCollection("r00",   -1, 0x00, 0x00);
     PatternCollection pr0r = PatternCollection("r0r",   -1, 0x00,   -1);
     PatternCollection prr0 = PatternCollection("r0r",   -1,   -1, 0x00);
-    PatternCollection prrr = PatternCollection("rrr",   -1,   -1,   -1); // RANDOM, AGGRESSIVE
+    PatternCollection prrr = PatternCollection("rrr",   -1,   -1,   -1); 
 
     PatternCollection p11r = PatternCollection("11r", 0xff, 0xff,   -1);
     PatternCollection p1r1 = PatternCollection("1r1", 0xff,   -1, 0xff);
@@ -192,23 +192,12 @@ int main(int argc, char *argv[]) {
 
     std::vector<PatternCollection *> patterns;
 
-//#define AGGRESSIVE_PATTERNS
-//#define RANDOM_PATTERNS
-
     if (all_patterns) 
         patterns = {&p000, &p001, &p010, &p011, &p100, &p101, &p110, &p111, 
                            &p00r, &p0r0, &p0rr, &pr00, &pr0r, &prr0, &prrr,
                            &p11r, &p1r1, &p1rr, &pr11, &pr1r, &prr1};
     else
         patterns = {&p100, &prrr};
-
-
-#ifdef AGGRESSIVE_PATTERNS
-    patterns = {&p000, &p011, &p100, &p111, &prrr};
-#endif
-#ifdef RANDOM_PATTERNS
-    patterns = {&prrr};
-#endif
 
     /*** TEMPLATE */
     lprint("[MAIN] Start templating\n");

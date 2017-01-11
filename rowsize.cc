@@ -167,7 +167,6 @@ extern int ion_fd;
 std::vector<struct model> models = { 
 
 /**** QUALCOMM ****/
-#if 0
 //  generic name                ro.product.model    ro.product.name     board           platform   ion rowsize    ba2     ba1     ba0   rank
 // Snapdragon 400 - MSM8226:                                                                                    
    {"Motorola Moto G 1st Gen",  "XT1032",           "falcon_reteu",     "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, // @home
@@ -317,9 +316,6 @@ std::vector<struct model> models = {
 // SC9830A
    {"Archos 40 Helium",         "Archos 40 Helium", "SCAC40HE",    "sp9830aec_4m_h100", "sc8830",  3, K( 32), 0x04000, 0x2000, 0x1000, 0x000}, // @home
    {"Samsung Galaxy J3 2016",   "SM-J320FN",        "j3xnltexx",        "SC9830I",      "sc8830",  2, K( 32), 0x00000, 0x0000, 0x0000, 0x000}, // @nfi
-
-#endif
-
 
 
 };
