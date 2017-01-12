@@ -48,16 +48,18 @@ extern struct model device;
 
 time_t start_time;
 
-bool times_up;
+bool times_up, oom;
 void alarm_handler(int signal) {
     if (signal == SIGALRM) {
         lprint("[SIGALRM] Time is up\n");
+        times_up = true;
     } else if (signal == SIGUSR1) {
         lprint("[SIGUSR1] OOM-killer\n");
+        oom = true;
     } else if (signal == SIGTERM) {
         lprint("[SIGTERM]\n");
+        times_up = true;
     }
-    times_up = true;
 }
 
 
@@ -212,6 +214,20 @@ Chunk::Chunk(struct ion_data *ion_chunk, int id) {
             getHammerPairs());
 }
 
+void Chunk::disable(void) {
+    c_ion_chunk = NULL;
+    c_len = 0;
+    
+    for (auto it: c_aggressors) {
+        Aggressor *a1 = it.first;
+        std::vector<Aggressor *> a2s = it.second;
+
+        delete(a1);
+        for (auto a2: a2s) {
+            delete(a2);
+        }
+    }
+}
 
 size_t Chunk::getHammerPairs(void) {
     size_t combinations = 0;
@@ -469,11 +485,11 @@ void Chunk::doHammer(std::vector<PatternCollection *> &patterns, int accesses) {
             }
             printf("%llu ", compute_median(deltas));
             need_newline = true;
-            
-            if (times_up) break;
+
+            if (times_up || oom) break;
         }
 
-        if (times_up) break;
+        if (times_up || oom) break;
     }
     printf("\n");
 
@@ -513,6 +529,21 @@ void Memory::exhaust(void) {
     }
     lprint("[Memory] Allocated %dKB (%d MB) in %zu ION chunks resulting in %zu aggressor pairs\n", 
             m_kb, m_kb/1024, m_ion_chunks.size(), m_pairs);
+}
+
+void Memory::releaseLargestChunk(void) {
+    struct ion_data *ion = m_ion_chunks[0];
+    uintptr_t virt = ion->virt;
+
+    lprint("[Memory] Releasing memory pressure by freeing chunk of size %d bytes\n", ion->len);
+    ION_clean(ion);
+
+    for (auto c: m_chunks) {
+        if (c->getVirt() == virt) {
+            c->disable();
+            break;
+        }
+    }
 }
 
 uint64_t Memory::getBitFlips(void) {
@@ -574,6 +605,7 @@ void Memory::doHammer(std::vector<PatternCollection *> &patterns, int timer, int
 
         
     times_up = false;
+    oom = false;
     struct sigaction new_action, old_TERM, old_ALARM, old_USR1;
     
     new_action.sa_handler = alarm_handler;
@@ -639,6 +671,12 @@ void Memory::doHammer(std::vector<PatternCollection *> &patterns, int timer, int
                     pairs_hammered_round, flips_round, uflips_round,
                     pairs_hammered_total, flips_total, uflips_total);
             lprint("\n");
+
+            // TODO check for OOM-killer and if so, remove one of the largest chunks
+            if (oom) {
+                releaseLargestChunk();
+                oom = false;
+            }
 
             if (times_up) 
                 break;

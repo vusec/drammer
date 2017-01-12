@@ -124,6 +124,7 @@ class Chunk {
         int getSize(void) { return c_len; };
         uintptr_t getVirt(void) { return c_virt; };
         uintptr_t getPhys(void) { return c_phys; };
+        void disable(void);
 
     private:
         void selectAggressors(void);
@@ -162,7 +163,7 @@ class Memory {
         uint64_t getUniqueBitFlips(void);
         size_t getPairsHammered(void); 
         uint64_t getAccesses(void); 
-
+        void releaseLargestChunk(void);
 
     private:
         std::vector<Chunk *> m_chunks;

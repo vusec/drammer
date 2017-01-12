@@ -158,10 +158,29 @@ void ION_clean(struct ion_data *data) {
     }
 }
 
+bool IONoom;
+
+void oom_handler(int signal) {
+    if (signal == SIGUSR1) {
+        lprint("[SIGUSR1] OOM-killer\n");
+    }
+    IONoom = true;
+}
+
 /**********************************************
  * Allocate ION chunks in bulk 
  **********************************************/
 int ION_bulk(int len, std::vector<struct ion_data *> &chunks, int heap_id, int max, bool mmap) {
+    
+    // TODO OOM-killer signal handler here. if caught, release last allocation and hope for the best
+   
+    struct sigaction new_action, old_USR1;
+    new_action.sa_handler = oom_handler;
+    sigemptyset(&new_action.sa_mask);
+    new_action.sa_flags = 0;
+    sigaction(SIGUSR1, &new_action, &old_USR1);
+    
+    IONoom = false;
 
     int count = 0;
     while (true) {
@@ -179,6 +198,15 @@ int ION_bulk(int len, std::vector<struct ion_data *> &chunks, int heap_id, int m
         }
         data->len = len;
 
+        if (IONoom) {
+            if (ION_free(data->handle)) {
+                perror("Could not free");
+                exit(EXIT_FAILURE);
+            }
+            free(data);
+            break;
+        }
+
         if (mmap) {
             int ret = ION_mmap(data);
             if (ret < 0) {
@@ -192,7 +220,12 @@ int ION_bulk(int len, std::vector<struct ion_data *> &chunks, int heap_id, int m
         chunks.push_back(data);
         count++;
         if (max > 0 && count >= max) break;
+
     }
+    
+    sigaction(SIGUSR1, &old_USR1, NULL);
+
+
     return count;
 }
 
