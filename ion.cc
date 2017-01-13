@@ -142,6 +142,7 @@ void ION_clean(struct ion_data *data) {
             exit(EXIT_FAILURE);
         }
         data->mapping = NULL;
+        data->virt = 0;
 
         if (close(data->fd)) {
             perror("Could not close");

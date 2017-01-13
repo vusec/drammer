@@ -217,6 +217,7 @@ Chunk::Chunk(struct ion_data *ion_chunk, int id) {
 void Chunk::disable(void) {
     c_ion_chunk = NULL;
     c_len = 0;
+    c_virt = 0;
     
     for (auto it: c_aggressors) {
         Aggressor *a1 = it.first;
@@ -429,9 +430,9 @@ void Chunk::selectAggressors(void) {
     }
 }
 
+uint8_t org[M(4)];
+
 void Chunk::doHammer(std::vector<PatternCollection *> &patterns, int accesses) {
-    uint8_t *org = (uint8_t *)malloc(c_len);
-    
     int last_row = -1;
     bool need_newline = false;
     for (auto combo: c_aggressors) {
@@ -493,8 +494,6 @@ void Chunk::doHammer(std::vector<PatternCollection *> &patterns, int accesses) {
     }
     printf("\n");
 
-    free(org);
-
     c_rounds_completed++;
 }
 
@@ -532,15 +531,19 @@ void Memory::exhaust(void) {
 }
 
 void Memory::releaseLargestChunk(void) {
-    struct ion_data *ion = m_ion_chunks[0];
-    uintptr_t virt = ion->virt;
+    for (auto ion_chunk: m_ion_chunks) {
+        if (ion_chunk->virt) {
+            lprint("[Memory] Releasing chunk at %p with size %d\n", ion_chunk->virt, ion_chunk->len);
 
-    lprint("[Memory] Releasing memory pressure by freeing chunk of size %d bytes\n", ion->len);
-    ION_clean(ion);
+            for (auto c: m_chunks) {
+                if (c->getVirt() == ion_chunk->virt) {
+                    lprint("[Memory] Disabling chunk %d\n", c->getId());
+                    c->disable();
+                    break;
+                }
+            }
 
-    for (auto c: m_chunks) {
-        if (c->getVirt() == virt) {
-            c->disable();
+            ION_clean(ion_chunk);
             break;
         }
     }
