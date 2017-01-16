@@ -168,14 +168,28 @@ std::vector<struct model> models = {
 
 /**** QUALCOMM ****/
 //  generic name                ro.product.model    ro.product.name     board           platform   ion rowsize    ba2     ba1     ba0   rank
-// Snapdragon 400 - MSM8226:                                                                                    
-   {"Motorola Moto G 1st Gen",  "XT1032",           "falcon_reteu",     "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, // @home
-// {"Motorola Moto G 2nd Gen",  "XT1064",           "titan_retuaws",    "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, 
-// {"Motorola Moto G 2nd Gen",  "XT1068",           "titan_retaildsds", "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000},
-// {"LG G Pad 7.0",             "LG-V410",          "e7lte_att_us",     "MSM8226",      "msm8226", 21, K(  0), 0x0000},
-
 // Snadragon 210 - MSM8909:
    {"HTC Desire 530",           "HTC Desire 530",   "a16ul_00401",      "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
+   {"LG Treasure LTE",          "LGL52VL",          "m1_trf_us_vzw",    "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 54cc73c06e1be0d13d544d6f2f17efcb
+   {"LG Optimus Zone 3",        "VS425PP",          "e1q_vzw",          "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 4f3426e7b286d13e9b2598b34fcbc43b
+   {"LG X Power",               "LG-K210",          "k6p_global_ca",    "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // eb1c37e6ac2d0554518a2ee65b576318
+   {"LG Tribute 5",             "LGLS675",          "m1_spr_us",        "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // e861e390c8e8f607c4784d3a0954b113
+
+// Snapdragon 400 - MSM8226:                                                                                    
+   {"Motorola Moto G 1st Gen",  "XT1028",           "falcon_verizon",   "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 428b0da2cf26567c2b28154c63a1e250
+   {"Motorola Moto G 1st Gen",  "XT1032",           "falcon_reteu",     "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, // @home
+   {"Motorola Moto G 2nd Gen",  "XT1064",           "titan_retuaws",    "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, // @sb
+// {"Motorola Moto G 2nd Gen",  "XT1068",           "titan_retaildsds", "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000},
+// {"LG G Pad 7.0",             "LG-V410",          "e7lte_att_us",     "MSM8226",      "msm8226", 21, K(  0), 0x0000},
+//                  MSM8228:
+   {"HTC Desire 816",           "HTC Desire 816 dual sim",
+                                                    "htc_asia_india",   "MSM8226",      "msm8226", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // da75ed4017d9fe0d0f03d66ac655d2fc}
+//                  MSM8928:
+   {"HTC Desire 10 Lifestyle",  "HTC Desire 10 lifestyle",
+                                                    "a56djul_00600",    "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 7172bb86fdd7ee7389029fc429a0b444
+
+   {"HTC Desire 630",           "HTC Desire 630 dual sim",
+                                                    "a16dwgl_00401",    "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // e92e02117a865f48a4e77971b5b087fc
 
 // Snapdragon 410 - MSM8916:                                                        
    {"HTC Desire 510",           "HTC Desire 510",   "htc_europe",       "msm8916",      "msm8916", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, // @home
@@ -185,29 +199,35 @@ std::vector<struct model> models = {
 // {"Samsung Galaxy A5",        "SM-A500FU",        "a5ultexx",         "MSM8916",      "msm8916", 21, K(  0), 0x0000},
 // {"Motorola Moto G 3rd Gen",  "MotoG3",           "osprey_retus",     "msm8916",      "msm8916", 21, K(  0), 0x0000},
    {"Motorola Moto G 3rd Gen",  "MotoG3",           "osprey_reteu_2gb", "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
+   {"LG Stylo 2",               "LGL81AL",          "ph1_trf_us",       "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // f170ab317e7b1096cf8450c1baa84e8a
+   {"LG G4c" ,                  "LG-H525n",         "c90n_global_com",  "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 5841086560dede329537623a3d07e027
+
+// Snapdragon 425 - MSM8917:
+   {"ZTE Avid Trio",            "Z833",             "P817T06",          "CAMELLIA",     "msm8937", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 933771242b444995f3ec9e17a111a11f
 
 // Snapdragon 615 - MSM8939
    {"Xiaomi Mi 4i",             "Mi 4i",            "ferrari",          "msm8916",      "msm8916", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x000}, // @home
 // {"HTC One M8s",              "HTC One M8s",      "m8qlul_htc_europe","msm8939",      "msm8916", 21, K( 64), 0x0000},
    {"Huawei GX8/G8",            "HUAWEI RIO-L01",   "RIO-L01",          "RIO-L01",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
+   {"Motorola Moto X Play",     "XT1563",           "lux_retca",        "msm8916",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 7b1c1b688e7ce0ac4dd154cc49613adf
    
 // Snapdragon 616 - MSM8939v2
 // {"Huawei Honor 5X",          "KIW-L21",          "KIW-L21",          "KIW-L21",      "msm8916", 21, K( 32), 0x0000},
 
 // Snapdragon 617 - MSM8952
    {"Moto G (4)",               "Moto G (4)",       "athene",           "msm8952",      "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
+   {"LG G Vista 2"              "LG-H740",          "p1v_att_us",       "msm8952",      "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 74ce1633692226a1eb02cf52f0537a48
 
 
 // Snapdragon 800 - MSM8974
    {"LG Nexus 5",               "Nexus 5",          "hammerhead",       "hammerhead",   "msm8974", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400}, // @home
    {"Fairphone 2",              "FP2",              "FP2",              "FP2",          "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
 
-
-
 // Snapdragon 801 - MSM8974AC
 // {"OnePlus One",              "A0001",            "bacon",            "MSM8974",      "msm8974", 21, K(128),0x10000, 0x8000, 0x4000, 0x400}, 
 // {"Samsung Galaxy S5 Active", "SM-G870F",         "klteactivexx",     "MSM8974",      "msm8974", 21, K( 64),0x00000},
 // {"Samsung Galaxy S5",        "SM-G900T",         "kltetmo",          "MSM8974",      "msm8974", 21, K(  0),0x00000},
+   {"Samsung Galaxy S5",        "SM-G900V",         "kltevzw",          "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 5e241103203859aefe4b4f0709f50501
 
 // Snapdragon 805 - APQ8084
    {"Samsung Galaxy S5",        "SM-G901F",         "kccat6xx",         "APQ8084",      "apq8084", 21, K(128), 0x0000, 0x0000, 0x000, 0x000}, // @nfi
@@ -227,6 +247,7 @@ std::vector<struct model> models = {
    {"LG G5",                    "LG-H850",          "h1_global_com",    "msm8996",      "msm8996", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400}, // @home
 // {"Samsung Galaxy S7 Edge",   "SM-G935T",         "hero2qltetmo",     "msm8996",      "msm8996", 21, K(  0), 0x0000},
 // {"Samsung Galaxy S7",        "SAMSUNG-SM-G930A", "heroqlteuc",       "MSM8996",      "msm8996", 21, K(  0), 0x0000},
+   {"Sharp Aquos Xx3",          "506SH",            "SG506SH",          "SG506SH",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 1c8e79b8f29e52b089b2714f84db100a
 
 // Snapdragon S4
 // {"LG Nexus 4",               "AOSP on Mako",     "full_mako",        "MAKO",         "msm8960", 21, K( 64), 0x0000},
@@ -242,8 +263,14 @@ std::vector<struct model> models = {
 // Kirin 650
 // {"Huawei P9 Lite",           "HUAWEI VNS-L31",   "VNS-L31",          "VNS-L31",      "hi6250",   1, K( 32), 0x0000},
 
+// Kirin 950
+   {"Huawei Honor 8",           "FRD-L09",          "FRD-L09",          "FRD-L09",      "hi3650",   2, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 78d3e11cdf4c304b56ae05cb22dc9921
+   {"Huawei Honor V8",          "KNT-AL10",         "KNT-AL10",         "KNT-AL10",     "hi3650",   1, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // c637fda8be6ed1f5e12ab55154d976e4
+
 // Kirin 955
    {"Huawei P9",                "EVA-L09",          "EVA-L09",          "EVA-L09",      "hi3650",   1, K( 64), 0x8000, 0x4000, 0x2000, 0x080}, // @home
+
+
 
 
 /**** EXYNOS ****/
@@ -295,6 +322,8 @@ std::vector<struct model> models = {
 // MT6735M
    {"LG K4 4G",                 "LG-K120",          "me1_global_com",   "",             "mt6735m", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
 
+// MT6737M
+   {"LG K3 K100",               "LG-K100",          "mme0_global_com",  "mt6735",       "mt6737m", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 7d73b08b8bddb4743baad9d00772f685 - xorred?
 
 // MT6752
    {"Sony Xperia C4",           "E5303",            "E5303",            "",             "mt6752",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi
@@ -304,10 +333,19 @@ std::vector<struct model> models = {
    {"Huawei GR3",               "HUAWEI TAG-L21",   "TAG-L21",          "TAG-L21",      "mt6753",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
    {"HTC Desire 830",   "HTC Desire 830 dual sim",  "a51cml_dtul_00401","",             "mt6753",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
 
+// MT6755M
+   {"ZTE Nubia N1",             "NX541J",           "NX541J",           "mt6755",       "mt6755",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // f07831be5d61298aa0c67e5c39cbdc4b - xorred?
+
 
 // MT6795
 // {"Sony Xperia M5",           "E5603",            "E5603",            "",             "mt6795",  1, K( 64), 0x00000},
    {"HTC One M9",    "HTC One M9_Prime Camera Edition","himaruhl_00401","",             "mt6795",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
+
+// MT8127
+   {"Amazon Fire 7",            "KFFOWI",           "full_ford",        "ford",         "mt8127",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // b0292167514398a8b8642622fa47159d - xorred?
+
+// MT8321
+   {"Alcatel PIXI 4(6)",        "8050D",            "8050D",            "8050D",        "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 80d8e659c31079506e4d08c3dcfd073d - xorred?
 
 
 /**** SPREADTRUM ****/
