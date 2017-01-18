@@ -174,6 +174,10 @@ std::vector<struct model> models = {
    {"LG Optimus Zone 3",        "VS425PP",          "e1q_vzw",          "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 4f3426e7b286d13e9b2598b34fcbc43b
    {"LG X Power",               "LG-K210",          "k6p_global_ca",    "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // eb1c37e6ac2d0554518a2ee65b576318
    {"LG Tribute 5",             "LGLS675",          "m1_spr_us",        "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // e861e390c8e8f607c4784d3a0954b113
+   {"LG Tribute HD",            "LGLS676",          "k6b_spr_us",       "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 4b421cfcb5801a73e3cd166a38935bbd
+   {"ZTE Z815",                 "Z815",             "Z815",             "sheen",        "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 3d27c89335bd5a133b6916a5ccdaa4f5
+   {"ZTE Blade A310",           "Blade A310",       "P809A50_CO_CLA",   "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 0f5fb3fac6e602e92c7f9c207b4e9f62
+
 
 // Snapdragon 400 - MSM8226:                                                                                    
    {"Motorola Moto G 1st Gen",  "XT1028",           "falcon_verizon",   "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 428b0da2cf26567c2b28154c63a1e250
@@ -200,7 +204,9 @@ std::vector<struct model> models = {
 // {"Motorola Moto G 3rd Gen",  "MotoG3",           "osprey_retus",     "msm8916",      "msm8916", 21, K(  0), 0x0000},
    {"Motorola Moto G 3rd Gen",  "MotoG3",           "osprey_reteu_2gb", "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
    {"LG Stylo 2",               "LGL81AL",          "ph1_trf_us",       "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // f170ab317e7b1096cf8450c1baa84e8a
+   {"LG Style 2",               "LGL82VL",          "ph1_trf_us_vzw",   "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 898143d5c1a42996b1b5f7498f4e0f8f
    {"LG G4c" ,                  "LG-H525n",         "c90n_global_com",  "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 5841086560dede329537623a3d07e027
+
 
 // Snapdragon 425 - MSM8917:
    {"ZTE Avid Trio",            "Z833",             "P817T06",          "CAMELLIA",     "msm8937", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 933771242b444995f3ec9e17a111a11f
@@ -216,18 +222,22 @@ std::vector<struct model> models = {
 
 // Snapdragon 617 - MSM8952
    {"Moto G (4)",               "Moto G (4)",       "athene",           "msm8952",      "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
-   {"LG G Vista 2"              "LG-H740",          "p1v_att_us",       "msm8952",      "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 74ce1633692226a1eb02cf52f0537a48
+   {"LG G Vista 2",             "LG-H740",          "p1v_att_us",       "msm8952",      "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 74ce1633692226a1eb02cf52f0537a48
 
 
 // Snapdragon 800 - MSM8974
    {"LG Nexus 5",               "Nexus 5",          "hammerhead",       "hammerhead",   "msm8974", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400}, // @home
    {"Fairphone 2",              "FP2",              "FP2",              "FP2",          "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
 
+// Snapdragon 801 - MSM8974AB
+   {"HTC One M8",               "831C",             "sprint_wwe_harman","MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 1ba3c23a8b2180fefa915fc4d6937a59
+
 // Snapdragon 801 - MSM8974AC
-// {"OnePlus One",              "A0001",            "bacon",            "MSM8974",      "msm8974", 21, K(128),0x10000, 0x8000, 0x4000, 0x400}, 
-// {"Samsung Galaxy S5 Active", "SM-G870F",         "klteactivexx",     "MSM8974",      "msm8974", 21, K( 64),0x00000},
-// {"Samsung Galaxy S5",        "SM-G900T",         "kltetmo",          "MSM8974",      "msm8974", 21, K(  0),0x00000},
+// {"OnePlus One",              "A0001",            "bacon",            "MSM8974",      "msm8974", 21, K( 64), 0x1000, 0x8000, 0x4000, 0x400}, 
+   {"Samsung Galaxy S5 Active", "SM-G870F",         "klteactivexx",     "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
+   {"Samsung Galaxy S5",        "SM-G900T",         "kltetmo",          "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
    {"Samsung Galaxy S5",        "SM-G900V",         "kltevzw",          "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 5e241103203859aefe4b4f0709f50501
+   {"Samsung Galaxy S5",        "SM-S903VL",        "kltetfnmm",        "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 179ef7953009e70ac47154ec22a3058e
 
 // Snapdragon 805 - APQ8084
    {"Samsung Galaxy S5",        "SM-G901F",         "kccat6xx",         "APQ8084",      "apq8084", 21, K(128), 0x0000, 0x0000, 0x000, 0x000}, // @nfi
@@ -236,8 +246,11 @@ std::vector<struct model> models = {
 
 // Snapdragon 808 - MSM8992
    {"LG Nexus 5X",              "Nexus 5X",         "bullhead",         "bullhead",     "msm8992", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400}, // @home
-// {"LG V10",                   "LG-H960",          "pplus_global_com", "msm8992",      "msm8992", 21, K( 64), 0x0000},
    {"LG G4",                    "LG-H815",          "p1_global_com",    "msm8992",      "msm8992", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400}, // @home
+   {"LG G4 Dual",               "LG-H818",          "p1_global_com",    "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 72ab1933b12e57bcb618345297f86dbc
+   {"LG V10",                   "LG-H960",          "pplus_global_com", "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
+   {"LG V10",                   "LG-H900",          "pplus_att_us",     "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 2d27a8a56200a4cfccddbd81263afe6d
+
 
 // Snapdragon 810 - MSM8994
 // {"Sony Xperia Z5",           "E6853",            "E6853",            "msm8994",      "msm8994", 21, K( 64), 0x0000},
@@ -248,6 +261,7 @@ std::vector<struct model> models = {
 // {"Samsung Galaxy S7 Edge",   "SM-G935T",         "hero2qltetmo",     "msm8996",      "msm8996", 21, K(  0), 0x0000},
 // {"Samsung Galaxy S7",        "SAMSUNG-SM-G930A", "heroqlteuc",       "MSM8996",      "msm8996", 21, K(  0), 0x0000},
    {"Sharp Aquos Xx3",          "506SH",            "SG506SH",          "SG506SH",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 1c8e79b8f29e52b089b2714f84db100a
+   {"Samsung Galaxy Note 7",    "SM-N930T",         "graceqltetmo",     "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // f193124f13962db11aa01c8181d0d39d
 
 // Snapdragon S4
 // {"LG Nexus 4",               "AOSP on Mako",     "full_mako",        "MAKO",         "msm8960", 21, K( 64), 0x0000},
@@ -307,6 +321,12 @@ std::vector<struct model> models = {
 // MT6580
    {"Alcatel PIXI 4(4)",        "4034D",            "4034D",            "",             "mt6580",  1, K( 32), 0x44000, 0x22000, 0x11000, 0x000}, // @home
    {"Alcatel One Touch Popstar","5022D",            "5022D",            "",             "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi
+   {"Wiko Lenny3",              "LENNY3",           "V3702AN",          "",             "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 5eee6f7cb541c8a3f8b2f857efc23ffd - xorred?
+
+// MT6580M
+   {"Wiki K-Kool",              "K-KOOL",           "V2800AN",          "",             "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // f2ade8cc739125cfcfae9ad28a982974 - xorred?
+   {"FS509",                    "FS509",            "FS509",            "Fly",          "mt6580",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // d70621207cb7bec2031a8e8b074dec42 - xorred?
+
 
 // MT6582
    {"TANGO A5",                 "TANGO A5",         "J608_PUBLIC",      "J608_PUBLIC",  "",       -1, K(  0), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - no system contiguous heap
@@ -321,6 +341,9 @@ std::vector<struct model> models = {
 
 // MT6735M
    {"LG K4 4G",                 "LG-K120",          "me1_global_com",   "",             "mt6735m", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
+
+// MT6735P
+   {"ZTE Blade V7 Lite",        "ZTE BLADE V0720",  "P635A32",          "",             "mt6735m", 1,K(  32), 0x00000, 0x00000, 0x00000, 0x000}, // 0dfde0183d0d5f09c80e4ec15160064f - xorred - could be heap 11 also, but that would be weird
 
 // MT6737M
    {"LG K3 K100",               "LG-K100",          "mme0_global_com",  "mt6735",       "mt6737m", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 7d73b08b8bddb4743baad9d00772f685 - xorred?
@@ -361,6 +384,14 @@ std::vector<struct model> models = {
 struct model unknown_model = 
    {"Unknown model",           "unknown",           "unknown",         "unknown",       "unknown", -1, K( 64), 0x0000, 0x0000, 0x0000, 0x000};
 
+
+bool sigusr1;
+void usr1_handler(int signal) {
+    if (signal == SIGUSR1) {
+        lprint("[SIGUSR1] OOM-killer\n");
+        sigusr1 = true;
+    }
+}
 
 
 
@@ -978,8 +1009,10 @@ bool BankConflicts::findRowsize(uint8_t *base, int len) {
 
             /* Generate access times for <base, base+16K>, <base, base+32K>, <base, base+64K>, ... */
             Histogram *h = getAccessTimes(base, candidates, true, 10); // 10 second timeout
+            if (sigusr1) return false;
             if (!h) continue;
 //          h->print();
+
 
             /* We expect exactly two access times: 
              * -  <low>: no bank conflict
@@ -1090,6 +1123,7 @@ method_b:
                 candidates.push_back(base + offset);
             }
             Histogram *h = getAccessTimes(base, candidates, true, 3); // 3 second timeout
+            if (sigusr1) return false;
             if (!h) continue;
 //          h->print();
 
@@ -1757,7 +1791,13 @@ void BankConflicts::getModel(int force_autodetect, struct model *m) {
     lprint("[BC] ION init: generating a list of possible ION system-contig heaps\n");
     std::vector<int> heap_ids = ION_autodetect(m->platform);
 
-//#define SKIP_ROWSIZE_DETECTION
+    
+    struct sigaction new_action, old_USR1;
+    new_action.sa_handler = usr1_handler;
+    sigemptyset(&new_action.sa_mask);
+    new_action.sa_flags = 0;
+    sigaction(SIGUSR1, &new_action, &old_USR1);
+    sigusr1 = false;
 
     for (auto id: heap_ids) {
         lprint("\n");
@@ -1765,10 +1805,6 @@ void BankConflicts::getModel(int force_autodetect, struct model *m) {
         lprint("[BC] Autodetecting Rowsize with ION heap %2d\n", id);
         lprint("============================================\n");
         lprint("\n");
-#ifdef SKIP_ROWSIZE_DETECTION
-        this->our_model->rowsize = K(128);
-        bool success = true;
-#else
         struct ion_data data;
         if (ION_alloc_mmap(&data, RS_CHUNKSIZE, id) < 0) {
             lprint("[BC] Could not allocate %dKB with id %d\n", RS_CHUNKSIZE / 1024, id);
@@ -1776,7 +1812,11 @@ void BankConflicts::getModel(int force_autodetect, struct model *m) {
         }
         bool success = this->findRowsize((uint8_t *) data.mapping, data.len);
         ION_clean(&data);
-#endif
+
+        if (sigusr1) {
+            lprint("[BC] Interrupted, already OOM?\n");
+            break;
+        }
 
         if (success) {
             lprint("[BC] Successfully completed rowsize detection\n");
@@ -1785,6 +1825,7 @@ void BankConflicts::getModel(int force_autodetect, struct model *m) {
 //          this->findMask();
 
             writeSettings("/data/local/tmp/rh-settings.txt", this->our_model);
+            sigaction(SIGUSR1, &old_USR1, NULL);
             return;
         }
     }
@@ -1796,6 +1837,7 @@ void BankConflicts::getModel(int force_autodetect, struct model *m) {
     m->ba1 = 0x0000;
     m->ba0 = 0x0000;
     m->rank = 0x0000;
+    sigaction(SIGUSR1, &old_USR1, NULL);
     return;
 }
 
