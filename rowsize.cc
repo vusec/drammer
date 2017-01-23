@@ -179,6 +179,7 @@ std::vector<struct model> models = {
    {"ZTE Z815",                 "Z815",             "Z815",             "sheen",        "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 3d27c89335bd5a133b6916a5ccdaa4f5
    {"ZTE Blade A310",           "Blade A310",       "P809A50_CO_CLA",   "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 0f5fb3fac6e602e92c7f9c207b4e9f62
    {"Alcatel Pixi Avion",       "A571VL",           "A571VL",           "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // b0b04075873ef6cc9ceba4bb41d33875
+   {"KYOCERA-C6742",            "KYOCERA-C6742",    "C6742",            "C6742",        "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 32ca7a3034f12bb895cfdbfb10d194a2 - failed but close
 
 
 // Snapdragon 400 - MSM8226:                                                                                    
@@ -209,6 +210,7 @@ std::vector<struct model> models = {
    {"LG Style 2",               "LGL82VL",          "ph1_trf_us_vzw",   "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 898143d5c1a42996b1b5f7498f4e0f8f
    {"LG G4c" ,                  "LG-H525n",         "c90n_global_com",  "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 5841086560dede329537623a3d07e027
    {"ZTE Warp Elite",           "N9518",            "zte_warp6",        "warp6",        "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // aa5578234f99b2986bae80e1204a453d
+   {"ZTE Boost Max+",           "N9521",            "zte_max",          "max",          "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 24ded3caa90257c952f7eb5708bdae67
 
 
 // Snapdragon 425 - MSM8917:
@@ -241,6 +243,7 @@ std::vector<struct model> models = {
    {"Samsung Galaxy S5",        "SM-G900T",         "kltetmo",          "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
    {"Samsung Galaxy S5",        "SM-G900V",         "kltevzw",          "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 5e241103203859aefe4b4f0709f50501
    {"Samsung Galaxy S5",        "SM-S903VL",        "kltetfnmm",        "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 179ef7953009e70ac47154ec22a3058e
+   {"LG-D855",                  "LG-D855",          "g3_global_com",    "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 6960cc492edf822f833211043ffe1819
 
 // Snapdragon 805 - APQ8084
    {"Samsung Galaxy S5",        "SM-G901F",         "kccat6xx",         "APQ8084",      "apq8084", 21, K(128), 0x0000, 0x0000, 0x000, 0x000}, // @nfi
@@ -262,8 +265,9 @@ std::vector<struct model> models = {
 
 // Snapdragon 820 - MSM8996
    {"LG G5",                    "LG-H850",          "h1_global_com",    "msm8996",      "msm8996", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400}, // @home
-// {"Samsung Galaxy S7 Edge",   "SM-G935T",         "hero2qltetmo",     "msm8996",      "msm8996", 21, K(  0), 0x0000},
+   {"Samsung Galaxy S7 Edge",   "SM-G935T",         "hero2qltetmo",     "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 189303d8523f1c1a15af0327e2cd7e9a
 // {"Samsung Galaxy S7",        "SAMSUNG-SM-G930A", "heroqlteuc",       "MSM8996",      "msm8996", 21, K(  0), 0x0000},
+   {"Samsung Galaxy S7",        "SM-G930V",         "heroqltevzw",      "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 20e27a705a09025f7924559fa02d5011
    {"Sharp Aquos Xx3",          "506SH",            "SG506SH",          "SG506SH",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 1c8e79b8f29e52b089b2714f84db100a
    {"Samsung Galaxy Note 7",    "SM-N930T",         "graceqltetmo",     "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // f193124f13962db11aa01c8181d0d39d
    {"OnePlus 3",                "ONEPLUS A3003",    "OnePlus3",         "QC_Reference_Phone",
@@ -378,6 +382,9 @@ std::vector<struct model> models = {
 
 // MT8321
    {"Alcatel PIXI 4(6)",        "8050D",            "8050D",            "8050D",        "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 80d8e659c31079506e4d08c3dcfd073d - xorred?
+
+// MT8163
+  {"KFGIWI",                    "KFGIWI",           "full_giza",        "giza",         "mt8163",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 37b2b8c23089eef9d96a0ed7577982d7 - xorred?
 
 
 /**** SPREADTRUM ****/
