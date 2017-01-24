@@ -200,12 +200,13 @@ std::vector<struct model> models = {
 
 // Snapdragon 410 - MSM8916:                                                        
    {"HTC Desire 510",           "HTC Desire 510",   "htc_europe",       "msm8916",      "msm8916", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, // @home
-// {"Motorola Moto E 2nd Gen",  "MotoE2(4G-LTE)",   "surnia_reteu",     "msm8916",      "msm8916", 21, K( 32), 0x0000},
-// {"Motorola Moto G 3rd Gen",  "MotoG3",           "osprey_reteu",     "msm8916",      "msm8916", 21, K( 32), 0x0000},
-// {"Samsung Galaxy S4 Mini",   "GT-I9195I",        "serranoveltexx",   "MSM8916",      "msm8916", 21, K( 32), 0x0000},
-// {"Samsung Galaxy A5",        "SM-A500FU",        "a5ultexx",         "MSM8916",      "msm8916", 21, K(  0), 0x0000},
-// {"Motorola Moto G 3rd Gen",  "MotoG3",           "osprey_retus",     "msm8916",      "msm8916", 21, K(  0), 0x0000},
+   {"Motorola Moto E 2nd Gen",  "MotoE2(4G-LTE)",   "surnia_reteu",     "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
+   {"Motorola Moto G 3rd Gen",  "MotoG3",           "osprey_reteu",     "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
+   {"Samsung Galaxy S4 Mini",   "GT-I9195I",        "serranoveltexx",   "MSM8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
+   {"Samsung Galaxy A5",        "SM-A500FU",        "a5ultexx",         "MSM8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
+   {"Motorola Moto G 3rd Gen",  "MotoG3",           "osprey_retus",     "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
    {"Motorola Moto G 3rd Gen",  "MotoG3",           "osprey_reteu_2gb", "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
+   {"LG Premier LTE",           "LGL62VL",          "m209_trf_us_vzw",  "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // da371d919e85c375a3ff2acd00a53a25
    {"LG Stylo 2",               "LGL81AL",          "ph1_trf_us",       "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // f170ab317e7b1096cf8450c1baa84e8a
    {"LG Style 2",               "LGL82VL",          "ph1_trf_us_vzw",   "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 898143d5c1a42996b1b5f7498f4e0f8f
    {"LG G4c" ,                  "LG-H525n",         "c90n_global_com",  "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 5841086560dede329537623a3d07e027
