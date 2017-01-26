@@ -166,6 +166,8 @@ extern int ion_fd;
 
 std::vector<struct model> models = { 
 
+    // last: -rw-r--r-- 1 www-data www-data     27390 jan 25 23:37 0a81fa3d0fdd3afcfbf4621892a89520
+
 /**** QUALCOMM ****/
 //  generic name                ro.product.model    ro.product.name     board           platform   ion rowsize    ba2     ba1     ba0   rank
 // Snadragon 210 - MSM8909:
@@ -212,6 +214,7 @@ std::vector<struct model> models = {
    {"LG G4c" ,                  "LG-H525n",         "c90n_global_com",  "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 5841086560dede329537623a3d07e027
    {"ZTE Warp Elite",           "N9518",            "zte_warp6",        "warp6",        "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // aa5578234f99b2986bae80e1204a453d
    {"ZTE Boost Max+",           "N9521",            "zte_max",          "max",          "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 24ded3caa90257c952f7eb5708bdae67
+   {"XT1528",                   "XT1528",           "surnia_verizon",   "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 4b191d43f34b4692b01083093bbae5b7
 
 
 // Snapdragon 425 - MSM8917:
@@ -234,9 +237,11 @@ std::vector<struct model> models = {
 // Snapdragon 800 - MSM8974
    {"LG Nexus 5",               "Nexus 5",          "hammerhead",       "hammerhead",   "msm8974", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400}, // @home
    {"Fairphone 2",              "FP2",              "FP2",              "FP2",          "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
+   {"C6903",                    "C6903",            "C6903",            "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // e551436309b8e9e6b3ffc6300476d5ff
 
 // Snapdragon 801 - MSM8974AB
    {"HTC One M8",               "831C",             "sprint_wwe_harman","MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 1ba3c23a8b2180fefa915fc4d6937a59
+   {"HTC6525LVW",               "HTC6525LVW",       "HTCOneM8vzw",      "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // a4c47ce3bbd28de06a3253510cbf1a50
 
 // Snapdragon 801 - MSM8974AC
 // {"OnePlus One",              "A0001",            "bacon",            "MSM8974",      "msm8974", 21, K( 64), 0x1000, 0x8000, 0x4000, 0x400}, 
@@ -245,6 +250,10 @@ std::vector<struct model> models = {
    {"Samsung Galaxy S5",        "SM-G900V",         "kltevzw",          "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 5e241103203859aefe4b4f0709f50501
    {"Samsung Galaxy S5",        "SM-S903VL",        "kltetfnmm",        "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 179ef7953009e70ac47154ec22a3058e
    {"LG-D855",                  "LG-D855",          "g3_global_com",    "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 6960cc492edf822f833211043ffe1819
+   {"SAMSUNG-SM-G900A",         "SAMSUNG-SM-G900A", "klteuc",           "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 99299170b0ed083900ac94c58222903c
+
+
+
 
 // Snapdragon 805 - APQ8084
    {"Samsung Galaxy S5",        "SM-G901F",         "kccat6xx",         "APQ8084",      "apq8084", 21, K(128), 0x0000, 0x0000, 0x000, 0x000}, // @nfi
@@ -258,6 +267,7 @@ std::vector<struct model> models = {
    {"LG G4 Dual",               "LG-H818",          "p1_global_com",    "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 72ab1933b12e57bcb618345297f86dbc
    {"LG V10",                   "LG-H960",          "pplus_global_com", "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
    {"LG V10",                   "LG-H900",          "pplus_att_us",     "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 2d27a8a56200a4cfccddbd81263afe6d
+   {"LGLS991",                  "LGLS991",          "p1_spr_us",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 1e0fdd82d5b020eb2228b7d3e96566a2
 
 
 // Snapdragon 810 - MSM8994
@@ -273,6 +283,8 @@ std::vector<struct model> models = {
    {"Samsung Galaxy Note 7",    "SM-N930T",         "graceqltetmo",     "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // f193124f13962db11aa01c8181d0d39d
    {"OnePlus 3",                "ONEPLUS A3003",    "OnePlus3",         "QC_Reference_Phone",
                                                                                         "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // f285ee909fa8bfde90ac430aa1796b5c
+   {"OnePlus 3",                "ONEPLUS A3000",    "OnePlus3",         "QC_Reference_Phone",
+                                                                                        "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // a5c032f2ec91ce3b634ca2f5e638206a
 
 
 // Snapdragon S4
