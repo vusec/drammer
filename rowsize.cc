@@ -166,8 +166,9 @@ extern int ion_fd;
 
 std::vector<struct model> models = { 
 
-    // last: -rw-r--r-- 1 www-data www-data     27390 jan 25 23:37 0a81fa3d0fdd3afcfbf4621892a89520
+// last: 622e5250e1eace24024a0b556705463c
 
+    
 /**** QUALCOMM ****/
 //  generic name                ro.product.model    ro.product.name     board           platform   ion rowsize    ba2     ba1     ba0   rank
 // Snadragon 210 - MSM8909:
@@ -191,14 +192,15 @@ std::vector<struct model> models = {
 // {"Motorola Moto G 2nd Gen",  "XT1068",           "titan_retaildsds", "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000},
 // {"LG G Pad 7.0",             "LG-V410",          "e7lte_att_us",     "MSM8226",      "msm8226", 21, K(  0), 0x0000},
 //                  MSM8228:
-   {"HTC Desire 816",           "HTC Desire 816 dual sim",
-                                                    "htc_asia_india",   "MSM8226",      "msm8226", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // da75ed4017d9fe0d0f03d66ac655d2fc}
-//                  MSM8928:
-   {"HTC Desire 10 Lifestyle",  "HTC Desire 10 lifestyle",
-                                                    "a56djul_00600",    "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 7172bb86fdd7ee7389029fc429a0b444
+   {"HTC Desire 816",     "HTC Desire 816 dual sim","htc_asia_india",   "MSM8226",      "msm8226", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // da75ed4017d9fe0d0f03d66ac655d2fc
+   
+//                  MSM8926                    
+   {"XT1077",                   "XT1077",           "thea_retcn_ctds",  "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // f71073274d551a3f98083da6e37755e3
 
-   {"HTC Desire 630",           "HTC Desire 630 dual sim",
-                                                    "a16dwgl_00401",    "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // e92e02117a865f48a4e77971b5b087fc
+//                  MSM8928:
+   {"HTC Desire 10 Lifestyle","HTC Desire 10 lifestyle",
+                                                    "a56djul_00600",    "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 7172bb86fdd7ee7389029fc429a0b444
+   {"HTC Desire 630",     "HTC Desire 630 dual sim","a16dwgl_00401",    "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // e92e02117a865f48a4e77971b5b087fc
 
 // Snapdragon 410 - MSM8916:                                                        
    {"HTC Desire 510",           "HTC Desire 510",   "htc_europe",       "msm8916",      "msm8916", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, // @home
@@ -215,7 +217,7 @@ std::vector<struct model> models = {
    {"ZTE Warp Elite",           "N9518",            "zte_warp6",        "warp6",        "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // aa5578234f99b2986bae80e1204a453d
    {"ZTE Boost Max+",           "N9521",            "zte_max",          "max",          "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 24ded3caa90257c952f7eb5708bdae67
    {"XT1528",                   "XT1528",           "surnia_verizon",   "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 4b191d43f34b4692b01083093bbae5b7
-
+   {"MotoG3",                   "MotoG3",           "osprey_retus_2gb", "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // bf89c1c7ec8b3cc72201e5edc95004c6
 
 // Snapdragon 425 - MSM8917:
    {"ZTE Avid Trio",            "Z833",             "P817T06",          "CAMELLIA",     "msm8937", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 933771242b444995f3ec9e17a111a11f
@@ -225,7 +227,7 @@ std::vector<struct model> models = {
 // {"HTC One M8s",              "HTC One M8s",      "m8qlul_htc_europe","msm8939",      "msm8916", 21, K( 64), 0x0000},
    {"Huawei GX8/G8",            "HUAWEI RIO-L01",   "RIO-L01",          "RIO-L01",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
    {"Motorola Moto X Play",     "XT1563",           "lux_retca",        "msm8916",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 7b1c1b688e7ce0ac4dd154cc49613adf
-   
+
 // Snapdragon 616 - MSM8939v2
 // {"Huawei Honor 5X",          "KIW-L21",          "KIW-L21",          "KIW-L21",      "msm8916", 21, K( 32), 0x0000},
 
@@ -268,6 +270,8 @@ std::vector<struct model> models = {
    {"LG V10",                   "LG-H960",          "pplus_global_com", "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
    {"LG V10",                   "LG-H900",          "pplus_att_us",     "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 2d27a8a56200a4cfccddbd81263afe6d
    {"LGLS991",                  "LGLS991",          "p1_spr_us",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 1e0fdd82d5b020eb2228b7d3e96566a2
+   {"STV100-2",                 "STV100-2",         "venicevzwvzw",     "venice",       "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 31d5680d18250388fb7eb241cbd0e3bb
+
 
 
 // Snapdragon 810 - MSM8994
@@ -281,10 +285,10 @@ std::vector<struct model> models = {
    {"Samsung Galaxy S7",        "SM-G930V",         "heroqltevzw",      "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 20e27a705a09025f7924559fa02d5011
    {"Sharp Aquos Xx3",          "506SH",            "SG506SH",          "SG506SH",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 1c8e79b8f29e52b089b2714f84db100a
    {"Samsung Galaxy Note 7",    "SM-N930T",         "graceqltetmo",     "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // f193124f13962db11aa01c8181d0d39d
-   {"OnePlus 3",                "ONEPLUS A3003",    "OnePlus3",         "QC_Reference_Phone",
-                                                                                        "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // f285ee909fa8bfde90ac430aa1796b5c
-   {"OnePlus 3",                "ONEPLUS A3000",    "OnePlus3",         "QC_Reference_Phone",
-                                                                                        "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // a5c032f2ec91ce3b634ca2f5e638206a
+   {"OnePlus 3",                "ONEPLUS A3003",    "OnePlus3",    "QC_Reference_Phone","msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // f285ee909fa8bfde90ac430aa1796b5c
+   {"OnePlus 3",                "ONEPLUS A3000",    "OnePlus3",    "QC_Reference_Phone","msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // a5c032f2ec91ce3b634ca2f5e638206a
+   {"XT1650",                   "XT1650",           "griffin_verizon",  "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // a57a4a67221822dd55aa800b87eda54d
+
 
 
 // Snapdragon S4
@@ -354,6 +358,7 @@ std::vector<struct model> models = {
    {"FS509",                    "FS509",            "FS509",            "Fly",          "mt6580",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // d70621207cb7bec2031a8e8b074dec42 - xorred?
 
 
+
 // MT6582
    {"TANGO A5",                 "TANGO A5",         "J608_PUBLIC",      "J608_PUBLIC",  "",       -1, K(  0), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - no system contiguous heap
    {"HTC Desire 320",           "HTC Desire 320",   "v01_htc_europe",   "uc81",         "",       -1, K(  0), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - no system contiguous heap
@@ -404,7 +409,8 @@ std::vector<struct model> models = {
 
 //  generic name                ro.product.model    ro.product.name     board           platform   ion rowsize     ba2     ba1     ba0   rank
 // SC9830A
-   {"Archos 40 Helium",         "Archos 40 Helium", "SCAC40HE",    "sp9830aec_4m_h100", "sc8830",  3, K( 32), 0x04000, 0x2000, 0x1000, 0x000}, // @home
+   {"Archos 40 Helium",         "Archos 40 Helium", "SCAC40HE",     "sp9830aec_4m_h100","sc8830",  3, K( 32), 0x04000, 0x2000, 0x1000, 0x000}, // @home
+   {"VOTO GT11 Pro",            "VOTO GT11 Pro",    "l305a_yusun_a8",  "l305a_yusun_a8","sc8830",  3, K( 32), 0x00000, 0x0000, 0x0000, 0x000}, // b2d69465420aa89cfc36439e9e13c203
    {"Samsung Galaxy J3 2016",   "SM-J320FN",        "j3xnltexx",        "SC9830I",      "sc8830",  2, K( 32), 0x00000, 0x0000, 0x0000, 0x000}, // @nfi
 
 
