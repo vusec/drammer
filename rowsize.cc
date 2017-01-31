@@ -166,7 +166,7 @@ extern int ion_fd;
 
 std::vector<struct model> models = { 
 
-// last: 131d5b4ba38933660ca7903500d61960 
+// last: fe86799e9129e4dc98a03de342c92c97 
 
     
 /**** QUALCOMM ****/
@@ -189,10 +189,12 @@ std::vector<struct model> models = {
    {"Motorola Moto G 1st Gen",  "XT1028",           "falcon_verizon",   "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 428b0da2cf26567c2b28154c63a1e250
    {"Motorola Moto G 1st Gen",  "XT1032",           "falcon_reteu",     "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, // @home
    {"Motorola Moto G 2nd Gen",  "XT1064",           "titan_retuaws",    "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, // @sb
+   {"Samsung Galaxy S3 Neo",    "GT-I9301I",        "s3ve3gxx",         "MSM8226",      "msm8226", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 9aa8b754889c6c3d78eba2114b272046 - FLIPS
 // {"Motorola Moto G 2nd Gen",  "XT1068",           "titan_retaildsds", "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000},
 // {"LG G Pad 7.0",             "LG-V410",          "e7lte_att_us",     "MSM8226",      "msm8226", 21, K(  0), 0x0000},
 //                  MSM8228:
    {"HTC Desire 816",     "HTC Desire 816 dual sim","htc_asia_india",   "MSM8226",      "msm8226", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // da75ed4017d9fe0d0f03d66ac655d2fc
+
    
 //                  MSM8926                    
    {"XT1077",                   "XT1077",           "thea_retcn_ctds",  "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // f71073274d551a3f98083da6e37755e3
@@ -256,6 +258,7 @@ std::vector<struct model> models = {
    {"Samsung Galaxy S5",        "SM-S903VL",        "kltetfnmm",        "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 179ef7953009e70ac47154ec22a3058e
    {"LG-D855",                  "LG-D855",          "g3_global_com",    "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 6960cc492edf822f833211043ffe1819
    {"SAMSUNG-SM-G900A",         "SAMSUNG-SM-G900A", "klteuc",           "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 99299170b0ed083900ac94c58222903c
+   {"ZUK Z1",                   "ZUK Z1",           "ham",              "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 44b463d051c388390c3b9e7d1803b638
 
 
 
@@ -274,6 +277,7 @@ std::vector<struct model> models = {
    {"LG V10",                   "LG-H960",          "pplus_global_com", "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
    {"LG V10",                   "LG-H900",          "pplus_att_us",     "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 2d27a8a56200a4cfccddbd81263afe6d
    {"LGLS991",                  "LGLS991",          "p1_spr_us",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 1e0fdd82d5b020eb2228b7d3e96566a2
+   {"LGUS991",                  "LGUS991",          "p1_usc_us",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // b36c377b1df8aee89b9d0ee3b1ee0b8d
    {"STV100-2",                 "STV100-2",         "venicevzwvzw",     "venice",       "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 31d5680d18250388fb7eb241cbd0e3bb
 
 
@@ -329,6 +333,7 @@ std::vector<struct model> models = {
 // {"Samsung Galaxy Tab S2 8.0","SM-T710",          "gts28wifixx",      "universal5433","exynos5",  4, K(  0), 0x0000},
 // {"Samsung Galaxy Tab S2 9.7","SM-T810",          "gts210wifixx",     "universal5433","exynos5",  4, K(  0), 0x0000},
    {"Samsung Galaxy Note 4",    "SM-N910C",         "treltexx",         "universal5433","exynos5",  4, K(128), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
+   {"SM-N910U",                 "SM-N910U",         "trhpltexx",        "universal5433","exynos5",  4, K(128), 0x0000, 0x0000, 0x0000, 0x000}, // bd44ee9db66a7663420a7c7c8e1fbd39 - FLIPS
 
 // Exynos 7420
    {"Samsung Galaxy S6",        "SM-G920F",         "zerofltexx",       "universal7420","exynos5", -1, K(  0), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi - no system contiguous heap
@@ -373,6 +378,9 @@ std::vector<struct model> models = {
 // MT6735
    {"Odys Neo 6",               "NEO6_LTE",         "NEO6_LTE",         "",             "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
    {"Acer Liquid Z530",         "T02",              "T02_ww",           "MT6735",       "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
+   {"BV6000S",                  "BV6000S",          "Blackview",        "Blackview",    "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 70f95d0b266cd7e52c8f6b9092d2a930
+   {"HUAWEI LYO-L02",           "HUAWEI LYO-L02",   "LYO-L02",          "LYO-L02",      "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // fcace253b7a70fd410f9507382272ac6
+
 
 // MT6735M
    {"LG K4 4G",                 "LG-K120",          "me1_global_com",   "",             "mt6735m", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
@@ -396,6 +404,7 @@ std::vector<struct model> models = {
 
 // MT6755M
    {"ZTE Nubia N1",             "NX541J",           "NX541J",           "mt6755",       "mt6755",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // f07831be5d61298aa0c67e5c39cbdc4b - xorred?
+   {"Lenovo A7020a48",          "Lenovo A7020a48",  "k52_a48",          "",             "mt6755",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // b29602a4a311077454c4c66c8f128193
 
 
 // MT6795
@@ -407,6 +416,7 @@ std::vector<struct model> models = {
 
 // MT8321
    {"Alcatel PIXI 4(6)",        "8050D",            "8050D",            "8050D",        "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 80d8e659c31079506e4d08c3dcfd073d - xorred?
+   {"E691X",                    "E691X",            "E691X",            "",             "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // bd543f649421f24fcbfbb2bf1f2cc0bd
 
 // MT8163
   {"KFGIWI",                    "KFGIWI",           "full_giza",        "giza",         "mt8163",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 37b2b8c23089eef9d96a0ed7577982d7 - xorred?
