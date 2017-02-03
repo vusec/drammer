@@ -231,6 +231,7 @@ std::vector<struct model> models = {
 // {"HTC One M8s",              "HTC One M8s",      "m8qlul_htc_europe","msm8939",      "msm8916", 21, K( 64), 0x0000},
    {"Huawei GX8/G8",            "HUAWEI RIO-L01",   "RIO-L01",          "RIO-L01",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
    {"Motorola Moto X Play",     "XT1563",           "lux_retca",        "msm8916",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 7b1c1b688e7ce0ac4dd154cc49613adf
+   {"ZTE G720T",                "ZTE G720T",        "P839T30",          "msm8916",      "msm8916",2 1, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 7427ec38c358d63c35eadd6cce2260b5
 
 // Snapdragon 616 - MSM8939v2
 // {"Huawei Honor 5X",          "KIW-L21",          "KIW-L21",          "KIW-L21",      "msm8916", 21, K( 32), 0x0000},
