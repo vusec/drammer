@@ -166,7 +166,7 @@ extern int ion_fd;
 
 std::vector<struct model> models = { 
 
-// last: fe86799e9129e4dc98a03de342c92c97 
+// last: 909208b7e7b217160066351b95a72232
 
     
 /**** QUALCOMM ****/
@@ -183,6 +183,7 @@ std::vector<struct model> models = {
    {"ZTE Blade A310",           "Blade A310",       "P809A50_CO_CLA",   "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 0f5fb3fac6e602e92c7f9c207b4e9f62
    {"Alcatel Pixi Avion",       "A571VL",           "A571VL",           "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // b0b04075873ef6cc9ceba4bb41d33875
    {"KYOCERA-C6742",            "KYOCERA-C6742",    "C6742",            "C6742",        "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 32ca7a3034f12bb895cfdbfb10d194a2 - failed but close
+   {"S40",                      "S40",              "CatS40",           "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 6a333c8a5672524ea3d65e3ff40831c9
 
 
 // Snapdragon 400 - MSM8226:                                                                                    
@@ -190,6 +191,7 @@ std::vector<struct model> models = {
    {"Motorola Moto G 1st Gen",  "XT1032",           "falcon_reteu",     "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, // @home
    {"Motorola Moto G 2nd Gen",  "XT1064",           "titan_retuaws",    "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, // @sb
    {"Samsung Galaxy S3 Neo",    "GT-I9301I",        "s3ve3gxx",         "MSM8226",      "msm8226", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 9aa8b754889c6c3d78eba2114b272046 - FLIPS
+   {"LGLS740",                  "LGLS740",          "x5_spr_us",        "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 396b97408c3d13febc2c4fbe0499ca87
 // {"Motorola Moto G 2nd Gen",  "XT1068",           "titan_retaildsds", "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000},
 // {"LG G Pad 7.0",             "LG-V410",          "e7lte_att_us",     "MSM8226",      "msm8226", 21, K(  0), 0x0000},
 //                  MSM8228:
@@ -237,6 +239,9 @@ std::vector<struct model> models = {
    {"Moto G (4)",               "Moto G (4)",       "athene",           "msm8952",      "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
    {"LG G Vista 2",             "LG-H740",          "p1v_att_us",       "msm8952",      "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 74ce1633692226a1eb02cf52f0537a48
 
+// MSM8956
+   {"Redmi Note 3",             "Redmi Note 3",     "kenzo",            "msm8952",      "msm8952", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 7bac314dfde794264bd447002ed8a7e1
+
 // Snapdragon 652 - MSM8976
    {"LG-H840",                  "LG-H840",          "alicee_global_com","msm8952",      "msm8952", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 55cfd7a4b551bef72c86707dfac17143
 
@@ -279,6 +284,8 @@ std::vector<struct model> models = {
    {"LGLS991",                  "LGLS991",          "p1_spr_us",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 1e0fdd82d5b020eb2228b7d3e96566a2
    {"LGUS991",                  "LGUS991",          "p1_usc_us",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // b36c377b1df8aee89b9d0ee3b1ee0b8d
    {"STV100-2",                 "STV100-2",         "venicevzwvzw",     "venice",       "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 31d5680d18250388fb7eb241cbd0e3bb
+   {"VS990",                    "VS990",            "pplus_vzw",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // eaad7de918ff14131edf11fb299a2d71
+
 
 
 
@@ -326,6 +333,9 @@ std::vector<struct model> models = {
 /**** EXYNOS ****/
 
 //  generic name                ro.product.model    ro.product.name     board           platform   ion rowsize    ba2     ba1     ba0   rank
+//  Exynos 5410
+   {"GT-I9500",                 "GT-I9500",         "ja3gxx",           "universal5410","exynos5",  4, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 4bdd1bad302e17292fc263a22ed469fc
+
 // Exynos 5430
    {"Samsung Galaxy A7",        "SM-A700F",         "a7altexx",         "universal5430","exynos5",  4, K(128), 0x0000, 0x0000, 0x0000, 0x000}, //@nfi
 
