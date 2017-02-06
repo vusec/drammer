@@ -166,11 +166,15 @@ extern int ion_fd;
 
 std::vector<struct model> models = { 
 
-// last: 909208b7e7b217160066351b95a72232
+// last: 23a2715973882444c59710ef8963ba1a 
 
     
 /**** QUALCOMM ****/
 //  generic name                ro.product.model    ro.product.name     board           platform   ion rowsize    ba2     ba1     ba0   rank
+
+// Snapdragon 200 - MSM8610
+   {"7040N",                    "7040N","           7040N",             "MSM8212",      "msm8610", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // f404355b91c5e3b30c9b976b92075095
+
 // Snadragon 210 - MSM8909:
    {"HTC Desire 530",           "HTC Desire 530",   "a16ul_00401",      "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
    {"LG Treasure LTE",          "LGL52VL",          "m1_trf_us_vzw",    "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 54cc73c06e1be0d13d544d6f2f17efcb
@@ -183,7 +187,9 @@ std::vector<struct model> models = {
    {"ZTE Blade A310",           "Blade A310",       "P809A50_CO_CLA",   "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 0f5fb3fac6e602e92c7f9c207b4e9f62
    {"Alcatel Pixi Avion",       "A571VL",           "A571VL",           "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // b0b04075873ef6cc9ceba4bb41d33875
    {"KYOCERA-C6742",            "KYOCERA-C6742",    "C6742",            "C6742",        "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 32ca7a3034f12bb895cfdbfb10d194a2 - failed but close
+   {"5056N",                    "5056N",            "5056N",            "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 39777030a088e0c84a7bdea27dff64b9
    {"S40",                      "S40",              "CatS40",           "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 6a333c8a5672524ea3d65e3ff40831c9
+   {"C6743",                    "C6743",            "C6743",            "C6743",        "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // c8e6f1d677a2863b207d73ad3d4b62ab
 
 
 // Snapdragon 400 - MSM8226:                                                                                    
@@ -200,6 +206,7 @@ std::vector<struct model> models = {
    
 //                  MSM8926                    
    {"XT1077",                   "XT1077",           "thea_retcn_ctds",  "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // f71073274d551a3f98083da6e37755e3
+
 
 //                  MSM8928:
    {"HTC Desire 10 Lifestyle","HTC Desire 10 lifestyle",
@@ -231,7 +238,7 @@ std::vector<struct model> models = {
 // {"HTC One M8s",              "HTC One M8s",      "m8qlul_htc_europe","msm8939",      "msm8916", 21, K( 64), 0x0000},
    {"Huawei GX8/G8",            "HUAWEI RIO-L01",   "RIO-L01",          "RIO-L01",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
    {"Motorola Moto X Play",     "XT1563",           "lux_retca",        "msm8916",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 7b1c1b688e7ce0ac4dd154cc49613adf
-   {"ZTE G720T",                "ZTE G720T",        "P839T30",          "msm8916",      "msm8916",2 1, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 7427ec38c358d63c35eadd6cce2260b5
+   {"ZTE G720T",                "ZTE G720T",        "P839T30",          "msm8916",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 7427ec38c358d63c35eadd6cce2260b5
 
 // Snapdragon 616 - MSM8939v2
 // {"Huawei Honor 5X",          "KIW-L21",          "KIW-L21",          "KIW-L21",      "msm8916", 21, K( 32), 0x0000},
@@ -302,6 +309,7 @@ std::vector<struct model> models = {
    {"Sharp Aquos Xx3",          "506SH",            "SG506SH",          "SG506SH",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 1c8e79b8f29e52b089b2714f84db100a
    {"Samsung Galaxy Note 7",    "SM-N930T",         "graceqltetmo",     "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // f193124f13962db11aa01c8181d0d39d
    {"OnePlus 3",                "ONEPLUS A3003",    "OnePlus3",    "QC_Reference_Phone","msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // f285ee909fa8bfde90ac430aa1796b5c
+   {"OnePlus 3",                "ONEPLUS A3003",    "OnePlus3",         "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 989386f781007d1c7df8e38bc5102f8f
    {"OnePlus 3",                "ONEPLUS A3000",    "OnePlus3",    "QC_Reference_Phone","msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // a5c032f2ec91ce3b634ca2f5e638206a
    {"XT1650",                   "XT1650",           "griffin_verizon",  "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // a57a4a67221822dd55aa800b87eda54d
 
@@ -404,6 +412,7 @@ std::vector<struct model> models = {
 
 // MT6737T
    {"R6",                       "R6",               "full_h910be_v11_p_yx_a10b_r6","",  "mt6737t",11, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // 0017400a2375f710e4e91ddbb80a9c91 - heap 11
+   {"Archos 50 Saphir",         "Archos 50 Saphir", "QCAC50SA",         "",             "mt6737t", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 78080a72de1407cc96a5ab2891172bd0 - xorred - heap 11 also avail
 
 // MT6752
    {"Sony Xperia C4",           "E5303",            "E5303",            "",             "mt6752",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi
@@ -413,10 +422,12 @@ std::vector<struct model> models = {
    {"Huawei GR3",               "HUAWEI TAG-L21",   "TAG-L21",          "TAG-L21",      "mt6753",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
    {"HTC Desire 830",   "HTC Desire 830 dual sim",  "a51cml_dtul_00401","",             "mt6753",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
 
+// MT6755
+   {"P9000",                    "P9000",            "Elephone",         "Elephone",     "mt6755",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // 667201998e44f38a2596eed5f8ee15df
+
 // MT6755M
    {"ZTE Nubia N1",             "NX541J",           "NX541J",           "mt6755",       "mt6755",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // f07831be5d61298aa0c67e5c39cbdc4b - xorred?
    {"Lenovo A7020a48",          "Lenovo A7020a48",  "k52_a48",          "",             "mt6755",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // b29602a4a311077454c4c66c8f128193
-
 
 // MT6795
 // {"Sony Xperia M5",           "E5603",            "E5603",            "",             "mt6795",  1, K( 64), 0x00000},
