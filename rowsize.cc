@@ -285,6 +285,7 @@ std::vector<struct model> models = {
 // Snapdragon 808 - MSM8992
    {"LG Nexus 5X",              "Nexus 5X",         "bullhead",         "bullhead",     "msm8992", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400}, // @home
    {"LG G4",                    "LG-H815",          "p1_global_com",    "msm8992",      "msm8992", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400}, // @home
+   {"LG-H815",                  "LG-H815",          "g4_global_com",    "MSM8992",      "msm8992", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400}, // @home
    {"LG G4",                    "LG-H810",          "p1_att_us",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // c6a3dcf2f512856ac6544122c9bad906
    {"LG G4 Dual",               "LG-H818",          "p1_global_com",    "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 72ab1933b12e57bcb618345297f86dbc
    {"LG V10",                   "LG-H960",          "pplus_global_com", "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
