@@ -6,39 +6,43 @@ device is vulnerable to the Rowhammer bug. It does **not** allow you to root
 your device.
 
 This code base contains our *native*, C/C++-based mobile Rowhammer
-test implementation. 
+test implementation. It is released un the [Apache 2.0
+license](https://github.com/vusec/drammer/blobl/master/LICENSE-2.0.txt).
 
-# Disclaimer 
-If, for some weird reason, you think running this code broke your device, you
-get to keep both pieces.
+# **Disclaimer**
+####**If, for some weird reason, you think running this code broke your device, you get to keep both pieces.**
 
 # Android GUI app
 If you don't want to build the test yourself, we also provide an
 [Android app](https://vvdveen.com/drammer/drammer.apk) as a GUI for the native 
-component that may or may not be currently available on the 
-[Google Play Store](https://play.google.com/store/apps/details?id=org.iseclab.drammer)
-depending on the store's policy.
+component. Due to Google policy on vulnerability scanning being harmful
+([related](http://www.androidpolice.com/2015/12/16/google-pulls-nowsecures-android-vulnerability-scanner-from-the-play-store/)
+it will _not_ be available in the Play Store. You _can_ find us in the [Amazon
+Appstore](https://www.amazon.com/dp/B01NB1JWEN).
+
 
 The app supports *relaxed* and *aggressive* hammering, which corresponds to the
-number of seconds to run 'defrag' (-d command line option described below): you
-can choose a timeout between 0 (no defrag) and 60 seconds, although higher
-timeouts likely cause the app to become unresponsive.
+number of seconds to run `defrag` (`-d` command line option described below): you
+can choose a timeout between 0 (no `defrag`) and 60 seconds, although **higher
+timeouts likely cause the app to become unresponsive**.
 
 The app optionally collects basic statistics on the type of device and test
 results so that we can gain insights into the number and type of vulnerable
 devices in the wild, so please consider sharing them for science.
 
 # Native installation
-To build the native binary, you need an Android NDK toolchain. I used
-android-ndk-r11c:
+To build the native binary, you need an Android NDK toolchain. We used
+`android-ndk-r11c`:
 
     wget https://dl.google.com/android/repository/android-ndk-r11c-linux-x86_64.zip
     unzip android-ndk-r11c-linux-x86_64.zip
     cd android-ndk-r11c
-    ./build/tools/make-standalone-toolchain.sh --ndk-dir=`pwd` \
-      --arch=arm --platform=android-24 \
-      --install-dir=./sysroot-arm/ \
-      --verbose
+    ./build/tools/make-standalone-toolchain.sh 
+        --ndk-dir=`pwd` \
+        --arch=arm 
+        --platform=android-24 \
+        --install-dir=./sysroot-arm/ \
+        --verbose
 
 You can then build the program setting `STANDALONE_TOOLCHAIN` variable to point
 to the toolchain:
@@ -47,8 +51,8 @@ to the toolchain:
 
 This gives you a stripped ARMv7 binary that you can run on both ARMv7 (32-bit)
 and ARMv8 (64-bit) devices. The Makefile provides an install feature that uses
-the Android Debug Bridge (adb) to push the binary to your device's
-/data/local/tmp/ directory. You can install adb by doing a `sudo apt-get install
+the Android Debug Bridge (`adb`) to push the binary to your device's
+`/data/local/tmp/` directory. You can install adb by doing a `sudo apt-get install
 android-tools-adb` (on Ubuntu) or by installing the Android SDK via
 [android.com](https://developer.android.com/studio/index.html#downloads). Then
 do a:
