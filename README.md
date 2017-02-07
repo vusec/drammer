@@ -16,7 +16,7 @@ license](https://github.com/vusec/drammer/blobl/master/LICENSE-2.0.txt).
 If you don't want to build the test yourself, we also provide an
 [Android app](https://vvdveen.com/drammer/drammer.apk) as a GUI for the native 
 component. Due to Google policy on vulnerability scanning being harmful
-([related](http://www.androidpolice.com/2015/12/16/google-pulls-nowsecures-android-vulnerability-scanner-from-the-play-store/)
+([related](http://www.androidpolice.com/2015/12/16/google-pulls-nowsecures-android-vulnerability-scanner-from-the-play-store/))
 it will _not_ be available in the Play Store. You _can_ find us in the [Amazon
 Appstore](https://www.amazon.com/dp/B01NB1JWEN).
 
