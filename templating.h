@@ -86,7 +86,7 @@ class Flip {
     public:
         Flip(struct ion_data *chunk, int index, uint8_t before, 
                                                 uint8_t after, Aggressor *a1, 
-                                                               Aggressor *a2);
+                                                               Aggressor *a2, bool cached);
         uintptr_t getVirt(void) { return f_virt; };
         uintptr_t getPhys(void) { return f_phys; };
         Aggressor *getA1(void) { return f_a1; };
@@ -106,6 +106,7 @@ class Flip {
         uint8_t f_after;
         uint8_t f_bits; // before ^ after
         uint64_t f_count; 
+        bool f_cached;
 };
 
 
@@ -125,6 +126,8 @@ class Chunk {
         uintptr_t getVirt(void) { return c_virt; };
         uintptr_t getPhys(void) { return c_phys; };
         void disable(void);
+
+        bool makeCached(void);
 
     private:
         void selectAggressors(void);
@@ -149,6 +152,7 @@ class Chunk {
         int c_rows_in_chunk;
         int c_id;
         size_t c_pairs_hammered;
+        bool c_cached;
 };
 
 

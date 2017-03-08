@@ -45,15 +45,19 @@ extern struct model device;
 /**********************************************
  * Core ION wrappers
  **********************************************/
-ion_user_handle_t ION_alloc(int len, int heap_id) {
+ion_user_handle_t ION_alloc(int len, int heap_id, bool cached) {
     struct ion_allocation_data allocation_data;
 
     if (heap_id == -1) 
         allocation_data.heap_id_mask = (0x1 << device.ion_heap);
     else 
         allocation_data.heap_id_mask = (0x1 << heap_id);
-    
-    allocation_data.flags = 0;
+   
+    if (cached) 
+        allocation_data.flags = ION_FLAG_CACHED;
+    else
+        allocation_data.flags = 0;
+
     allocation_data.align = 0;
     allocation_data.len = len;
     

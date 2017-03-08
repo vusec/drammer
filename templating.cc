@@ -161,7 +161,7 @@ int Aggressor::getBank(void) {
 /***************************************
  * CLASS Flip
  */
-Flip::Flip(struct ion_data *ion_chunk, int index, uint8_t before, uint8_t after, Aggressor *a1, Aggressor *a2) {
+Flip::Flip(struct ion_data *ion_chunk, int index, uint8_t before, uint8_t after, Aggressor *a1, Aggressor *a2, bool cached) {
     f_a1 = a1;
     f_a2 = a2;
     f_bits = before ^ after;
@@ -171,6 +171,7 @@ Flip::Flip(struct ion_data *ion_chunk, int index, uint8_t before, uint8_t after,
     
     f_virt = ion_chunk->virt + index;
     f_phys = ion_chunk->phys + index;
+    f_cached = cached;
 
 }
 
@@ -183,6 +184,8 @@ void Flip::dump(struct ion_data *ion_chunk, uint64_t count) {
             ion_chunk->virt, ion_chunk->phys, ion_chunk->len,
             f_a1->getVirt(), f_a1->getPhys(), f_a1->getAccesses(),
             f_a2->getVirt(), f_a2->getPhys(), f_a1->getAccesses());
+    if (f_cached) 
+        lprint("      \\------- with DC CIVAC\n");
 }
 
 int Flip::compare(Flip *f) {
@@ -205,6 +208,7 @@ Chunk::Chunk(struct ion_data *ion_chunk, int id) {
     c_rounds_completed = 0;
     c_id = id;
     c_pairs_hammered = 0;
+    c_cached = false;
 
     selectAggressors();
     
@@ -228,6 +232,36 @@ void Chunk::disable(void) {
             delete(a2);
         }
     }
+}
+
+bool Chunk::makeCached(void) {
+    ION_clean(c_ion_chunk);
+        
+    c_ion_chunk->handle = ION_alloc(c_len, device.ion_heap, true);
+    if (c_ion_chunk->handle == 0) {
+        lprint("Unable to allocate ION chunk of size %d, despite having just released one. Disabling this chunk");
+        disable();
+        return false;
+    }
+    c_ion_chunk->len = c_len;
+    if (ION_mmap(c_ion_chunk) != 0) {
+        lprint("Unable to mmap. Disabling this chunk");
+        disable();
+        return false;
+    }
+    
+    c_virt = c_ion_chunk->virt;
+    c_phys = c_ion_chunk->phys;
+    c_cached = true;
+
+    selectAggressors();
+    
+    lprint("[Chunk %3d is now cached] %4dKB @ %10p (phys: %10p) | pairs: %5zu\n", c_id, c_len / 1024, 
+            (void *) c_ion_chunk->virt, 
+            (void *) c_ion_chunk->phys,
+            getHammerPairs());
+
+    return true;
 }
 
 size_t Chunk::getHammerPairs(void) {
@@ -254,7 +288,7 @@ int Chunk::collectFlips(void *org, Aggressor *a1, Aggressor *a2) {
     int flips = 0;
     for (int i = 0; i < c_len; i++) {
         if (before[i] != after[i]) {
-            Flip *flip = new Flip(c_ion_chunk, i, before[i], after[i], a1, a2);
+            Flip *flip = new Flip(c_ion_chunk, i, before[i], after[i], a1, a2, c_cached);
             
             int count = 1;    
             for (auto f: c_flips) {
@@ -472,7 +506,7 @@ void Chunk::doHammer(std::vector<PatternCollection *> &patterns, int accesses) {
                 deltas.push_back(49);
 #else
                 int delta = hammer((volatile uint8_t *)a1->getVirt(),
-                                   (volatile uint8_t *)a2->getVirt(), accesses, false);
+                                   (volatile uint8_t *)a2->getVirt(), accesses, false, c_cached);
                 deltas.push_back(delta);
 #endif
                 c_pairs_hammered++;
@@ -484,7 +518,7 @@ void Chunk::doHammer(std::vector<PatternCollection *> &patterns, int accesses) {
                     collectFlips(org, a1, a2);
 
             }
-            printf("%llu ", compute_median(deltas));
+            lprint("%llu ", compute_median(deltas));
             need_newline = true;
 
             if (times_up || oom) break;
@@ -674,6 +708,22 @@ void Memory::doHammer(std::vector<PatternCollection *> &patterns, int timer, int
                     pairs_hammered_round, flips_round, uflips_round,
                     pairs_hammered_total, flips_total, uflips_total);
             lprint("\n");
+
+#ifdef ARMV8
+            if (flips_chunk_round > 0) {
+                lprint("[%4lu] Found bit flips on a ARMv8 device using DMA.\n",
+                        time(NULL) - start_time);
+                bool cached = chunk->makeCached();
+                if (cached) {
+                    lprint("[%4lu] Hammering chunk %d/%d virt %p phys %p len %d with explicit cache flush\n",
+                            time(NULL) - start_time,
+                            chunk->getId(), m_chunks.size(),
+                            chunk->getVirt(), chunk->getPhys(), chunk->getSize());
+                    chunk->doHammer(patterns, accesses);
+                }
+            }
+#endif
+
 
             // TODO check for OOM-killer and if so, remove one of the largest chunks
             if (oom) {

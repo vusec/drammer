@@ -1779,6 +1779,16 @@ void dump_hardware(struct model *m) {
     lprint("[RS] Output of ls -l /proc/self/pagemap:\n");
     lprint("%s",run("/system/bin/ls -l /proc/self/pagemap").c_str());
 
+    lprint("[RS] Output of ls -l /sys/kernel/debug/ion/heaps:\n");
+    lprint("%s",run("/system/bin/ls -l /sys/kernel/debug/ion/heaps").c_str());
+
+// for qcom
+//    ls -l /proc/device-tree/soc/qcom,ion/:
+//    find /proc/device-tree/soc/qcom,ion/ -name *heap-type* -exec echo {} \; -exec cat {} \;
+
+// for hisilicon
+//    ls -l /proc/device-tree/hisi,ion/
+
     lprint("[RS] Testing whether we can use pagemap for normal pages:\n");
     m->pagemap = 0x0;
     void *tmap = mmap(NULL, 4096, PROT_READ | PROT_WRITE | PROT_EXEC,

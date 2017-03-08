@@ -124,19 +124,32 @@ static inline uint64_t get_mem_size() {
 }
 
 
-static inline int hammer(volatile uint8_t *p1, volatile uint8_t *p2, int count, bool fence) {
+static inline int hammer(volatile uint8_t *p1, volatile uint8_t *p2, int count, bool fence, bool cached = false) {
     uint64_t t1, t2;
 
     asm volatile("dsb ish;");
     asm volatile("isb;");
 
     if (fence == FENCING_NONE) {
-        t1 = get_ns();
-        for (int i = 0; i < count; i++) {
-            *p1;
-            *p2;
+        if (cached) {
+            t1 = get_ns();
+            for (int i = 0; i < count; i++) {
+                *p1;
+                *p2;
+#ifdef ARMV8
+                asm volatile ("dc civac, %0" :: "r"(p1));
+                asm volatile ("dc civac, %0" :: "r"(p2));
+#endif
+            }
+            t2 = get_ns();
+        } else {
+            t1 = get_ns();
+            for (int i = 0; i < count; i++) {
+                *p1;
+                *p2;
+            }
+            t2 = get_ns();
         }
-        t2 = get_ns();
     } else if (fence == FENCING_ONCE) {
         t1 = get_ns();
         for (int i = 0; i < count; i++) {

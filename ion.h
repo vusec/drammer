@@ -37,7 +37,7 @@ struct ion_data {
 
 
 
-ion_user_handle_t ION_alloc(int len, int heap_id = -1);
+ion_user_handle_t ION_alloc(int len, int heap_id = -1, bool cached = false);
 int  ION_share(ion_user_handle_t handle); 
 int  ION_free (ion_user_handle_t handle);
 
