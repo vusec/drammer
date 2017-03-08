@@ -1782,12 +1782,12 @@ void dump_hardware(struct model *m) {
     lprint("[RS] Output of ls -l /sys/kernel/debug/ion/heaps:\n");
     lprint("%s",run("/system/bin/ls -l /sys/kernel/debug/ion/heaps").c_str());
 
-// for qcom
-//    ls -l /proc/device-tree/soc/qcom,ion/:
+    lprint("[RS] Output of ls -l /proc/device-tree/soc/qcom,ion/:\n");
+    lprint("%s",run("/system/bin/ls -l /proc/device-tree/soc/qcom,ion/").c_str());
 //    find /proc/device-tree/soc/qcom,ion/ -name *heap-type* -exec echo {} \; -exec cat {} \;
 
-// for hisilicon
-//    ls -l /proc/device-tree/hisi,ion/
+    lprint("[RS] Output of ls -l /proc/dvice-tree/hisi,ion/:\n");
+    lprint("%s",run("/system/bin/ls -l /proc/device-tree/hisi,ion/").c_str());
 
     lprint("[RS] Testing whether we can use pagemap for normal pages:\n");
     m->pagemap = 0x0;
@@ -1883,7 +1883,7 @@ void dump_settings(struct model *m) {
     }
 
     lprint("[RS] Database entry:\n");
-    lprint("{\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%d,K(%d),%x,%x,%x,%x}\n",
+    lprint("{\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%3d,K(%3d),0x%04x,0x%04x,0x%04x,0x%03x}\n",
             m->model.c_str(),       // generic name - nothing better than just the model...
             m->model.c_str(),       // ro.product.model
             m->name.c_str(),        // ro.product.name
