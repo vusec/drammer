@@ -1,2 +1,4 @@
 *.o
+*.o64
 rh-test
+rh-test64
