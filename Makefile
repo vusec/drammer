@@ -14,28 +14,44 @@
  # limitations under the License.
  ## 
 
-STANDALONE_TOOLCHAIN ?= $(HOME)/src/android-ndk-r11c/sysroot-arm/bin
+STANDALONE_TOOLCHAIN   ?= $(HOME)/src/android-ndk-r11c/sysroot-arm/bin
+STANDALONE_TOOLCHAIN64 ?= $(HOME)/src/android-ndk-r11c/sysroot-arm64/bin
 
-CC    = $(STANDALONE_TOOLCHAIN)/arm-linux-androideabi-gcc
-CXX   = $(STANDALONE_TOOLCHAIN)/arm-linux-androideabi-g++
-CPP   = $(STANDALONE_TOOLCHAIN)/arm-linux-androideabi-g++
-STRIP = $(STANDALONE_TOOLCHAIN)/arm-linux-androideabi-strip
+
+CC       = $(STANDALONE_TOOLCHAIN)/arm-linux-androideabi-gcc
+CXX      = $(STANDALONE_TOOLCHAIN)/arm-linux-androideabi-g++
+CPP      = $(STANDALONE_TOOLCHAIN)/arm-linux-androideabi-g++
+STRIP    = $(STANDALONE_TOOLCHAIN)/arm-linux-androideabi-strip
+
+CC_64    = $(STANDALONE_TOOLCHAIN64)/aarch64-linux-android-gcc
+CXX_64   = $(STANDALONE_TOOLCHAIN64)/aarch64-linux-android-g++
+CPP_64   = $(STANDALONE_TOOLCHAIN64)/aarch64-linux-android-g++
+STRIP_64 = $(STANDALONE_TOOLCHAIN64)/aarch64-linux-android-strip
 
 CPPFLAGS = -std=c++11 -O3 -Wall -march=armv7-a
 LDFLAGS  = -pthread -static
 INCLUDES = -I$(PWD)/../include
 
+CPPFLAGS_64 = -std=c++11 -O3 -Wall -DARMV8
+
 TMPDIR  = /data/local/tmp/
 TARGET ?= rh-test
 
-all: $(TARGET)
+all: $(TARGET) rh-test64
 
 rh-test: rh-test.o ion.o rowsize.o templating.o massage.o logger.o helper.h
 	$(CPP) $(CPPFLAGS) -o $@ $^ $(LDFLAGS)
 	$(STRIP) $@
 
+rh-test64: rh-test.o64 ion.o64 rowsize.o64 templating.o64 massage.o64 logger.o64 helper.h
+	$(CPP_64) $(CPPFLAGS_64) -o $@ $^ $(LDFLAGS)
+	$(STRIP_64) $@
+
 %.o: %.cc
 	$(CPP) $(CPPFLAGS) $(INCLUDES) -c -o $@ $<
+
+%.o64: %.cc
+	$(CPP_64) $(CPPFLAGS_64) $(INCLUDES) -c -o $@ $<
 
 install:
 	make all
@@ -43,7 +59,7 @@ install:
 	adb shell chmod 755 $(TMPDIR)$(TARGET)
 
 clean:
-	rm -f $(TARGET) *.o a.out
+	rm -f $(TARGET) rh-test64 *.o *.o64 a.out
 
 upload:
 	scp rh-test vvdveen.com:/home/vvdveen/www/drammer/rh-test
