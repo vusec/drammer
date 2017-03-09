@@ -67,6 +67,29 @@ int ionExhaust(std::vector<struct ion_data *> &chunks, int min_bytes, int heap_i
     return total_kb;
 }
 
+int ionExhaustSys(std::vector<struct ion_data *> &chunks, int heap_id, bool mmap) {
+   
+    int avail_kb = get_MemAvailable();
+	lprint("[EXHAUSTsys] MemAvailable: %d\n", avail_kb);
+
+    if (avail_kb / 1024 > 100)
+        avail_kb = 100*1024;
+
+    // allocate 50% of available memory
+    int max_chunks = (.5 * avail_kb) / ORDER_TO_KB(MAX_ORDER);
+
+	lprint("[EXHAUSTsys] Trying to allocate %d*%dMB = %dMB\n", 
+				max_chunks, ORDER_TO_MB(MAX_ORDER), max_chunks * ORDER_TO_MB(MAX_ORDER));
+
+    int count = ION_bulk(ORDER_TO_B(MAX_ORDER), chunks, heap_id, max_chunks, mmap);
+    int total_kb = ORDER_TO_KB(MAX_ORDER) * count;
+    
+    lprint("[EXHAUSTsys] got %d chunks: %dKB (%dMB)\n", count, total_kb, total_kb / 1024);
+
+    return total_kb;
+}
+
+
 
 
 

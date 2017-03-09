@@ -46,6 +46,7 @@ struct model device;
 
 Logger *logger;
 
+extern int BS_PERMUTATION_STEP;
 
 
 void usage(char *main_program) {
@@ -199,8 +200,39 @@ int main(int argc, char *argv[]) {
     else
         patterns = {&p100, &prrr};
 
+    /* During rowsize-detection, we already fallback to using the non-contiguous system heap approach if no
+     * reasonable ION contiguous heap was found. I'd like to do this always for a small number of devices. */
+    if (device.board == "universal7420" || device.board == "universal7580" || device.board == "universal8890") {
+        lprint("Exynos chipset detected, falling back to system heap with id %d\n", SYSTEM_HEAP_EXYNOS);
+        device.use_contig_heap = false;
+        device.ion_heap = SYSTEM_HEAP_EXYNOS;
+    }
+
+    if (device.platform == "msm8996" && (device.board == "sailfish" || device.board == "marlin")) { 
+        lprint("Pixel detected, falling back to system heap id %d\n", SYSTEM_HEAP_MSM);
+        device.use_contig_heap = false;
+        device.ion_heap = SYSTEM_HEAP_MSM;
+    }
+
+    if (device.platform == "hi3650") {
+        lprint("HiSilicon chipset detected, falling back to system heap with id %d\n", SYSTEM_HEAP_HI);
+        device.use_contig_heap = false;
+        device.ion_heap = SYSTEM_HEAP_HI;
+    }
+
     /*** TEMPLATE */
     lprint("[MAIN] Start templating\n");
-    TMPL_run(patterns, timer, hammer_readcount, rounds);
+    if (device.use_contig_heap) {
+        TMPL_run(patterns, timer, hammer_readcount, rounds);
+    } else {
+        for (device.rowsize = K(64); device.rowsize <= K(256); device.rowsize = device.rowsize * 2) {
+            // omit the permutation between rows to speed-up analysis
+            BS_PERMUTATION_STEP = device.rowsize;
+
+            lprint("[MAIN] - with non-contiguous heap, rowsize %d\n", device.rowsize);
+            TMPL_run(patterns, timer, hammer_readcount, rounds);
+        }
+    }
+
     lprint("[MAIN] Done\n");
 }

@@ -36,8 +36,9 @@ CPPFLAGS_64 = -std=c++11 -O3 -Wall -DARMV8
 
 TMPDIR  = /data/local/tmp/
 TARGET ?= rh-test
+TARGET64 ?= rh-test64
 
-all: $(TARGET) rh-test64
+all: $(TARGET) $(TARGET64)
 
 rh-test: rh-test.o ion.o rowsize.o templating.o massage.o logger.o helper.h
 	$(CPP) $(CPPFLAGS) -o $@ $^ $(LDFLAGS)
@@ -58,8 +59,13 @@ install:
 	adb push $(TARGET) $(TMPDIR)
 	adb shell chmod 755 $(TMPDIR)$(TARGET)
 
+install64:
+	make all
+	adb push $(TARGET64) $(TMPDIR)
+	adb shell chmod 755 $(TMPDIR)$(TARGET)
+
 clean:
-	rm -f $(TARGET) rh-test64 *.o *.o64 a.out
+	rm -f $(TARGET) $(TARGET64) *.o *.o64 a.out
 
 upload:
 	scp rh-test vvdveen.com:/home/vvdveen/www/drammer/rh-test

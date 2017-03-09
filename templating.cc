@@ -32,7 +32,7 @@
 #define BS_BANK_SELECT_BITS 0
 #define BS_TRESHOLD 1
 #define BS_PERMUTATION 2
-#define BS_PERMUTATION_STEP 4096
+int BS_PERMUTATION_STEP = K(4);
 
 
 #define BANK_SELECTION BS_PERMUTATION
@@ -253,6 +253,17 @@ bool Chunk::makeCached(void) {
     c_virt = c_ion_chunk->virt;
     c_phys = c_ion_chunk->phys;
     c_cached = true;
+    
+    // remove existing aggressors before generating new sets
+    for (auto it: c_aggressors) {
+        Aggressor *a1 = it.first;
+        std::vector<Aggressor *> a2s = it.second;
+
+        delete(a1);
+        for (auto a2: a2s) {
+            delete(a2);
+        }
+    }
 
     selectAggressors();
     
@@ -477,10 +488,10 @@ void Chunk::doHammer(std::vector<PatternCollection *> &patterns, int accesses) {
             last_row = a1->getRowInChunk();
            
             if (need_newline) 
-            printf("\n");
+            lprint("\n");
             lprint("[+%4lu] - a1 row %2d/%2d (phys %d): ", 
                     time(NULL) - start_time, a1->getRowInChunk()+1, c_rows_in_chunk, a1->getPhysRow());
-            logger->fprint("\n");
+            //logger->fprint("\n");
 
         }
 
@@ -526,7 +537,7 @@ void Chunk::doHammer(std::vector<PatternCollection *> &patterns, int accesses) {
 
         if (times_up || oom) break;
     }
-    printf("\n");
+    lprint("\n");
 
     c_rounds_completed++;
 }
@@ -550,8 +561,14 @@ Chunk::~Chunk(void) {
 Memory::Memory() {
 }
 
+
+
 void Memory::exhaust(void) {
-    m_kb = ionExhaust(m_ion_chunks, device.rowsize * 4, device.ion_heap);
+    if (device.use_contig_heap) 
+        m_kb = ionExhaust(m_ion_chunks, device.rowsize * 4, device.ion_heap);
+    else 
+        m_kb = ionExhaustSys(m_ion_chunks, device.ion_heap);
+
     m_pairs = 0;
     int id = 1;
     for (auto ion_chunk: m_ion_chunks) {

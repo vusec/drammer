@@ -20,5 +20,6 @@
 
 int defrag(int alloc_timer, int heap_id);
 int ionExhaust(std::vector<struct ion_data *> &chunks, int min_bytes, int heap_id, bool mmap = true);
+int ionExhaustSys(std::vector<struct ion_data *> &chunks, int heap_id, bool mmap = true); 
 
 #endif

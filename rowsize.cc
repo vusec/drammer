@@ -824,8 +824,15 @@ std::vector<int> ION_autodetect(std::string platform) {
             }
         }
         if (!found) {
-            lprint("[ION] This id likely won't work, pushing it to the end of the list\n");
-            possible_heaps.push_back(id);
+
+            if (possible_heaps.size() == 0) {
+                lprint("[ION] Only one candidate for contiguous heap that was not auto-detected\n");
+                lprint("[ION] This probably means that the contiguous heap was disabled\n");
+                // not adding anything here so that we'll return an empty vector
+            } else {
+                lprint("[ION] This id likely won't work, pushing it to the end of the list\n");
+                possible_heaps.push_back(id);
+            }
         }
     }
 
@@ -1934,6 +1941,7 @@ void BankConflicts::getModel(int force_autodetect, struct model *m) {
     m->cpus = -1;
     m->slowest_cpu = -1;
     m->fastest_cpu = -1;
+    m->use_contig_heap = true;
 
     lprint("[BC] Collecting CPU info\n");
     m->cpus = getcpus(&m->slowest_cpu, &m->fastest_cpu);
@@ -1970,7 +1978,6 @@ void BankConflicts::getModel(int force_autodetect, struct model *m) {
 
     lprint("[BC] ION init: generating a list of possible ION system-contig heaps\n");
     std::vector<int> heap_ids = ION_autodetect(m->platform);
-
     
     struct sigaction new_action, old_USR1;
     new_action.sa_handler = usr1_handler;
@@ -2012,7 +2019,20 @@ void BankConflicts::getModel(int force_autodetect, struct model *m) {
 
     lprint("[BC] Autodetection failed - falling back\n");
     MergeModel(m, &db_model);
-    m->ion_heap = heap_ids[0];
+    if (!heap_ids.size()) {
+        lprint("[BC] No candidates for contiguous heap, trying the system heap\n");
+        m->use_contig_heap = false;
+        // this is not safe
+               if (m->board.find("msm") != std::string::npos) {
+            m->ion_heap = SYSTEM_HEAP_MSM;
+        } else if (m->board.find("universal") != std::string::npos) {
+            m->ion_heap = SYSTEM_HEAP_EXYNOS;
+        } else {
+            m->ion_heap = 0;
+        }
+    } else {
+        m->ion_heap = heap_ids[0];
+    }
     m->ba2 = 0x0000;
     m->ba1 = 0x0000;
     m->ba0 = 0x0000;

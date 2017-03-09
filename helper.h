@@ -311,4 +311,32 @@ static inline void unblock_signals(void) {
     err = sigprocmask(SIG_UNBLOCK, &sigset, NULL); 
     if (err != 0) perror("sigprocmask");
 }    
+
+static std::ifstream meminfo("/proc/meminfo");
+
+static inline size_t read_meminfo(std::string type) {
+    meminfo.clear();
+    meminfo.seekg(0, std::ios::beg);
+    for (std::string line; getline(meminfo, line); ) {
+        if (line.find(type) != std::string::npos) {
+            std::string kb = line.substr( line.find(':') + 1, line.length() - type.length() - 3 );
+            return std::atoi(kb.c_str());
+        }
+    }
+    return 0;
+}
+static inline size_t get_MemTotal(void) { return read_meminfo("MemTotal"); }
+static inline size_t get_MemAvailable(void) { return read_meminfo("MemAvailable"); }
+static inline size_t get_MemFree(void) { return read_meminfo("MemFree"); }
+static inline size_t get_Buffers(void) { return read_meminfo("Buffers"); }
+static inline size_t get_Cached(void) { return read_meminfo("Cached"); }
+static inline size_t get_Active(void) { return read_meminfo("Active"); }
+static inline size_t get_Inactive(void) { return read_meminfo("Inactive"); }
+static inline size_t get_Slab(void) { return read_meminfo("Slab"); }
+static inline size_t get_SReclaimable(void) { return read_meminfo("SReclaimable"); }
+static inline size_t get_SUnreclaim(void) { return read_meminfo("SUnreclaim"); }
+
+
+
+
 #endif // __HELPER_H__

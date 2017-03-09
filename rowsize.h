@@ -26,6 +26,11 @@ const std::set<int> VALID_ROWSIZES = {K(16), K(32), K(64), K(128), K(256)};
 #define PAGES_PER_ROW (rowsize / PAGESIZE)
 #define MAX_ROWSIZE K(256)
 
+
+#define SYSTEM_HEAP_EXYNOS 0
+#define SYSTEM_HEAP_HI  0
+#define SYSTEM_HEAP_MSM 25
+
 int RS_autodetect(int force_autodetect, struct model *our_model); 
 
 struct model {
@@ -63,6 +68,7 @@ struct model {
 #define PAGEMAP_NORMAL      0x01
 #define PAGEMAP_ION_START   0x02
 #define PAGEMAP_ION_MIDDLE  0x04
+    bool use_contig_heap;
 };
 
 struct chipset {
