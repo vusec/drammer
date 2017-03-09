@@ -241,7 +241,7 @@ bool Chunk::makeCached(void) {
     lprint("Allocating cached ION chunk of size %d, on heap %d\n", c_len, device.ion_heap);
     c_ion_chunk->handle = ION_alloc(c_len, device.ion_heap, true);
     if (c_ion_chunk->handle == 0) {
-        lprint("Unable to allocate ION chunk of size %d, despite having just released one. Disabling this chunk\n", c_len);
+        lprint("Could not allocate chunk of size %d: %s\n", c_len, strerror(errno));
         disable();
         return false;
     }
@@ -733,8 +733,7 @@ void Memory::doHammer(std::vector<PatternCollection *> &patterns, int timer, int
             if (flips_chunk_round > 0) {
                 lprint("[%4lu] Found bit flips on a ARMv8 device using DMA.\n",
                         time(NULL) - start_time);
-                bool cached = chunk->makeCached();
-                if (cached) {
+                if (chunk->makeCached()) {
                     lprint("[%4lu] Hammering chunk %d/%d virt %p phys %p len %d with explicit cache flush\n",
                             time(NULL) - start_time,
                             chunk->getId(), m_chunks.size(),
