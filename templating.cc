@@ -232,20 +232,22 @@ void Chunk::disable(void) {
             delete(a2);
         }
     }
+    c_aggressors.clear();
 }
 
 bool Chunk::makeCached(void) {
     ION_clean(c_ion_chunk);
-        
+   
+    lprint("Allocating cached ION chunk of size %d, on heap %d\n", c_len, device.ion_heap);
     c_ion_chunk->handle = ION_alloc(c_len, device.ion_heap, true);
     if (c_ion_chunk->handle == 0) {
-        lprint("Unable to allocate ION chunk of size %d, despite having just released one. Disabling this chunk");
+        lprint("Unable to allocate ION chunk of size %d, despite having just released one. Disabling this chunk\n", c_len);
         disable();
         return false;
     }
     c_ion_chunk->len = c_len;
     if (ION_mmap(c_ion_chunk) != 0) {
-        lprint("Unable to mmap. Disabling this chunk");
+        lprint("Unable to mmap. Disabling this chunk\n");
         disable();
         return false;
     }
@@ -264,6 +266,7 @@ bool Chunk::makeCached(void) {
             delete(a2);
         }
     }
+    c_aggressors.clear();
 
     selectAggressors();
     

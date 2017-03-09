@@ -200,9 +200,12 @@ int main(int argc, char *argv[]) {
     else
         patterns = {&p100, &prrr};
 
-    /* During rowsize-detection, we already fallback to using the non-contiguous system heap approach if no
-     * reasonable ION contiguous heap was found. I'd like to do this always for a small number of devices. */
-    if (device.board == "universal7420" || device.board == "universal7580" || device.board == "universal8890") {
+    /* During rowsize-detection, we already fallback to using the non-contiguous
+     * system heap approach if no reasonable ION contiguous heap was found. I'd
+     * like to do this always for a small number of devices. */
+    if (device.board == "universal7420" || 
+        device.board == "universal7580" || 
+        device.board == "universal8890") {
         lprint("Exynos chipset detected, falling back to system heap with id %d\n", SYSTEM_HEAP_EXYNOS);
         device.use_contig_heap = false;
         device.ion_heap = SYSTEM_HEAP_EXYNOS;
@@ -214,11 +217,12 @@ int main(int argc, char *argv[]) {
         device.ion_heap = SYSTEM_HEAP_MSM;
     }
 
-    if (device.platform == "hi3650") {
-        lprint("HiSilicon chipset detected, falling back to system heap with id %d\n", SYSTEM_HEAP_HI);
+    if (device.platform == "hi3650" && device.board == "EVA" && device.model == "EVA-L09") {
+        lprint("P9 detected, falling back to system heap id %d\n", SYSTEM_HEAP_HI);
         device.use_contig_heap = false;
         device.ion_heap = SYSTEM_HEAP_HI;
     }
+
 
     /*** TEMPLATE */
     lprint("[MAIN] Start templating\n");
