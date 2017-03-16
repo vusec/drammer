@@ -173,175 +173,188 @@ std::vector<struct model> models = {
 //  generic name                ro.product.model    ro.product.name     board           platform   ion rowsize    ba2     ba1     ba0   rank
 
 // Snapdragon 200 - MSM8610
-   {"7040N",                    "7040N",            "7040N",            "MSM8212",      "msm8610", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // f404355b91c5e3b30c9b976b92075095
-   {"N817",                     "N817",             "ZTE_WELLINGTON",   "wellington",   "msm8610", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 395eb2d2d7cf07ffb5d8ef94def2ebca
+   {"7040N",                    "7040N",            "7040N",            "MSM8212",      "msm8610", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // f404355b91c5e3b30c9b976b92075095
+   {"N817",                     "N817",             "ZTE_WELLINGTON",   "wellington",   "msm8610", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 395eb2d2d7cf07ffb5d8ef94def2ebca
+   {"XT1021",                   "XT1021",           "condor_cricket",   "MSM8610",      "msm8610", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 01e7b45b5fe45fc1790b3b048136f695
+
 
 // Snadragon 210 - MSM8909:
-   {"HTC Desire 530",           "HTC Desire 530",   "a16ul_00401",      "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
-   {"LG Treasure LTE",          "LGL52VL",          "m1_trf_us_vzw",    "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 54cc73c06e1be0d13d544d6f2f17efcb
-   {"LG Optimus Zone 3",        "VS425PP",          "e1q_vzw",          "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 4f3426e7b286d13e9b2598b34fcbc43b
-   {"LG X Power",               "LG-K210",          "k6p_global_ca",    "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // eb1c37e6ac2d0554518a2ee65b576318
-   {"LG Tribute 5",             "LGLS675",          "m1_spr_us",        "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // e861e390c8e8f607c4784d3a0954b113
-   {"LG Tribute HD",            "LGLS676",          "k6b_spr_us",       "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 4b421cfcb5801a73e3cd166a38935bbd
-   {"LGL56VL",                  "LGL56VL",          "k6b_trf_us_vzw",   "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // a9e0a4c90ff2be6b0b936c41168058c3 - failed but close
-   {"LG K10",                   "LGMS428",          "m209n_mpcs_us",    "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // e304b1c770aa688b253c33e4798bb2b4
-   {"ZTE Z815",                 "Z815",             "Z815",             "sheen",        "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 3d27c89335bd5a133b6916a5ccdaa4f5
-   {"ZTE Blade A310",           "Blade A310",       "P809A50_CO_CLA",   "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 0f5fb3fac6e602e92c7f9c207b4e9f62
-   {"Alcatel Pixi Avion",       "A571VL",           "A571VL",           "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // b0b04075873ef6cc9ceba4bb41d33875
-   {"KYOCERA-C6742",            "KYOCERA-C6742",    "C6742",            "C6742",        "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 32ca7a3034f12bb895cfdbfb10d194a2 - failed but close
-   {"5056N",                    "5056N",            "5056N",            "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 39777030a088e0c84a7bdea27dff64b9
-   {"S40",                      "S40",              "CatS40",           "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 6a333c8a5672524ea3d65e3ff40831c9
-   {"C6743",                    "C6743",            "C6743",            "C6743",        "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // c8e6f1d677a2863b207d73ad3d4b62ab
-   {"Z353VL",                   "Z353VL",           "Z353VL",           "oldman",       "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // f591de651bef289d01a12bd2e96e03ae - failed but close
-   {"Z832",                     "Z832",             "Z832",             "mimir",        "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 494cf809f1dada3b5f7eac27ed6e86ef
-   {"5056W",                    "5056W",            "5056W",            "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 8a6d8782b9acac9b0871df62dfbb4f60
-   {"LG-K371",                  "LG-K371",          "m1v_att_us",       "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 85817d9d31a8428ad68b477bdd582121
+   {"HTC Desire 530",           "HTC Desire 530",   "a16ul_00401",      "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // @nfi
+   {"LG Treasure LTE",          "LGL52VL",          "m1_trf_us_vzw",    "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 54cc73c06e1be0d13d544d6f2f17efcb
+   {"LG Optimus Zone 3",        "VS425PP",          "e1q_vzw",          "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 4f3426e7b286d13e9b2598b34fcbc43b
+   {"LG X Power",               "LG-K210",          "k6p_global_ca",    "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // eb1c37e6ac2d0554518a2ee65b576318
+   {"LG Tribute 5",             "LGLS675",          "m1_spr_us",        "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // e861e390c8e8f607c4784d3a0954b113
+   {"LG Tribute HD",            "LGLS676",          "k6b_spr_us",       "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 4b421cfcb5801a73e3cd166a38935bbd
+   {"LGL56VL",                  "LGL56VL",          "k6b_trf_us_vzw",   "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // a9e0a4c90ff2be6b0b936c41168058c3 - failed but close
+   {"LG K10",                   "LGMS428",          "m209n_mpcs_us",    "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // e304b1c770aa688b253c33e4798bb2b4
+   {"ZTE Z815",                 "Z815",             "Z815",             "sheen",        "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 3d27c89335bd5a133b6916a5ccdaa4f5
+   {"ZTE Blade A310",           "Blade A310",       "P809A50_CO_CLA",   "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 0f5fb3fac6e602e92c7f9c207b4e9f62
+   {"Alcatel Pixi Avion",       "A571VL",           "A571VL",           "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // b0b04075873ef6cc9ceba4bb41d33875
+   {"KYOCERA-C6742",            "KYOCERA-C6742",    "C6742",            "C6742",        "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 32ca7a3034f12bb895cfdbfb10d194a2 - failed but close
+   {"5056N",                    "5056N",            "5056N",            "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 39777030a088e0c84a7bdea27dff64b9
+   {"S40",                      "S40",              "CatS40",           "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 6a333c8a5672524ea3d65e3ff40831c9
+   {"C6743",                    "C6743",            "C6743",            "C6743",        "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // c8e6f1d677a2863b207d73ad3d4b62ab
+   {"Z353VL",                   "Z353VL",           "Z353VL",           "oldman",       "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // f591de651bef289d01a12bd2e96e03ae - failed but close
+   {"Z832",                     "Z832",             "Z832",             "mimir",        "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 494cf809f1dada3b5f7eac27ed6e86ef
+   {"5056W",                    "5056W",            "5056W",            "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 8a6d8782b9acac9b0871df62dfbb4f60
+   {"LG-K371",                  "LG-K371",          "m1v_att_us",       "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 85817d9d31a8428ad68b477bdd582121
+   {"HTCD100LVW",               "HTCD100LVW",       "HTCDesire526vzw",  "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // ff8f7f1c4cd82c55ddd9795666432428
+   {"LGLS450",                  "LGLS450",          "me0_spr_us",       "msm8909",      "msm8909", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 51b188c8039312bcc35a6416245427f9
 
    
 
 // Snapdragon 400 - MSM8226:                                                                                    
-   {"Motorola Moto G 1st Gen",  "XT1028",           "falcon_verizon",   "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 428b0da2cf26567c2b28154c63a1e250
-   {"XT1031",                   "XT1031",           "falcon_boost",     "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 45585e8698a4fa4bdeaf6b3be9629f40
-   {"Motorola Moto G 1st Gen",  "XT1032",           "falcon_reteu",     "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, // @home
-   {"Motorola Moto G 2nd Gen",  "XT1064",           "titan_retuaws",    "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, // @sb
-// {"XT1068",                   "XT1068",           "titan_retaildsds", "MSM8226",      "msm8226", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 4187f9bdbad3c4fdd863d2ff51a3d6bb - should be 32K
-   {"Samsung Galaxy S3 Neo",    "GT-I9301I",        "s3ve3gxx",         "MSM8226",      "msm8226", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 9aa8b754889c6c3d78eba2114b272046 - FLIPS
-   {"LGLS740",                  "LGLS740",          "x5_spr_us",        "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 396b97408c3d13febc2c4fbe0499ca87
-// {"Motorola Moto G 2nd Gen",  "XT1068",           "titan_retaildsds", "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000},
+   {"Motorola Moto G 1st Gen",  "XT1028",           "falcon_verizon",   "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 428b0da2cf26567c2b28154c63a1e250
+   {"XT1031",                   "XT1031",           "falcon_boost",     "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 45585e8698a4fa4bdeaf6b3be9629f40
+   {"Motorola Moto G 1st Gen",  "XT1032",           "falcon_reteu",     "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000, true}, // @home
+   {"Motorola Moto G 2nd Gen",  "XT1064",           "titan_retuaws",    "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000, true}, // @sb
+// {"XT1068",                   "XT1068",           "titan_retaildsds", "MSM8226",      "msm8226", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 4187f9bdbad3c4fdd863d2ff51a3d6bb - should be 32K
+   {"Samsung Galaxy S3 Neo",    "GT-I9301I",        "s3ve3gxx",         "MSM8226",      "msm8226", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 9aa8b754889c6c3d78eba2114b272046 - FLIPS
+   {"0PCV1",                    "0PCV1",            "sprint_wwe_vm",    "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 9a13971c76b47d3465e5da2e1908e61e
+   {"LGLS740",                  "LGLS740",          "x5_spr_us",        "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 396b97408c3d13febc2c4fbe0499ca87
+// {"Motorola Moto G 2nd Gen",  "XT1068",           "titan_retaildsds", "MSM8226",      "msm8226", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000, true},
 
 // {"LG G Pad 7.0",             "LG-V410",          "e7lte_att_us",     "MSM8226",      "msm8226", 21, K(  0), 0x0000},
 //                  MSM8228:
-   {"HTC Desire 816",     "HTC Desire 816 dual sim","htc_asia_india",   "MSM8226",      "msm8226", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // da75ed4017d9fe0d0f03d66ac655d2fc
+   {"HTC Desire 816",     "HTC Desire 816 dual sim","htc_asia_india",   "MSM8226",      "msm8226", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // da75ed4017d9fe0d0f03d66ac655d2fc
 
    
 //                  MSM8926                    
-   {"XT1077",                   "XT1077",           "thea_retcn_ctds",  "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // f71073274d551a3f98083da6e37755e3
+   {"XT1077",                   "XT1077",           "thea_retcn_ctds",  "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // f71073274d551a3f98083da6e37755e3
+   {"LG-D620",                  "LG-D620",          "g2m_global_com",   "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // b54c68b055682afec6b599970ce9a201
 
 
 //                  MSM8928:
    {"HTC Desire 10 Lifestyle","HTC Desire 10 lifestyle",
-                                                    "a56djul_00600",    "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 7172bb86fdd7ee7389029fc429a0b444
-   {"HTC Desire 630",     "HTC Desire 630 dual sim","a16dwgl_00401",    "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // e92e02117a865f48a4e77971b5b087fc
+                                                    "a56djul_00600",    "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 7172bb86fdd7ee7389029fc429a0b444
+   {"HTC Desire 630",     "HTC Desire 630 dual sim","a16dwgl_00401",    "MSM8226",      "msm8226", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // e92e02117a865f48a4e77971b5b087fc
+
 
 // Snapdragon 410 - MSM8916:                                                        
-   {"HTC Desire 510",           "HTC Desire 510",   "htc_europe",       "msm8916",      "msm8916", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000}, // @home
-   {"Motorola Moto E 2nd Gen",  "MotoE2(4G-LTE)",   "surnia_reteu",     "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
-   {"Motorola Moto G 3rd Gen",  "MotoG3",           "osprey_reteu",     "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
-   {"Samsung Galaxy S4 Mini",   "GT-I9195I",        "serranoveltexx",   "MSM8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
-   {"Samsung Galaxy A5",        "SM-A500FU",        "a5ultexx",         "MSM8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
-   {"Motorola Moto G 3rd Gen",  "MotoG3",           "osprey_retus",     "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
-   {"Motorola Moto G 3rd Gen",  "MotoG3",           "osprey_reteu_2gb", "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
-   {"LG Premier LTE",           "LGL62VL",          "m209_trf_us_vzw",  "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // da371d919e85c375a3ff2acd00a53a25
-   {"LG Stylo 2",               "LGL81AL",          "ph1_trf_us",       "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // f170ab317e7b1096cf8450c1baa84e8a
-   {"LG Style 2",               "LGL82VL",          "ph1_trf_us_vzw",   "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 898143d5c1a42996b1b5f7498f4e0f8f
-   {"LG G4c" ,                  "LG-H525n",         "c90n_global_com",  "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 5841086560dede329537623a3d07e027
-   {"ZTE Warp Elite",           "N9518",            "zte_warp6",        "warp6",        "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // aa5578234f99b2986bae80e1204a453d
-   {"ZTE Boost Max+",           "N9521",            "zte_max",          "max",          "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 24ded3caa90257c952f7eb5708bdae67
-   {"XT1528",                   "XT1528",           "surnia_verizon",   "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 4b191d43f34b4692b01083093bbae5b7
-   {"MotoG3",                   "MotoG3",           "osprey_retus_2gb", "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // bf89c1c7ec8b3cc72201e5edc95004c6
-   {"Moto G Play",              "Moto G Play",      "harpia",           "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // ab6a5d0931ddfc48ea33df06909adca0
-   {"Lenovo PB1-750M",          "Lenovo PB1-750M",  "PB1-750M",         "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // cfadfaad3c62f9ca2bc14f2793b25e18
-   {"LG-H340n",                 "LG-H340n",         "c50n_global_com",  "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 79f426832ec9c891ec09b20b153c9ee5
-   {"Z812",                     "Z812",             "P816A06",          "xuantan",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // d14690b10bfd878f15daf06ef629873c
+   {"HTC Desire 510",           "HTC Desire 510",   "htc_europe",       "msm8916",      "msm8916", 21, K( 32), 0x4000, 0x2000, 0x1000, 0x000, true}, // @home
+   {"Motorola Moto E 2nd Gen",  "MotoE2(4G-LTE)",   "surnia_reteu",     "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // < 0.2
+   {"Motorola Moto G 3rd Gen",  "MotoG3",           "osprey_reteu",     "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // < 0.2
+   {"Samsung Galaxy S4 Mini",   "GT-I9195I",        "serranoveltexx",   "MSM8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // < 0.2
+   {"Samsung Galaxy A5",        "SM-A500FU",        "a5ultexx",         "MSM8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // < 0.2
+   {"Motorola Moto G 3rd Gen",  "MotoG3",           "osprey_retus",     "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // < 0.2
+   {"Motorola Moto G 3rd Gen",  "MotoG3",           "osprey_reteu_2gb", "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // @nfi
+   {"LG Premier LTE",           "LGL62VL",          "m209_trf_us_vzw",  "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // da371d919e85c375a3ff2acd00a53a25
+   {"LG Stylo 2",               "LGL81AL",          "ph1_trf_us",       "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // f170ab317e7b1096cf8450c1baa84e8a
+   {"LG Style 2",               "LGL82VL",          "ph1_trf_us_vzw",   "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 898143d5c1a42996b1b5f7498f4e0f8f
+   {"LG G4c" ,                  "LG-H525n",         "c90n_global_com",  "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 5841086560dede329537623a3d07e027
+   {"ZTE Warp Elite",           "N9518",            "zte_warp6",        "warp6",        "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // aa5578234f99b2986bae80e1204a453d
+   {"ZTE Boost Max+",           "N9521",            "zte_max",          "max",          "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 24ded3caa90257c952f7eb5708bdae67
+   {"XT1528",                   "XT1528",           "surnia_verizon",   "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 4b191d43f34b4692b01083093bbae5b7
+   {"MotoG3",                   "MotoG3",           "osprey_retus_2gb", "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // bf89c1c7ec8b3cc72201e5edc95004c6
+   {"Moto G Play",              "Moto G Play",      "harpia",           "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // ab6a5d0931ddfc48ea33df06909adca0
+   {"Lenovo PB1-750M",          "Lenovo PB1-750M",  "PB1-750M",         "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // cfadfaad3c62f9ca2bc14f2793b25e18
+   {"LG-H340n",                 "LG-H340n",         "c50n_global_com",  "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 79f426832ec9c891ec09b20b153c9ee5
+   {"Z812",                     "Z812",             "P816A06",          "xuantan",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // d14690b10bfd878f15daf06ef629873c
+   {"LG-K540",                  "LG-K540",          "ph1_crk_us",       "msm8916",      "msm8916", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 9811e08c98fd06586a00c60eeacd2d19u
 
 // Snapdragon 425 - MSM8917:
-   {"ZTE Avid Trio",            "Z833",             "P817T06",          "CAMELLIA",     "msm8937", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 933771242b444995f3ec9e17a111a11f
-   {"LG-K550",                  "LG-K550",          "ph2n_tmo_us", "QC_Reference_Phone","msm8937", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // da0127912ed220d2b369855504816a2d
+   {"ZTE Avid Trio",            "Z833",             "P817T06",          "CAMELLIA",     "msm8937", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 933771242b444995f3ec9e17a111a11f
+   {"LG-K550",                  "LG-K550",          "ph2n_tmo_us", "QC_Reference_Phone","msm8937", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // da0127912ed220d2b369855504816a2d
 
 // Snapdragon 430 - MSM8937
-   {"ASUS ZenFone 3 Laser",     "ASUS_Z01BDC",      "WW_Z01B",     "QC_Reference_Phone","msm8937", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 2bb2c2fa372784305d365cd4a4b536b7
-   {"LG-K530",                  "LG-K530",          "ph2_global_com",   "msm8937",      "msm8937", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 463c9a70b14a6cab824fcd6aec36fa82
+   {"ASUS ZenFone 3 Laser",     "ASUS_Z01BDC",      "WW_Z01B",     "QC_Reference_Phone","msm8937", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 2bb2c2fa372784305d365cd4a4b536b7
+   {"LG-K530",                  "LG-K530",          "ph2_global_com",   "msm8937",      "msm8937", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 463c9a70b14a6cab824fcd6aec36fa82
 
 
 // Snapdragon 615 - MSM8939
-   {"Xiaomi Mi 4i",             "Mi 4i",            "ferrari",          "msm8916",      "msm8916", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x000}, // @home
+   {"Xiaomi Mi 4i",             "Mi 4i",            "ferrari",          "msm8916",      "msm8916", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x000, true}, // @home
 // {"HTC One M8s",              "HTC One M8s",      "m8qlul_htc_europe","msm8939",      "msm8916", 21, K( 64), 0x0000},
-   {"Huawei GX8/G8",            "HUAWEI RIO-L01",   "RIO-L01",          "RIO-L01",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
-   {"Motorola Moto X Play",     "XT1563",           "lux_retca",        "msm8916",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 7b1c1b688e7ce0ac4dd154cc49613adf
-   {"ZTE G720T",                "ZTE G720T",        "P839T30",          "msm8916",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 7427ec38c358d63c35eadd6cce2260b5
+   {"Huawei GX8/G8",            "HUAWEI RIO-L01",   "RIO-L01",          "RIO-L01",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // @nfi
+   {"Motorola Moto X Play",     "XT1563",           "lux_retca",        "msm8916",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 7b1c1b688e7ce0ac4dd154cc49613adf
+   {"ZTE G720T",                "ZTE G720T",        "P839T30",          "msm8916",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 7427ec38c358d63c35eadd6cce2260b5
+   {"HUAWEI ALE-L04",           "HUAWEI ALE-L04",   "ALE-L04",          "ALE-L04",      "msm8916", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 6a1815e3b02933560168e41450f0b844
 
 // Snapdragon 616 - MSM8939v2
 // {"Huawei Honor 5X",          "KIW-L21",          "KIW-L21",          "KIW-L21",      "msm8916", 21, K( 32), 0x0000},
 
 // Snapdragon 617 - MSM8952
-   {"Moto G (4)",               "Moto G (4)",       "athene",           "msm8952",      "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
-   {"LG G Vista 2",             "LG-H740",          "p1v_att_us",       "msm8952",      "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // 74ce1633692226a1eb02cf52f0537a48
-   {"Z981",                     "Z981",             "P895T20_MPCS",     "urd",          "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // f6df5ccf94d1fa07392201df3306dee7
-   {"LG-V522",                  "LG-V522",          "b3_rgs_ca",        "msm8952",      "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // f80d405794d587c88121095c46d7509b
+   {"Moto G (4)",               "Moto G (4)",       "athene",           "msm8952",      "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // @nfi
+   {"LG G Vista 2",             "LG-H740",          "p1v_att_us",       "msm8952",      "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // 74ce1633692226a1eb02cf52f0537a48
+   {"Z981",                     "Z981",             "P895T20_MPCS",     "urd",          "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // f6df5ccf94d1fa07392201df3306dee7
+   {"LG-V522",                  "LG-V522",          "b3_rgs_ca",        "msm8952",      "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // f80d405794d587c88121095c46d7509b
 
-   {"ZTE B2017G",               "ZTE B2017G",       "P852A12",          "msm8952",      "msm8952", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 82751045ffecc75982d032f8534d6977
-   {"LGUK750",                  "LGUK750",          "b5_usc_us",        "msm8952",      "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, //
-   {"S60",                      "S60",              "CatS60",           "msm8952",      "msm8952", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // dc1410789a03830a58c1f5ebf88d2995
-   {"P008",                     "P008",             "WW_P008",          "EeePad",       "msm8952", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // e9ac0a89effd4a79fa4275017ba9a120
+   {"ZTE B2017G",               "ZTE B2017G",       "P852A12",          "msm8952",      "msm8952", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 82751045ffecc75982d032f8534d6977
+   {"LGUK750",                  "LGUK750",          "b5_usc_us",        "msm8952",      "msm8952", 21, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, //
+   {"S60",                      "S60",              "CatS60",           "msm8952",      "msm8952", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // dc1410789a03830a58c1f5ebf88d2995
+   {"P008",                     "P008",             "WW_P008",          "EeePad",       "msm8952", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // e9ac0a89effd4a79fa4275017ba9a120
 
 
 // Snapdragon 653 - MSM8976 Pro
-   {"OPPO R9s Plus",            "OPPO R9s Plus",    "R9sPlus",          "msm8952",      "msm8952", 21, K(128), 0x0000, 0x0000, 0x0000, 0x000}, // 4a42ba93ee8454af83fcb9fe9ec837e6
+   {"OPPO R9s Plus",            "OPPO R9s Plus",    "R9sPlus",          "msm8952",      "msm8952", 21, K(128), 0x0000, 0x0000, 0x0000, 0x000, true}, // 4a42ba93ee8454af83fcb9fe9ec837e6
 
 // MSM8956
-   {"Redmi Note 3",             "Redmi Note 3",     "kenzo",            "msm8952",      "msm8952", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 7bac314dfde794264bd447002ed8a7e1
+   {"Redmi Note 3",             "Redmi Note 3",     "kenzo",            "msm8952",      "msm8952", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 7bac314dfde794264bd447002ed8a7e1
 
 // Snapdragon 652 - MSM8976
-   {"LG-H840",                  "LG-H840",          "alicee_global_com","msm8952",      "msm8952", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 55cfd7a4b551bef72c86707dfac17143
+   {"LG-H840",                  "LG-H840",          "alicee_global_com","msm8952",      "msm8952", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 55cfd7a4b551bef72c86707dfac17143
 
 
 // Snapdragon 800 - MSM8974
-   {"LG Nexus 5",               "Nexus 5",          "hammerhead",       "hammerhead",   "msm8974", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400}, // @home
-   {"Fairphone 2",              "FP2",              "FP2",              "FP2",          "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
-   {"C6903",                    "C6903",            "C6903",            "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // e551436309b8e9e6b3ffc6300476d5ff
-   {"LG-D851",                  "LG-D851",          "g3_tmo_us",        "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 0e9928556f6170fb478f72ea1a94cdc1
+   {"LG Nexus 5",               "Nexus 5",          "hammerhead",       "hammerhead",   "msm8974", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400, true}, // @home
+   {"Fairphone 2",              "FP2",              "FP2",              "FP2",          "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // @nfi
+   {"C6903",                    "C6903",            "C6903",            "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // e551436309b8e9e6b3ffc6300476d5ff
+   {"LG-D851",                  "LG-D851",          "g3_tmo_us",        "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 0e9928556f6170fb478f72ea1a94cdc1
+
+   {"SH-01F",                   "SH-01F",           "SH-01F",           "SH-01F",       "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 98db47f6d954e470b698328c34c7e41b
+
 
 
 // Snapdragon 801 - MSM8974AB
-   {"HTC One M8",               "831C",             "sprint_wwe_harman","MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 1ba3c23a8b2180fefa915fc4d6937a59
-   {"HTC6525LVW",               "HTC6525LVW",       "HTCOneM8vzw",      "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // a4c47ce3bbd28de06a3253510cbf1a50
+   {"HTC One M8",               "831C",             "sprint_wwe_harman","MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 1ba3c23a8b2180fefa915fc4d6937a59
+   {"HTC6525LVW",               "HTC6525LVW",       "HTCOneM8vzw",      "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // a4c47ce3bbd28de06a3253510cbf1a50
+   {"m8",                       "m8",               "lineage_m8",       "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 99eddd7eb235a176cce8ccead33ee7a1 - FLIPS
 
 // Snapdragon 801 - MSM8974AC
-   {"OnePlus One",              "A0001",            "bacon",            "MSM8974",      "msm8974", 21, K( 64), 0x1000, 0x8000, 0x4000, 0x400}, // 638a7e35067de5d00855f214a2791118
-   {"Samsung Galaxy S5 Active", "SM-G870F",         "klteactivexx",     "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
-   {"Samsung Galaxy S5",        "SM-G900T",         "kltetmo",          "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
-   {"Samsung Galaxy S5",        "SM-G900V",         "kltevzw",          "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 5e241103203859aefe4b4f0709f50501
-   {"SM-G900F",                 "SM-G900F",         "kltexx",           "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // cc174942b10bba14714aeaab818be4b7
-   {"Samsung Galaxy S5",        "SM-S903VL",        "kltetfnmm",        "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 179ef7953009e70ac47154ec22a3058e
-   {"LG-D855",                  "LG-D855",          "g3_global_com",    "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 6960cc492edf822f833211043ffe1819
-   {"SAMSUNG-SM-G900A",         "SAMSUNG-SM-G900A", "klteuc",           "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 99299170b0ed083900ac94c58222903c
-   {"ZUK Z1",                   "ZUK Z1",           "ham",              "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 44b463d051c388390c3b9e7d1803b638
-   {"SM-G9008V",                "SM-G9008V",        "kltezm",           "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 7ab40bc83374b55d17b521e1707accb7
-
-   {"Samsung Galaxy Note 3",    "SM-N900V",         "hltevzw",          "MSM8974",      "msm8974", 21, K(128), 0x0000, 0x0000, 0x0000, 0x000}, // c98aa7b33f67be707859af1591fde091
-   {"SM-N900W8",                "SM-N900W8",        "hltevl",           "MSM8974",      "msm8974", 21, K(128), 0x0000, 0x0000, 0x0000, 0x000}, // a54b11d695120b536718f2b460a5b68c - FLIPS
-   {"Samsung Galaxy Note 5",    "SM-N920C",         "nobleltejv",       "MSM8974",      "msm8974", 21, K(128), 0x0000, 0x0000, 0x0000, 0x000}, // 8521290b2d804a4c82912b6644409c33 - FLIPS
-
-   {"SD4930UR",                 "SD4930UR",         "full_duke_kodiak", "ursa",         "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 72418526e26f41dca3d83250ffb7b1cc
-
-   {"Samsung Galaxy Tab S",     "SM-T807V",         "chagallltevzw",    "MSM8974",      "msm8974", 21, K(128), 0x0000, 0x0000, 0x0000, 0x000}, // 15b85c766cedf4ea6cbaa040cbb60eb0 
-   {"Sony Xperia Z2",           "D6503",            "D6503",            "MSM8974",      "msm8974", 21, K(128), 0x0000, 0x0000, 0x0000, 0x000}, // 3b667b8a1fe72c1c0dda35bc1c6202b1 - FLIPS
+   {"OnePlus One",              "A0001",            "bacon",            "MSM8974",      "msm8974", 21, K( 64), 0x1000, 0x8000, 0x4000, 0x400, true}, // 638a7e35067de5d00855f214a2791118
+   {"Samsung Galaxy S5 Active", "SM-G870F",         "klteactivexx",     "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // < 0.2
+   {"Samsung Galaxy S5",        "SM-G900T",         "kltetmo",          "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // < 0.2
+   {"Samsung Galaxy S5",        "SM-G900V",         "kltevzw",          "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 5e241103203859aefe4b4f0709f50501
+   {"SM-G900F",                 "SM-G900F",         "kltexx",           "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // cc174942b10bba14714aeaab818be4b7
+   {"Samsung Galaxy S5",        "SM-S903VL",        "kltetfnmm",        "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 179ef7953009e70ac47154ec22a3058e
+   {"LG-D855",                  "LG-D855",          "g3_global_com",    "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 6960cc492edf822f833211043ffe1819
+   {"SAMSUNG-SM-G900A",         "SAMSUNG-SM-G900A", "klteuc",           "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 99299170b0ed083900ac94c58222903c
+   {"ZUK Z1",                   "ZUK Z1",           "ham",              "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 44b463d051c388390c3b9e7d1803b638
+   {"VS985 4G",                 "VS985 4G",         "g3_vzw",           "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 0c53b74a5ae672b6eba5c547ad591e4c - FLIPS
+   {"SM-G9008V",                "SM-G9008V",        "kltezm",           "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 7ab40bc83374b55d17b521e1707accb7
+   {"MI NOTE LTE",              "MI NOTE LTE",      "virgo",            "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 7942a1673da764b3f519d3092157f3a2 - FLIPS
+   {"Samsung Galaxy Note 3",    "SM-N900V",         "hltevzw",          "MSM8974",      "msm8974", 21, K(128), 0x0000, 0x0000, 0x0000, 0x000, true}, // c98aa7b33f67be707859af1591fde091
+   {"SM-N900W8",                "SM-N900W8",        "hltevl",           "MSM8974",      "msm8974", 21, K(128), 0x0000, 0x0000, 0x0000, 0x000, true}, // a54b11d695120b536718f2b460a5b68c - FLIPS
+   {"Samsung Galaxy Note 5",    "SM-N920C",         "nobleltejv",       "MSM8974",      "msm8974", 21, K(128), 0x0000, 0x0000, 0x0000, 0x000, true}, // 8521290b2d804a4c82912b6644409c33 - FLIPS
+   {"SD4930UR",                 "SD4930UR",         "full_duke_kodiak", "ursa",         "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 72418526e26f41dca3d83250ffb7b1cc
+   {"Samsung Galaxy Tab S",     "SM-T807V",         "chagallltevzw",    "MSM8974",      "msm8974", 21, K(128), 0x0000, 0x0000, 0x0000, 0x000, true}, // 15b85c766cedf4ea6cbaa040cbb60eb0 
+   {"Sony Xperia Z2",           "D6503",            "D6503",            "MSM8974",      "msm8974", 21, K(128), 0x0000, 0x0000, 0x0000, 0x000, true}, // 3b667b8a1fe72c1c0dda35bc1c6202b1 - FLIPS
+   {"GT-I9506",                 "GT-I9506",         "ks01ltexx",        "MSM8974",      "msm8974", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // fe54ca658805762f94f379e4ee2b7b45 - FLIPS
 
 
 
 
 
 // Snapdragon 805 - APQ8084
-   {"Samsung Galaxy S5",        "SM-G901F",         "kccat6xx",         "APQ8084",      "apq8084", 21, K(128), 0x0000, 0x0000, 0x000, 0x000}, // @nfi
-   {"Samsung Galaxy Note 4",    "SM-N910V",         "trltevzw",         "APQ8084",      "apq8084", 21, K(128), 0x0000, 0x0000, 0x000, 0x000}, // beb23db1b3f6597d6b9417fc87b49abe - FLIPS
-   {"SAMSUNG-SM-N910A",         "SAMSUNG-SM-N910A", "trlteuc",          "APQ8084",      "apq8084", 21, K(128), 0x0000, 0x0000, 0x000, 0x000}, // 6c3792ed13aeb2d34c97fe3e8af49299 - FLIPS
-
+   {"Samsung Galaxy S5",        "SM-G901F",         "kccat6xx",         "APQ8084",      "apq8084", 21, K(128), 0x0000, 0x0000, 0x000, 0x000, true}, // @nfi
+   {"Samsung Galaxy Note 4",    "SM-N910V",         "trltevzw",         "APQ8084",      "apq8084", 21, K(128), 0x0000, 0x0000, 0x000, 0x000, true}, // beb23db1b3f6597d6b9417fc87b49abe - FLIPS
+   {"SAMSUNG-SM-N910A",         "SAMSUNG-SM-N910A", "trlteuc",          "APQ8084",      "apq8084", 21, K(128), 0x0000, 0x0000, 0x000, 0x000, true}, // 6c3792ed13aeb2d34c97fe3e8af49299 - FLIPS
+   {"XT1254",                   "XT1254",           "quark_verizon",    "APQ8084",      "apq8084", 21, K(128), 0x0000, 0x0000, 0x0000,0x000, true}, // aa0203458c7d84efb1d24d3a231ce699 - FLIPS
 
 
 // Snapdragon 808 - MSM8992
-   {"LG Nexus 5X",              "Nexus 5X",         "bullhead",         "bullhead",     "msm8992", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400}, // @home
-   {"AOSP on BullHead",         "AOSP on BullHead", "aosp_bullhead",    "bullhead",     "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, //
-   {"LG G4",                    "LG-H815",          "p1_global_com",    "msm8992",      "msm8992", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400}, // @home
-   {"LG-H815",                  "LG-H815",          "g4_global_com",    "MSM8992",      "msm8992", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400}, // @home
-   {"LG G4",                    "LG-H810",          "p1_att_us",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // c6a3dcf2f512856ac6544122c9bad906
-   {"LG G4 Dual",               "LG-H818",          "p1_global_com",    "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 72ab1933b12e57bcb618345297f86dbc
-   {"LG V10",                   "LG-H960",          "pplus_global_com", "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // < 0.2
-   {"LG V10",                   "LG-H900",          "pplus_att_us",     "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 2d27a8a56200a4cfccddbd81263afe6d
-   {"LG V10",                   "VS990",            "pplus_vzw",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // eaad7de918ff14131edf11fb299a2d71
-   {"LGLS991",                  "LGLS991",          "p1_spr_us",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 1e0fdd82d5b020eb2228b7d3e96566a2
-   {"LGUS991",                  "LGUS991",          "p1_usc_us",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // b36c377b1df8aee89b9d0ee3b1ee0b8d
-   {"STV100-2",                 "STV100-2",         "venicevzwvzw",     "venice",       "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 31d5680d18250388fb7eb241cbd0e3bb
-   {"LG-F500L",                 "LG-F500L",         "p1_lgu_kr",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, //
+   {"LG Nexus 5X",              "Nexus 5X",         "bullhead",         "bullhead",     "msm8992", 25, K( 64), 0x8000, 0x4000, 0x2000, 0x400, false}, // @home
+   {"AOSP on BullHead",         "AOSP on BullHead", "aosp_bullhead",    "bullhead",     "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, //
+   {"LG G4",                    "LG-H815",          "p1_global_com",    "msm8992",      "msm8992", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400, true}, // @home
+   {"LG-H815",                  "LG-H815",          "g4_global_com",    "MSM8992",      "msm8992", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400, true}, // @home
+   {"LG G4",                    "LG-H810",          "p1_att_us",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // c6a3dcf2f512856ac6544122c9bad906
+   {"LG G4 Dual",               "LG-H818",          "p1_global_com",    "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 72ab1933b12e57bcb618345297f86dbc
+   {"LG V10",                   "LG-H960",          "pplus_global_com", "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // < 0.2
+   {"LG V10",                   "LG-H900",          "pplus_att_us",     "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 2d27a8a56200a4cfccddbd81263afe6d
+   {"LG V10",                   "VS990",            "pplus_vzw",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // eaad7de918ff14131edf11fb299a2d71
+   {"LGLS991",                  "LGLS991",          "p1_spr_us",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 1e0fdd82d5b020eb2228b7d3e96566a2
+   {"LGUS991",                  "LGUS991",          "p1_usc_us",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // b36c377b1df8aee89b9d0ee3b1ee0b8d
+   {"STV100-2",                 "STV100-2",         "venicevzwvzw",     "venice",       "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 31d5680d18250388fb7eb241cbd0e3bb
+   {"LG-F500L",                 "LG-F500L",         "p1_lgu_kr",        "msm8992",      "msm8992", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, //
 
 
 
@@ -351,26 +364,26 @@ std::vector<struct model> models = {
 // {"Huawei Nexus 6P",          "Nexus 6P",         "angler",           "angler",       "msm8994", 21, K(  0), 0x0000},
 
 // Snapdragon 820 - MSM8996
-   {"LG G5",                    "LG-H850",          "h1_global_com",    "msm8996",      "msm8996", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400}, // @home
-   {"LG G5",                    "VS987",            "h1_vzw",           "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // ad57e783251ed3596a25d69c144fa0a6
-   {"Samsung Galaxy S7 Edge",   "SM-G935T",         "hero2qltetmo",     "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 189303d8523f1c1a15af0327e2cd7e9a
 // {"Samsung Galaxy S7",        "SAMSUNG-SM-G930A", "heroqlteuc",       "MSM8996",      "msm8996", 21, K(  0), 0x0000},
-   {"Samsung Galaxy S7",        "SM-G930V",         "heroqltevzw",      "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 20e27a705a09025f7924559fa02d5011
-   {"SM-G930T1",                "SM-G930T1",        "heroqltemtr",      "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 47b327cfa5a0292c8c9675e094094db9
-   {"Sharp Aquos Xx3",          "506SH",            "SG506SH",          "SG506SH",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 1c8e79b8f29e52b089b2714f84db100a
-   {"Samsung Galaxy Note 7",    "SM-N930T",         "graceqltetmo",     "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // f193124f13962db11aa01c8181d0d39d
-   {"OnePlus 3",                "ONEPLUS A3003",    "OnePlus3",    "QC_Reference_Phone","msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // f285ee909fa8bfde90ac430aa1796b5c
-   {"OnePlus 3",                "ONEPLUS A3003",    "OnePlus3",         "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 989386f781007d1c7df8e38bc5102f8f
-   {"OnePlus 3",                "ONEPLUS A3000",    "OnePlus3",    "QC_Reference_Phone","msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // a5c032f2ec91ce3b634ca2f5e638206a
-   {"OnePlus 3",                "ONEPLUS A3010",    "OnePlus3",    "QC_Reference_Phone","msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 7dc5a2b17edf6c1aaa42db8ae4a3934f
-   {"Sony Xperia XZ",           "F8331",            "F8331",            "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // fc72722f2ebdac62c07f41621adac6c2 - FLIPS
-   {"Vivo Xplay5S",             "vivo Xplay5S",     "PD1516A",          "msm8996",      "msm8996", 21 ,K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 6e1ea251bcd18e02c85087f0d42a4a9c - FLIPS
-
-
-   {"LEX720",                   "LEX720",           "ZL1_CN",           "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // a227ec6076f5748417190182759fea38
-
-   {"XT1650",                   "XT1650",           "griffin_verizon",  "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // a57a4a67221822dd55aa800b87eda54d
-   {"LGV34",                    "LGV34",            "elsa_kddi_jp",     "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, //
+   {"LG G5",                    "LG-H850",          "h1_global_com",    "msm8996",      "msm8996", 21, K( 64), 0x8000, 0x4000, 0x2000, 0x400, true}, // @home
+   {"LG G5",                    "VS987",            "h1_vzw",           "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // ad57e783251ed3596a25d69c144fa0a6
+   {"Samsung Galaxy S7 Edge",   "SM-G935T",         "hero2qltetmo",     "msm8996",      "msm8996", 25, K( 64), 0x0000, 0x0000, 0x0000, 0x000, false}, // 189303d8523f1c1a15af0327e2cd7e9a
+   {"Samsung Galaxy S7",        "SM-G930V",         "heroqltevzw",      "msm8996",      "msm8996", 25, K( 64), 0x0000, 0x0000, 0x0000, 0x000, false}, // 20e27a705a09025f7924559fa02d5011
+   {"SM-G930T1",                "SM-G930T1",        "heroqltemtr",      "msm8996",      "msm8996", 25, K( 64), 0x0000, 0x0000, 0x0000, 0x000, false}, // 47b327cfa5a0292c8c9675e094094db9
+   {"Sharp Aquos Xx3",          "506SH",            "SG506SH",          "SG506SH",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 1c8e79b8f29e52b089b2714f84db100a
+   {"Samsung Galaxy Note 7",    "SM-N930T",         "graceqltetmo",     "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // f193124f13962db11aa01c8181d0d39d
+   {"OnePlus 3",                "ONEPLUS A3003",    "OnePlus3",    "QC_Reference_Phone","msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // f285ee909fa8bfde90ac430aa1796b5c
+   {"OnePlus 3",                "ONEPLUS A3003",    "OnePlus3",         "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 989386f781007d1c7df8e38bc5102f8f
+   {"OnePlus 3",                "ONEPLUS A3000",    "OnePlus3",    "QC_Reference_Phone","msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // a5c032f2ec91ce3b634ca2f5e638206a
+   {"OnePlus 3",                "ONEPLUS A3010",    "OnePlus3",    "QC_Reference_Phone","msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 7dc5a2b17edf6c1aaa42db8ae4a3934f
+   {"Sony Xperia XZ",           "F8331",            "F8331",            "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // fc72722f2ebdac62c07f41621adac6c2 - FLIPS
+   {"Vivo Xplay5S",             "vivo Xplay5S",     "PD1516A",          "msm8996",      "msm8996", 21 ,K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 6e1ea251bcd18e02c85087f0d42a4a9c - FLIPS
+   {"LEX720",                   "LEX720",           "ZL1_CN",           "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // a227ec6076f5748417190182759fea38
+   {"XT1650",                   "XT1650",           "griffin_verizon",  "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // a57a4a67221822dd55aa800b87eda54d
+   {"LGV34",                    "LGV34",            "elsa_kddi_jp",     "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, //
+   {"LG-H831",                  "LG-H831",          "h1_vtr_ca",        "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 2dd3409afaba43a175362ea0a16b02be
+   {"MI 5s",                    "MI 5s",            "capricorn",        "msm8996",      "msm8996", 21, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // da229842568d309c05f79bdb75382560 - FLIPS
+   {"Pixel",                    "Pixel",            "sailfish",         "sailfish",     "msm8996", 25, K( 64), 0x0000, 0x0000, 0x0000, 0x000, false}, // 
 
 
 
@@ -382,22 +395,23 @@ std::vector<struct model> models = {
 
 //  generic name                ro.product.model    ro.product.name     board           platform   ion rowsize    ba2     ba1     ba0   rank
 // Kirin 620
-   {"Huawei P8 Lite",           "ALE-L21",          "ALE-L21",          "BalongV8R1SFT","hi6210sft",1, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
-   {"Huawei G Play mini",       "CHC-U01",          "CHC-U01",          "BalongV8R1SFT","hi6210sft",1, K( 32), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
+   {"Huawei P8 Lite",           "ALE-L21",          "ALE-L21",          "BalongV8R1SFT","hi6210sft",1, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // @nfi
+   {"Huawei G Play mini",       "CHC-U01",          "CHC-U01",          "BalongV8R1SFT","hi6210sft",1, K( 32), 0x0000, 0x0000, 0x0000, 0x000, true}, // @nfi
 
 // Kirin 650
 // {"Huawei P9 Lite",           "HUAWEI VNS-L31",   "VNS-L31",          "VNS-L31",      "hi6250",   1, K( 32), 0x0000},
-   {"HUAWEI VNS-L31",           "HUAWEI VNS-L31",   "VNS-L11",          "VNS-L31",      "hi6250",   1, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // bb59b443d01737907ecfbde3af6d4cce
+   {"HUAWEI VNS-L31",           "HUAWEI VNS-L31",   "VNS-L11",          "VNS-L31",      "hi6250",   1, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // bb59b443d01737907ecfbde3af6d4cce
 
 // Kirin 910
-   {"HUAWEI P7-L07",            "HUAWEI P7-L07",    "P7-L07",           "P7-L07",       "hi6620oem",5, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 6ee29f7de041fea4714acc7dad35762b - heap 5 !?
-   {"HUAWEI P7-L10",            "HUAWEI P7-L10",    "P7-L10",           "P7-L10",       "hi6620oem",5, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // dccc1357887d93e1d700a50996d0d60a - FLIPS
+   {"HUAWEI P7-L07",            "HUAWEI P7-L07",    "P7-L07",           "P7-L07",       "hi6620oem",5, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 6ee29f7de041fea4714acc7dad35762b - heap 5 !?
+   {"HUAWEI P7-L10",            "HUAWEI P7-L10",    "P7-L10",           "P7-L10",       "hi6620oem",5, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // dccc1357887d93e1d700a50996d0d60a - FLIPS
 
 // Kirin 950
-   {"Huawei Honor 8",           "FRD-L09",          "FRD-L09",          "FRD-L09",      "hi3650",   2, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 78d3e11cdf4c304b56ae05cb22dc9921
-   {"Huawei Honor V8",          "KNT-AL10",         "KNT-AL10",         "KNT-AL10",     "hi3650",   1, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // c637fda8be6ed1f5e12ab55154d976e4 - heap 2 avail
-   {"Huawei Honor V8",          "KNT-UL10",         "KNT-UL10",         "KNT-UL10",     "hi3650",   2, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // b6cb8052b6ef175915030e3df2b24d85
-   {"Huawei Mate 8",            "HUAWEI NXT-DL00",  "NXT-DL00",         "NXT-DL00",     "hi3650",   1, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 50786ce973fce841a03d49ca4c3002cb - heap 2 avail
+   {"Huawei Honor 8",           "FRD-L09",          "FRD-L09",          "FRD-L09",      "hi3650",   2, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 78d3e11cdf4c304b56ae05cb22dc9921
+   {"Huawei Honor V8",          "KNT-AL10",         "KNT-AL10",         "KNT-AL10",     "hi3650",   1, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // c637fda8be6ed1f5e12ab55154d976e4 - heap 2 avail
+   {"Huawei Honor V8",          "KNT-UL10",         "KNT-UL10",         "KNT-UL10",     "hi3650",   2, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // b6cb8052b6ef175915030e3df2b24d85
+   {"Huawei Mate 8",            "HUAWEI NXT-DL00",  "NXT-DL00",         "NXT-DL00",     "hi3650",   1, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 50786ce973fce841a03d49ca4c3002cb - heap 2 avail
+   {"EVA-AL00",                 "EVA-AL00",         "EVA-AL00",         "EVA-AL00",     "hi3650",   2, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 48499cfde96c725509756a1fcf001061
 
 
 // Kirin 955
@@ -410,143 +424,162 @@ std::vector<struct model> models = {
 
 //  generic name                ro.product.model    ro.product.name     board           platform   ion rowsize    ba2     ba1     ba0   rank
 //  Exynos 5410
-   {"GT-I9500",                 "GT-I9500",         "ja3gxx",           "universal5410","exynos5",  4, K( 64), 0x0000, 0x0000, 0x0000, 0x000}, // 4bdd1bad302e17292fc263a22ed469fc
+   {"GT-I9500",                 "GT-I9500",         "ja3gxx",           "universal5410","exynos5",  4, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 4bdd1bad302e17292fc263a22ed469fc
 
 // Exynos 5430
-   {"Samsung Galaxy A7",        "SM-A700F",         "a7altexx",         "universal5430","exynos5",  4, K(128), 0x0000, 0x0000, 0x0000, 0x000}, //@nfi
+   {"Samsung Galaxy A7",        "SM-A700F",         "a7altexx",         "universal5430","exynos5",  4, K(128), 0x0000, 0x0000, 0x0000, 0x000, true}, //@nfi
 
 // Exynos 5433
 // {"Samsung Galaxy Tab S2 8.0","SM-T710",          "gts28wifixx",      "universal5433","exynos5",  4, K(  0), 0x0000},
 // {"Samsung Galaxy Tab S2 9.7","SM-T810",          "gts210wifixx",     "universal5433","exynos5",  4, K(  0), 0x0000},
-   {"Samsung Galaxy Note 4",    "SM-N910C",         "treltexx",         "universal5433","exynos5",  4, K(128), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi
-   {"SM-N910U",                 "SM-N910U",         "trhpltexx",        "universal5433","exynos5",  4, K(128), 0x0000, 0x0000, 0x0000, 0x000}, // bd44ee9db66a7663420a7c7c8e1fbd39 - FLIPS
+   {"Samsung Galaxy Note 4",    "SM-N910C",         "treltexx",         "universal5433","exynos5",  4, K(128), 0x0000, 0x0000, 0x0000, 0x000, true}, // @nfi
+   {"SM-N910U",                 "SM-N910U",         "trhpltexx",        "universal5433","exynos5",  4, K(128), 0x0000, 0x0000, 0x0000, 0x000, true}, // bd44ee9db66a7663420a7c7c8e1fbd39 - FLIPS
 
 // Exynos 7420
-   {"Samsung Galaxy S6",        "SM-G920F",         "zerofltexx",       "universal7420","exynos5", -1, K(  0), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi - no system contiguous heap
+   {"Samsung Galaxy S6",        "SM-G920F",         "zerofltexx",       "universal7420","exynos5", -1, K(  0), 0x0000, 0x0000, 0x0000, 0x000, true}, // @nfi - no system contiguous heap
+   {"SM-N920V",                 "SM-N920V",         "nobleltevzw",      "universal7420","exynos5",  4, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // e9355671882d1f941df11ff48a3050a3
 
 // Exynos 7580
-   {"Samsung Galaxy A3 2016",   "SM-A310F",         "a3xeltexx",        "universal7580","exynos5", -1, K(  0), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi - no system contiguous heap
+   {"Samsung Galaxy A3 2016",   "SM-A310F",         "a3xeltexx",        "universal7580","exynos5", -1, K(  0), 0x0000, 0x0000, 0x0000, 0x000, true}, // @nfi - no system contiguous heap
+   {"SM-J700T1",                "SM-J700T1",        "j7eltemtr",        "universal7580","exynos5",  4, K( 64), 0x0000, 0x0000, 0x0000, 0x000, true}, // 8db81d354f440d2a6729068bb163e63d
 
 // Exynos 8890
-   {"Samsung Galaxy S7 Edge",   "SM-G935F",         "hero2ltexx",       "universal8890","exynos5", -1, K(  0), 0x0000, 0x0000, 0x0000, 0x000}, // @nfi - no system contiguous heap
+   {"Samsung Galaxy S7 Edge",   "SM-G935F",         "hero2ltexx",       "universal8890","exynos5", -1, K(  0), 0x0000, 0x0000, 0x0000, 0x000, true}, // @nfi - no system contiguous heap
 // {"Samsung Galaxy S7",        "SM-G930F",         "heroltexx",        "universal8890","exynos5",  4, K(256), 0x0000},
+//
+//
 
 
 /**** MEDIATEK ****/
 
 //  generic name                ro.product.model    ro.product.name     board           platform  ion rowsize     ba2      ba1      ba0   rank
 // MT6572
-   {"Huawei Ascend Y540",       "HUAWEI Y540-U01",  "Y540-U01",         "Y540-U01",     "",       -1, K(  0), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - no system contiguous heap
+   {"Huawei Ascend Y540",       "HUAWEI Y540-U01",  "Y540-U01",         "Y540-U01",     "",       -1, K(  0), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi - no system contiguous heap
    {"ZTE T520",                 "ZTE T520",         "P172A40_RU_CHA",   "techain6572_wet_l",
-                                                                                        "mt6572",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // b79709c1ebdaa2778393910a8b08e38b
+                                                                                        "mt6572",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // b79709c1ebdaa2778393910a8b08e38b
 
 // MT6592
-   {"HTC Desire 526G",   "HTC Desire 526G dual sim","v02_htc_europe",  "v02_htc_europe","",       -1, K(  0), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - no system contiguous heap
+   {"HTC Desire 526G",   "HTC Desire 526G dual sim","v02_htc_europe",  "v02_htc_europe","",       -1, K(  0), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi - no system contiguous heap
+   {"LG-H540",                  "LG-H540",          "mp1s3gds_global_com","mt6592",     "mt6592",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 712c560ca90acbd1e7b81fbb1803b011
+   {"PULP",                     "PULP",             "S5420",            "S5420",        "mt6592",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 79f9f02c3b74aeea2c17b5cd131fd63b
 
 // MT6580
-   {"Alcatel PIXI 4(4)",        "4034D",            "4034D",            "",             "mt6580",  1, K( 32), 0x44000, 0x22000, 0x11000, 0x000}, // @home
-   {"Alcatel One Touch Popstar","5022D",            "5022D",            "",             "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi
-   {"Wiko Lenny3",              "LENNY3",           "V3702AN",          "",             "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 5eee6f7cb541c8a3f8b2f857efc23ffd - xorred?
+   {"Alcatel PIXI 4(4)",        "4034D",            "4034D",            "",             "mt6580",  1, K( 32), 0x44000, 0x22000, 0x11000, 0x000, true}, // @home
+   {"Alcatel One Touch Popstar","5022D",            "5022D",            "",             "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi
+   {"Wiko Lenny3",              "LENNY3",           "V3702AN",          "",             "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 5eee6f7cb541c8a3f8b2f857efc23ffd - xorred?
+   {"C2",                       "C2",               "C2",         "full_w281j_ys4_kata","mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 7e4f652cce8be6f6353a644a97850a83
 
 // MT6580M
-   {"Wiki K-Kool",              "K-KOOL",           "V2800AN",          "",             "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // f2ade8cc739125cfcfae9ad28a982974 - xorred?
-   {"FS509",                    "FS509",            "FS509",            "Fly",          "mt6580",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // d70621207cb7bec2031a8e8b074dec42 - xorred?
-   {"BLU ADVANCE 4.0 L2","BLU ADVANCE 4.0 L2","BLU_ADVANCE_4_0_L2","BLU_ADVANCE_4_0_L2","mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 91d92f2b90c2f6a681412f98ecff2b8c - xorred?
+   {"Wiki K-Kool",              "K-KOOL",           "V2800AN",          "",             "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // f2ade8cc739125cfcfae9ad28a982974 - xorred?
+   {"FS509",                    "FS509",            "FS509",            "Fly",          "mt6580",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000, true}, // d70621207cb7bec2031a8e8b074dec42 - xorred?
+   {"BLU ADVANCE 4.0 L2","BLU ADVANCE 4.0 L2","BLU_ADVANCE_4_0_L2","BLU_ADVANCE_4_0_L2","mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 91d92f2b90c2f6a681412f98ecff2b8c - xorred?
 
 
 
 
 // MT6582
-   {"TANGO A5",                 "TANGO A5",         "J608_PUBLIC",      "J608_PUBLIC",  "",       -1, K(  0), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - no system contiguous heap
-   {"HTC Desire 320",           "HTC Desire 320",   "v01_htc_europe",   "uc81",         "",       -1, K(  0), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - no system contiguous heap
-   {"LG-H500",                  "LG-H500",          "my90_global_com",  "",             "mt6582",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
-   {"HUAWEI Y360-U61",          "HUAWEI Y360-U61",  "Y360-U61",         "Y360-U61",     "",       -1, K(  0), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - no system contiguous heap
-   {"HTC Desire 526G dual sim","HTC Desire 526G dual sim","v02_htc_europe","v02_htc_europe", "",  -1, K(  0), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - no system contiguous heap
-   {"Fresh",                    "Fresh",            "cm_adder",         "",             "mt6582",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 6f2edefad2636f7840457cc102d2e52a
+   {"TANGO A5",                 "TANGO A5",         "J608_PUBLIC",      "J608_PUBLIC",  "",       -1, K(  0), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi - no system contiguous heap
+   {"HTC Desire 320",           "HTC Desire 320",   "v01_htc_europe",   "uc81",         "",       -1, K(  0), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi - no system contiguous heap
+   {"LG-H500",                  "LG-H500",          "my90_global_com",  "",             "mt6582",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi - looks like xorred bits for ba0|1|2
+   {"HUAWEI Y360-U61",          "HUAWEI Y360-U61",  "Y360-U61",         "Y360-U61",     "",       -1, K(  0), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi - no system contiguous heap
+   {"HTC Desire 526G dual sim","HTC Desire 526G dual sim","v02_htc_europe","v02_htc_europe", "",  -1, K(  0), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi - no system contiguous heap
+   {"Fresh",                    "Fresh",            "cm_adder",         "",             "mt6582",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 6f2edefad2636f7840457cc102d2e52a
 
 // MT6735
-   {"Odys Neo 6",               "NEO6_LTE",         "NEO6_LTE",         "",             "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
-   {"Acer Liquid Z530",         "T02",              "T02_ww",           "MT6735",       "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
-   {"BV6000S",                  "BV6000S",          "Blackview",        "Blackview",    "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 70f95d0b266cd7e52c8f6b9092d2a930
-   {"HUAWEI LYO-L02",           "HUAWEI LYO-L02",   "LYO-L02",          "LYO-L02",      "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // fcace253b7a70fd410f9507382272ac6
-   {"CUBOT DINOSAUR", "CUBOT DINOSAUR","x5623_h6013_cubot","x5623_cq_h6013_cubot_3565u","mt6735",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // f4fd567588ed484bf8b1c377da12bd5d
-   {"LG-K220",                  "LG-K220",          "mk6p_global_com",  "mt6735",       "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 29060a559f3e9a027c1997a4e7d46201
-   {"P5L",                      "P5L",              "P5L",              "P5L",          "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 0408852d745004f2c003ae3f7784f41a
-
+   {"Odys Neo 6",               "NEO6_LTE",         "NEO6_LTE",         "",             "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi - looks like xorred bits for ba0|1|2
+   {"Acer Liquid Z530",         "T02",              "T02_ww",           "MT6735",       "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi - looks like xorred bits for ba0|1|2
+   {"BV6000S",                  "BV6000S",          "Blackview",        "Blackview",    "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 70f95d0b266cd7e52c8f6b9092d2a930
+   {"HUAWEI LYO-L02",           "HUAWEI LYO-L02",   "LYO-L02",          "LYO-L02",      "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // fcace253b7a70fd410f9507382272ac6
+   {"CUBOT DINOSAUR", "CUBOT DINOSAUR","x5623_h6013_cubot","x5623_cq_h6013_cubot_3565u","mt6735",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000, true}, // f4fd567588ed484bf8b1c377da12bd5d
+   {"LG-K220",                  "LG-K220",          "mk6p_global_com",  "mt6735",       "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 29060a559f3e9a027c1997a4e7d46201
+   {"P5L",                      "P5L",              "P5L",              "P5L",          "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 0408852d745004f2c003ae3f7784f41a
+   {"Aqua S7",                  "Aqua S7",          "Aqua S7",          "Aqua S7",      "mt6735",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000, true}, // 9da0b564aead4cfe70a9eca210f42f8b
+   {"HUAWEI TIT-AL00",          "HUAWEI TIT-AL00",  "TIT-AL00",         "TIT-AL00",     "mt6735",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, //
+   {"ZTE BLADE A610",           "ZTE BLADE A610",   "HOFER_AT_P635T36", "MT6735",       "mt6735", 11, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 427d5b93d87cf5fd3609f5ce5900cb5c
 
 // MT6735M
-   {"LG K4 4G",                 "LG-K120",          "me1_global_com",   "",             "mt6735m", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
+   {"LG K4 4G",                 "LG-K120",          "me1_global_com",   "",             "mt6735m", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi - looks like xorred bits for ba0|1|2
+   {"Lenovo A2016a40",          "Lenovo A2016a40",  "A2016a40",         "A2016a40",     "mt6735m", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 843abe1e9dd85944cbf6d98edf2e8ccf
+
 
 
 // MT6735P
-   {"ZTE Blade V7 Lite",        "ZTE BLADE V0720",  "P635A32",          "",             "mt6735m", 1,K(  32), 0x00000, 0x00000, 0x00000, 0x000}, // 0dfde0183d0d5f09c80e4ec15160064f - xorred - could be heap 11 also, but that would be weird
-   {"Lenovo K10a40",            "Lenovo K10a40",    "K10a40",           "",             "mt6735m",11,K(  32), 0x00000, 0x00000, 0x00000, 0x000}, // 4cad13981eeaf3a4a74d2e6f7f4a9d87 - xorred
-   {"X5pro",                    "X5pro",            "X5pro",            "",             "mt6735m",11,K(  32), 0x00000, 0x00000, 0x00000, 0x000}, // b074de5f4d5310f7c6d0a7be8c803a64 - xorred
-   {"HT7 Pro",                  "HT7 Pro",          "HT7 Pro",  "full_br6735m_65u_s_l1","mt6735m", 1,K(  32), 0x00000, 0x00000, 0x00000, 0x000}, // 4c6cbae50bc2df3de2f11c412ab93db7 - xorred
+   {"ZTE Blade V7 Lite",        "ZTE BLADE V0720",  "P635A32",          "",             "mt6735m", 1,K(  32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 0dfde0183d0d5f09c80e4ec15160064f - xorred - could be heap 11 also, but that would be weird
+   {"Lenovo K10a40",            "Lenovo K10a40",    "K10a40",           "",             "mt6735m",11,K(  32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 4cad13981eeaf3a4a74d2e6f7f4a9d87 - xorred
+   {"X5pro",                    "X5pro",            "X5pro",            "",             "mt6735m",11,K(  32), 0x00000, 0x00000, 0x00000, 0x000, true}, // b074de5f4d5310f7c6d0a7be8c803a64 - xorred
+   {"HT7 Pro",                  "HT7 Pro",          "HT7 Pro",  "full_br6735m_65u_s_l1","mt6735m", 1,K(  32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 4c6cbae50bc2df3de2f11c412ab93db7 - xorred
 
 // MT6737
-   {"HT16Pro",                  "HT16Pro",          "HT16Pro", "full_leq6737m_65_a_m0", "mt6737m",11, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // 533100d61f550a24d64fc7b952b41c8c - xorred
-   {"SMART Surf2 4G",           "SMART Surf2 4G",   "MTC_SMART_Surf2_4G","",            "mt6737m", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 7baefcf7689691d0ad5a08d4455a1203
+   {"HT16Pro",                  "HT16Pro",          "HT16Pro", "full_leq6737m_65_a_m0", "mt6737m",11, K( 64), 0x00000, 0x00000, 0x00000, 0x000, true}, // 533100d61f550a24d64fc7b952b41c8c - xorred
+   {"SMART Surf2 4G",           "SMART Surf2 4G",   "MTC_SMART_Surf2_4G","",            "mt6737m", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 7baefcf7689691d0ad5a08d4455a1203
 
 
 // MT6737M
-   {"LG K3 K100",               "LG-K100",          "mme0_global_com",  "mt6735",       "mt6737m", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 7d73b08b8bddb4743baad9d00772f685 - xorred?
+   {"LG K3 K100",               "LG-K100",          "mme0_global_com",  "mt6735",       "mt6737m", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 7d73b08b8bddb4743baad9d00772f685 - xorred?
 
 // MT6737T
-   {"R6",                       "R6",               "full_h910be_v11_p_yx_a10b_r6","",  "mt6737t",11, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // 0017400a2375f710e4e91ddbb80a9c91 - heap 11
-   {"Archos 50 Saphir",         "Archos 50 Saphir", "QCAC50SA",         "",             "mt6737t", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 78080a72de1407cc96a5ab2891172bd0 - xorred - heap 11 also avail
-   {"ASUS_X008D",               "ASUS_X008D",       "WW_Phone",         "MT6737T",      "mt6737t", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 1714004f11115d5a208648b154dbe541 - xorred - heap 11 also avail
-   {"SM-G532M",                 "SM-G532M",         "grandpplteub",     "MT6737T",      "mt6737t", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 966a2d71067f718e4160499a58de3685
+   {"R6",                       "R6",               "full_h910be_v11_p_yx_a10b_r6","",  "mt6737t",11, K( 64), 0x00000, 0x00000, 0x00000, 0x000, true}, // 0017400a2375f710e4e91ddbb80a9c91 - heap 11
+   {"Archos 50 Saphir",         "Archos 50 Saphir", "QCAC50SA",         "",             "mt6737t", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 78080a72de1407cc96a5ab2891172bd0 - xorred - heap 11 also avail
+   {"ASUS_X008D",               "ASUS_X008D",       "WW_Phone",         "MT6737T",      "mt6737t", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 1714004f11115d5a208648b154dbe541 - xorred - heap 11 also avail
+   {"SM-G532M",                 "SM-G532M",         "grandpplteub",     "MT6737T",      "mt6737t", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 966a2d71067f718e4160499a58de3685
+
+// MT6750
+   {"m3",                       "m3",               "m3",               "m3",           "mt6750", 11, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // a9f524a96a67c1c6d4a69bc7c912deab
+
 
 // MT6752
-   {"Sony Xperia C4",           "E5303",            "E5303",            "",             "mt6752",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi
-   {"Wikio Highway Star",       "HIGHWAY STAR",     "l5560ae",          "l5560ae",      "",        1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi
+   {"Sony Xperia C4",           "E5303",            "E5303",            "",             "mt6752",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi
+   {"Wikio Highway Star",       "HIGHWAY STAR",     "l5560ae",          "l5560ae",      "",        1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi
 
 // MT6753
-   {"Huawei GR3",               "HUAWEI TAG-L21",   "TAG-L21",          "TAG-L21",      "mt6753",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
-   {"HTC Desire 830",   "HTC Desire 830 dual sim",  "a51cml_dtul_00401","",             "mt6753",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
+   {"Huawei GR3",               "HUAWEI TAG-L21",   "TAG-L21",          "TAG-L21",      "mt6753",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi - looks like xorred bits for ba0|1|2
+   {"HTC Desire 830",   "HTC Desire 830 dual sim",  "a51cml_dtul_00401","",             "mt6753",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi - looks like xorred bits for ba0|1|2
 
 // MT6755
-   {"P9000",                    "P9000",            "Elephone",         "Elephone",     "mt6755",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // 667201998e44f38a2596eed5f8ee15df
-   {"BV6000",                   "BV6000",           "Blackview",        "Blackview",    "mt6755", 11, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // 625fef810b4da63505f11a0726236a2d
+   {"P9000",                    "P9000",            "Elephone",         "Elephone",     "mt6755",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000, true}, // 667201998e44f38a2596eed5f8ee15df
+   {"BV6000",                   "BV6000",           "Blackview",        "Blackview",    "mt6755", 11, K( 64), 0x00000, 0x00000, 0x00000, 0x000, true}, // 625fef810b4da63505f11a0726236a2d
 
 // MT6755M
-   {"ZTE Nubia N1",             "NX541J",           "NX541J",           "mt6755",       "mt6755",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // f07831be5d61298aa0c67e5c39cbdc4b - xorred?
-   {"Lenovo A7020a48",          "Lenovo A7020a48",  "k52_a48",          "",             "mt6755",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // b29602a4a311077454c4c66c8f128193
-   {"LGLS755",                  "LGLS755",          "mk6p55_spr_us",    "",             "mt6755",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 9bab870c5831d67b2275b976985d5821 - xorred?
+   {"ZTE Nubia N1",             "NX541J",           "NX541J",           "mt6755",       "mt6755",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000, true}, // f07831be5d61298aa0c67e5c39cbdc4b - xorred?
+   {"Lenovo A7020a48",          "Lenovo A7020a48",  "k52_a48",          "",             "mt6755",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000, true}, // b29602a4a311077454c4c66c8f128193
+   {"LGLS755",                  "LGLS755",          "mk6p55_spr_us",    "",             "mt6755",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 9bab870c5831d67b2275b976985d5821 - xorred?
 
 
 // MT6795
 // {"Sony Xperia M5",           "E5603",            "E5603",            "",             "mt6795",  1, K( 64), 0x00000},
-   {"HTC One M9",    "HTC One M9_Prime Camera Edition","himaruhl_00401","",             "mt6795",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // @nfi - looks like xorred bits for ba0|1|2
+   {"HTC One M9",    "HTC One M9_Prime Camera Edition","himaruhl_00401","",             "mt6795",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000, true}, // @nfi - looks like xorred bits for ba0|1|2
+
+// MT6797M
+   {"Redmi Note 4",             "Redmi Note 4",     "nikel",            "",             "mt6797",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000, true}, // 3dcc7e4b8b73c24e724760d68ca571eb
 
 // MT6797T
-   {"PRO 6",                    "PRO 6",            "meizu_PRO6",       "PRO6",         "mt6797",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // a4340f47ada89cf808c508d90da843c0 - xorred
+   {"PRO 6",                    "PRO 6",            "meizu_PRO6",       "PRO6",         "mt6797",  1, K( 64), 0x00000, 0x00000, 0x00000, 0x000, true}, // a4340f47ada89cf808c508d90da843c0 - xorred
 
 // MT8127
-   {"Amazon Fire 7",            "KFFOWI",           "full_ford",        "ford",         "mt8127",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // b0292167514398a8b8642622fa47159d - xorred?
+   {"Amazon Fire 7",            "KFFOWI",           "full_ford",        "ford",         "mt8127",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // b0292167514398a8b8642622fa47159d - xorred?
 
 // MT8321
-   {"Alcatel PIXI 4(6)",        "8050D",            "8050D",            "8050D",        "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 80d8e659c31079506e4d08c3dcfd073d - xorred?
-   {"E691X",                    "E691X",            "E691X",            "",             "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // bd543f649421f24fcbfbb2bf1f2cc0bd
+   {"Alcatel PIXI 4(6)",        "8050D",            "8050D",            "8050D",        "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 80d8e659c31079506e4d08c3dcfd073d - xorred?
+   {"E691X",                    "E691X",            "E691X",            "",             "mt6580",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // bd543f649421f24fcbfbb2bf1f2cc0bd
 
 // MT8163
-   {"KFGIWI",                   "KFGIWI",           "full_giza",        "giza",         "mt8163",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 37b2b8c23089eef9d96a0ed7577982d7 - xorred?
+   {"KFGIWI",                   "KFGIWI",           "full_giza",        "giza",         "mt8163",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 37b2b8c23089eef9d96a0ed7577982d7 - xorred?
+   {"RCT6213W87M",              "RCT6213W87M",      "RCT6213W87M",      "",             "mt8163",  1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 694c5c10efe54361731ab06bf87d0db2
 
 // MT8735P
-   {"Q27 4G",                   "Q27 4G",           "iBall Slide",      "",             "mt6735m", 1, K( 64), 0x00000, 0x00000, 0x00000, 0x000}, // d2bda05837aa9ff95074959efebb1bc7 - heap 11 also available
+   {"Q27 4G",                   "Q27 4G",           "iBall Slide",      "",             "mt6735m", 1, K( 64), 0x00000, 0x00000, 0x00000, 0x000, true}, // d2bda05837aa9ff95074959efebb1bc7 - heap 11 also available
 
 // MT8735M
-   {"Comet_Q789L",              "Comet_Q789L",      "Alcor_Q789L",      "",             "mt6735m", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000}, // 6c5a3847ff7626681b541b6aa22541fb
+   {"Comet_Q789L",              "Comet_Q789L",      "Alcor_Q789L",      "",             "mt6735m", 1, K( 32), 0x00000, 0x00000, 0x00000, 0x000, true}, // 6c5a3847ff7626681b541b6aa22541fb
 
 /**** SPREADTRUM ****/
 
 //  generic name                ro.product.model    ro.product.name     board           platform   ion rowsize     ba2     ba1     ba0   rank
 // SC9830A
-   {"Archos 40 Helium",         "Archos 40 Helium", "SCAC40HE",     "sp9830aec_4m_h100","sc8830",  3, K( 32), 0x04000, 0x2000, 0x1000, 0x000}, // @home
-   {"VOTO GT11 Pro",            "VOTO GT11 Pro",    "l305a_yusun_a8",  "l305a_yusun_a8","sc8830",  3, K( 32), 0x00000, 0x0000, 0x0000, 0x000}, // b2d69465420aa89cfc36439e9e13c203
-   {"Samsung Galaxy J3 2016",   "SM-J320FN",        "j3xnltexx",        "SC9830I",      "sc8830",  2, K( 32), 0x00000, 0x0000, 0x0000, 0x000}, // @nfi
-   {"SM-G361H",                 "SM-G361H",         "coreprimeve3gxx",  "SC7730SE",     "sc8830",  3, K( 32), 0x00000, 0x0000, 0x0000, 0x000}, // 437af15cbb6e4c45ceab59b523e4b8de
+   {"Archos 40 Helium",         "Archos 40 Helium", "SCAC40HE",     "sp9830aec_4m_h100","sc8830",  3, K( 32), 0x04000, 0x2000, 0x1000, 0x000, true}, // @home
+   {"VOTO GT11 Pro",            "VOTO GT11 Pro",    "l305a_yusun_a8",  "l305a_yusun_a8","sc8830",  3, K( 32), 0x00000, 0x0000, 0x0000, 0x000, true}, // b2d69465420aa89cfc36439e9e13c203
+   {"Samsung Galaxy J3 2016",   "SM-J320FN",        "j3xnltexx",        "SC9830I",      "sc8830",  2, K( 32), 0x00000, 0x0000, 0x0000, 0x000, true}, // @nfi
+   {"SM-G361H",                 "SM-G361H",         "coreprimeve3gxx",  "SC7730SE",     "sc8830",  3, K( 32), 0x00000, 0x0000, 0x0000, 0x000, true}, // 437af15cbb6e4c45ceab59b523e4b8de
 
 
 };
@@ -1914,6 +1947,7 @@ void MergeModel(struct model *m, struct model *db) {
     m->ba1          = db->ba1;
     m->ba0          = db->ba0;
     m->rank         = db->rank;
+    m->use_contig_heap  = db->use_contig_heap;
    
 }
 
@@ -1986,6 +2020,14 @@ void BankConflicts::getModel(int force_autodetect, struct model *m) {
     sigaction(SIGUSR1, &new_action, &old_USR1);
     sigusr1 = false;
 
+    /* There is some redudency here, but skip rowsize detection for these
+     * devices as we will try to use the system heap anyway. */
+    if (m->board == "universal7420" || 
+        m->board == "universal7580" || 
+        m->board == "universal8890") {
+        heap_ids.clear();
+    }
+
     for (auto id: heap_ids) {
         lprint("\n");
         lprint("============================================\n");
@@ -2023,7 +2065,7 @@ void BankConflicts::getModel(int force_autodetect, struct model *m) {
         lprint("[BC] No candidates for contiguous heap, trying the system heap\n");
         m->use_contig_heap = false;
         // this is not safe
-               if (m->board.find("msm") != std::string::npos) {
+               if (m->board.find("msm") != std::string::npos || m->platform.find("msm") != std::string::npos) {
             m->ion_heap = SYSTEM_HEAP_MSM;
         } else if (m->board.find("universal") != std::string::npos) {
             m->ion_heap = SYSTEM_HEAP_EXYNOS;

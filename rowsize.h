@@ -48,6 +48,7 @@ struct model {
     int ba0;
     int rank;
     
+    bool use_contig_heap;
     
     int treshold;
     int measurements;
@@ -68,7 +69,6 @@ struct model {
 #define PAGEMAP_NORMAL      0x01
 #define PAGEMAP_ION_START   0x02
 #define PAGEMAP_ION_MIDDLE  0x04
-    bool use_contig_heap;
 };
 
 struct chipset {

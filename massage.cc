@@ -72,6 +72,9 @@ int ionExhaustSys(std::vector<struct ion_data *> &chunks, int heap_id, bool mmap
     int avail_kb = get_MemAvailable();
 	lprint("[EXHAUSTsys] MemAvailable: %d\n", avail_kb);
 
+    // set to 100MB for now so that we allocate 50MB...
+    avail_kb = 100 * 1024;
+
     if (avail_kb / 1024 > 100)
         avail_kb = 100*1024;
 
