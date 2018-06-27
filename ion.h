@@ -46,7 +46,8 @@ int  ION_alloc_mmap(struct ion_data *data, int len, int id);
 void ION_clean(struct ion_data *data);
 int  ION_bulk(int len, std::vector<struct ion_data *> &chunks, int heap_id, int max = 0, bool mmap = true);
 void ION_clean_all(    std::vector<struct ion_data *> &chunks, int max = 0);
-void ION_get_hammerable_rows(struct ion_data *chunk);
+
+void ION_alloc2(int len, struct ion_data *data, int ion_heap);
 
 void ION_detector(void);
 void ION_init(void);

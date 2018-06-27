@@ -33,14 +33,15 @@
 
 #include "helper.h"
 #include "ion.h"
+#include "ionheap.h"
 #include "massage.h"
 #include "rowsize.h"
 #include "templating.h"
 
 
-#define VERSION "0.2"
+#define VERSION "0.3"
 
-#define HAMMER_READCOUNT 2000000
+#define HAMMER_READCOUNT 1000000
 
 struct model device;
 
@@ -52,7 +53,6 @@ extern int BS_PERMUTATION_STEP;
 void usage(char *main_program) {
     fprintf(stderr,"Usage: %s [-a] [-A] [-c count] [-d seconds] [-f file] [-h] [-l seconds] [-r rounds] [-t timer]\n", main_program);
     fprintf(stderr,"   -a        : Run all pattern combinations\n");
-    fprintf(stderr,"   -A        : Always autodetect\n");
     fprintf(stderr,"   -c count  : Number of memory accesses per hammer round (default is %d)\n",HAMMER_READCOUNT);
     fprintf(stderr,"   -d seconds: Number of seconds to run defrag (default is disabled)\n");
     fprintf(stderr,"   -f base   : Write output to this file (basename)\n"); 
@@ -83,7 +83,6 @@ int main(int argc, char *argv[]) {
     int hammer_readcount = HAMMER_READCOUNT;
     int rounds = 1;
     bool all_patterns = false;
-    bool always_autodetect = false;
     int log_rotate = 0;
 
     int c;
@@ -92,9 +91,6 @@ int main(int argc, char *argv[]) {
         switch (c) {
             case 'a':
                 all_patterns = true;
-                break;
-            case 'A':
-                always_autodetect = true;
                 break;
             case 'c':
                 hammer_readcount = strtol(optarg, NULL, 10);
@@ -144,7 +140,7 @@ int main(int argc, char *argv[]) {
     unblock_signals();
     
     /*** MODEL DETECTION (rowsize, bank selectors, treshold, ion heap, ...) */
-    RS_autodetect(always_autodetect, &device);
+    RS_autodetect(&device);
     
     lprint("\n");
     lprint("=============================================================\n");
@@ -154,14 +150,25 @@ int main(int argc, char *argv[]) {
     /*** PIN CPU */
     lprint("[MAIN] Pinning to CPU\n");
     pincpu(device.fastest_cpu);
+    
 
     /*** DEFRAG MEMORY */
     if (defrag_timer) {
-        lprint("[MAIN] Defragment memory\n");
-        defrag(defrag_timer, device.ion_heap); 
+
+        lprint("[MAIN] Defrag requested. Test to see if necessary\n");
+
+        size_t freeMemInLargeChunks = get_FreeContigMem(K(256));
+        lprint("[MAIN] free mem in large chunks: %zu\n", freeMemInLargeChunks);
+        if (freeMemInLargeChunks > M(128)) {
+            lprint("Over 128MB available, skipping defrag\n");
+        } else {
+            lprint("[MAIN] Defragment memory with ion heap %d\n", device.ion_heap);
+            defrag(defrag_timer, device.ion_heap);
+        }
     }
 
-    
+
+
     lprint("[MAIN] Initializing patterns\n");
     /*                                               
      *                                                Chunk
@@ -200,43 +207,12 @@ int main(int argc, char *argv[]) {
     else
         patterns = {&p100, &prrr};
 
-    /* During rowsize-detection, we already fallback to using the non-contiguous
-     * system heap approach if no reasonable ION contiguous heap was found. I'd
-     * like to do this always for a small number of devices. */
-    if (device.board == "universal7420" || 
-        device.board == "universal7580" || 
-        device.board == "universal8890") {
-        lprint("Exynos chipset detected, falling back to system heap with id %d\n", SYSTEM_HEAP_EXYNOS);
-        device.use_contig_heap = false;
-        device.ion_heap = SYSTEM_HEAP_EXYNOS;
-    }
-
-    if (device.platform == "msm8996" && (device.board == "sailfish" || device.board == "marlin")) { 
-        lprint("Pixel detected, falling back to system heap id %d\n", SYSTEM_HEAP_MSM);
-        device.use_contig_heap = false;
-        device.ion_heap = SYSTEM_HEAP_MSM;
-    }
-
-    if (device.platform == "hi3650" && device.board == "EVA" && device.model == "EVA-L09") {
-        lprint("P9 detected, falling back to system heap id %d\n", SYSTEM_HEAP_HI);
-        device.use_contig_heap = false;
-        device.ion_heap = SYSTEM_HEAP_HI;
-    }
 
 
     /*** TEMPLATE */
-    lprint("[MAIN] Start templating\n");
-    if (device.use_contig_heap) {
-        TMPL_run(patterns, timer, hammer_readcount, rounds);
-    } else {
-        for (device.rowsize = K(64); device.rowsize <= K(256); device.rowsize = device.rowsize * 2) {
-            // omit the permutation between rows to speed-up analysis
-            BS_PERMUTATION_STEP = device.rowsize;
 
-            lprint("[MAIN] - with non-contiguous heap, rowsize %d\n", device.rowsize);
-            TMPL_run(patterns, timer, hammer_readcount, rounds);
-        }
-    }
+        lprint("[MAIN] - with non-contiguous heap\n");
+        TMPL_run(patterns, timer, hammer_readcount, rounds);
 
     lprint("[MAIN] Done\n");
 }

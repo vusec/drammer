@@ -57,26 +57,30 @@ class PatternCollection {
 
 class Aggressor {
     public:
-        Aggressor(struct ion_data *ion_chunk, int row_in_chunk, int offset_in_row);
+        Aggressor(struct ion_data *ion_chunk, int offset, int offset_to_start_row, int rowsize);
         
-        int getBank(void);
         void incrementAccesses(int accesses) { a_accessesM += accesses / MILLION; };
 
         uintptr_t getVirt(void)     { return a_virt;            };
         uintptr_t getPhys(void)     { return a_phys;            };
-        uintptr_t getRowVirt(void)  { return a_row_virt;        };
-        int getRowInChunk(void)     { return a_row_in_chunk;    };
-        int getOffsetInRow(void)    { return a_offset_in_row;   };
+        int getRowsize(void) { return a_rowsize; };
+        uintptr_t getRowVirt(void) { return a_row; };
         int getOffsetInChunk(void)  { return a_offset_in_chunk; };
-        int getPhysRow(void)        { return a_phys / device.rowsize; };
         uint64_t getAccesses(void) { return a_accessesM; };
+
+            bool operator<(Aggressor& other) const {
+                if (a_virt != other.getVirt())
+                    return false;
+                if (a_rowsize != other.getRowsize())
+                    return false;
+                return true;
+            };
 
     private:
         uintptr_t a_virt;
         uintptr_t a_phys;
-        uintptr_t a_row_virt;
-        int a_row_in_chunk;
-        int a_offset_in_row;
+        uintptr_t a_row;
+        int a_rowsize;
         int a_offset_in_chunk;
         uint64_t a_accessesM; // in million
 };
@@ -125,24 +129,21 @@ class Chunk {
         int getSize(void) { return c_len; };
         uintptr_t getVirt(void) { return c_virt; };
         uintptr_t getPhys(void) { return c_phys; };
-        void disable(void);
 
         bool makeCached(void);
 
+        void disable(void) { c_disabled = true; }
+        bool isDisabled(void) { return c_disabled; };
+
     private:
         void selectAggressors(void);
-        int collectFlips(void *org, Aggressor *a1, Aggressor *a2);
-
-
-        struct cmpByAggressor {
-            bool operator()(Aggressor *a, Aggressor *b) {
-                return (a->getVirt() < b->getVirt());
-            }
-        };
+        int collectFlips(void *org, Aggressor *a1, Aggressor *a2, uintptr_t watch_region_start, int watch_region_size); 
 
 
 
-        std::map<Aggressor *, std::vector<Aggressor *>, cmpByAggressor> c_aggressors;
+
+        std::map<Aggressor *, std::vector<Aggressor *>> c_aggressors;
+        std::vector<Aggressor *> c_a1s;
         std::vector<Flip *> c_flips;
         uintptr_t c_virt;
         uintptr_t c_phys;
@@ -153,6 +154,7 @@ class Chunk {
         int c_id;
         size_t c_pairs_hammered;
         bool c_cached;
+        bool c_disabled;
 };
 
 
@@ -160,8 +162,9 @@ class Memory {
     public:
         Memory();
         void doHammer(std::vector<PatternCollection *> &patterns, int timer, int accesses, int rounds);
-        void exhaust(void);
+        bool exhaust(void);
         void cleanup(void);
+        void disableChunks(void);
 
         uint64_t getBitFlips(void);
         uint64_t getUniqueBitFlips(void);

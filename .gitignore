@@ -2,3 +2,4 @@
 *.o64
 rh-test
 rh-test64
+ion-heaps

@@ -52,44 +52,24 @@ void signal_handler(int signal) {
 
 
 
-int ionExhaust(std::vector<struct ion_data *> &chunks, int min_bytes, int heap_id, bool mmap) { 
-    int total_kb;
 
-    total_kb = 0;
-    for (int order = MAX_ORDER; order >= B_TO_ORDER(min_bytes); order--) {
-        int count = ION_bulk(ORDER_TO_B(order), chunks, heap_id, 0, mmap);
-        lprint("[EXHAUST] - order %2d (%4d KB) - got %3d chunks\n", 
-                    order, ORDER_TO_KB(order), count);
-        total_kb += ORDER_TO_KB(order) * count;
+bool ionExhaustSys(struct ion_data *chunk, int heap_id) {
+    /* look at /proc/buddyinfo and allocate anything that is of size 64KB or larger */
+    int len = get_FreeContigMem(K(64));
+    if (len == 0) 
+        return false;
+
+    lprint("[ION] alloc %d bytes on heap %d... ", len, heap_id);
+    chunk->handle = ION_alloc(len, heap_id);
+    if (chunk->handle == 0) {
+        lprint("Failed: %s\n", strerror(errno));
+        return false;
     }
-    lprint("[EXHAUST] allocated %d KB (%d MB)\n", total_kb, total_kb / 1024);
-
-    return total_kb;
-}
-
-int ionExhaustSys(std::vector<struct ion_data *> &chunks, int heap_id, bool mmap) {
-   
-    int avail_kb = get_MemAvailable();
-	lprint("[EXHAUSTsys] MemAvailable: %d\n", avail_kb);
-
-    // set to 100MB for now so that we allocate 50MB...
-    avail_kb = 100 * 1024;
-
-    if (avail_kb / 1024 > 100)
-        avail_kb = 100*1024;
-
-    // allocate 50% of available memory
-    int max_chunks = (.5 * avail_kb) / ORDER_TO_KB(MAX_ORDER);
-
-	lprint("[EXHAUSTsys] Trying to allocate %d*%dMB = %dMB\n", 
-				max_chunks, ORDER_TO_MB(MAX_ORDER), max_chunks * ORDER_TO_MB(MAX_ORDER));
-
-    int count = ION_bulk(ORDER_TO_B(MAX_ORDER), chunks, heap_id, max_chunks, mmap);
-    int total_kb = ORDER_TO_KB(MAX_ORDER) * count;
+    lprint("Success\n");
+    chunk->len = len;
+    chunk->mapping = NULL;
     
-    lprint("[EXHAUSTsys] got %d chunks: %dKB (%dMB)\n", count, total_kb, total_kb / 1024);
-
-    return total_kb;
+    return true; 
 }
 
 
@@ -128,9 +108,16 @@ int defrag(int timer, int heap_id) {
 
 
     /* Exhaust */
-    ionExhaust(defrag_chunks, K(64), heap_id, false);
+    struct ion_data *largeSysChunk = new ion_data;
+    if (largeSysChunk == NULL) {
+        perror("Could not allocate memory");
+        exit(EXIT_FAILURE);
+    }
+    if (ionExhaustSys(largeSysChunk, heap_id) == false) {
+    } else {
+        defrag_chunks.push_back(largeSysChunk);
+    }
 
-    int fixed_size_ion = 0;
 
     /* Install one signal handler for:
      * - SIGALRM: if our timer runs out
@@ -153,8 +140,7 @@ int defrag(int timer, int heap_id) {
         }
         data->handle = ION_alloc(len, heap_id);
         if (data->handle == 0) {
-            printf("Could not allocate 4KB. ION heap may be of a fixed-size\n");
-            fixed_size_ion = 1;
+            printf("Could not allocate 4KB. Wrong heap?\n");
             break;
         }
         data->len = len;
@@ -198,6 +184,22 @@ int defrag(int timer, int heap_id) {
                  count,           len,   count * len,        count * len / 1024 / 1024);
 
     ION_clean_all(defrag_chunks);
+
+    dumpfile("/sys/kernel/debug/ion/vmalloc");
+
+    size_t mmap_len = count * 4096;
+    lprint("[DEFRAG] allocating %zu bytes with mmap to flush the ion pools\n", mmap_len);
+    void *p1 = malloc(mmap_len);
+    if (p1 == NULL) {
+        perror("Could not malloc");
+    } else {
+        lprint("Success! p: %p | Now unmap and we should have some contiguous chunks\n", p1);
+        memset(p1, 0x42, mmap_len);
+    dumpfile("/sys/kernel/debug/ion/vmalloc");
+        free(p1);
+    dumpfile("/sys/kernel/debug/ion/vmalloc");
+    }
+
    
     alarm(0);
     sigaction(SIGALRM, &old_ALARM, NULL);
@@ -211,5 +213,6 @@ int defrag(int timer, int heap_id) {
         if (!line.empty()) lprint("%s\n", line.c_str());
     }
 
-    return fixed_size_ion;
+    return 0;
 }
+

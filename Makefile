@@ -28,23 +28,27 @@ CXX_64   = $(STANDALONE_TOOLCHAIN64)/aarch64-linux-android-g++
 CPP_64   = $(STANDALONE_TOOLCHAIN64)/aarch64-linux-android-g++
 STRIP_64 = $(STANDALONE_TOOLCHAIN64)/aarch64-linux-android-strip
 
-CPPFLAGS = -std=c++11 -O3 -Wall -march=armv7-a
+CPPFLAGS = -std=c++14 -O3 -Wall -march=armv7-a
 LDFLAGS  = -pthread -static
 INCLUDES = -I$(PWD)/../include
 
-CPPFLAGS_64 = -std=c++11 -O3 -Wall -DARMV8
+CPPFLAGS_64 = -std=c++14 -O3 -Wall -DARMV8
 
 TMPDIR  = /data/local/tmp/
-TARGET ?= rh-test
+TARGET ?= rh-test ion-heaps
 TARGET64 ?= rh-test64
 
 all: $(TARGET) $(TARGET64)
 
-rh-test: rh-test.o ion.o rowsize.o templating.o massage.o logger.o helper.h
+rh-test: rh-test.o ion.o rowsize.o templating.o logger.o helper.h ionheap.o massage.o
 	$(CPP) $(CPPFLAGS) -o $@ $^ $(LDFLAGS)
 	$(STRIP) $@
 
-rh-test64: rh-test.o64 ion.o64 rowsize.o64 templating.o64 massage.o64 logger.o64 helper.h
+ion-heaps: testheaps.o ionheap.o logger.o
+	$(CPP) $(CPPFLAGS) -o $@ $^ $(LDFLAGS)
+	$(STRIP) $@
+
+rh-test64: rh-test.o64 ion.o64 rowsize.o64 templating.o64 logger.o64 helper.h ionheap.o64 massage.o64
 	$(CPP_64) $(CPPFLAGS_64) -o $@ $^ $(LDFLAGS)
 	$(STRIP_64) $@
 

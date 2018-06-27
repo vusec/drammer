@@ -28,7 +28,12 @@
 #include <algorithm>
 #include <fstream>
 #include <memory>
+#include <map>
+#include <sstream>
 #include <set>
+#include <iostream>
+#include <string>
+#include <iterator>
 
 #define G(x) (x << 30)
 #define M(x) (x << 20)
@@ -127,53 +132,13 @@ static inline uint64_t get_mem_size() {
 static inline int hammer(volatile uint8_t *p1, volatile uint8_t *p2, int count, bool fence, bool cached = false) {
     uint64_t t1, t2;
 
-    asm volatile("dsb ish;");
-    asm volatile("isb;");
-
-    if (fence == FENCING_NONE) {
-        if (cached) {
-            t1 = get_ns();
-            for (int i = 0; i < count; i++) {
-                *p1;
-                *p2;
-#ifdef ARMV8
-                asm volatile ("dc civac, %0" :: "r"(p1));
-                asm volatile ("dc civac, %0" :: "r"(p2));
-#endif
-            }
-            t2 = get_ns();
-        } else {
-            t1 = get_ns();
-            for (int i = 0; i < count; i++) {
-                *p1;
-                *p2;
-            }
-            t2 = get_ns();
-        }
-    } else if (fence == FENCING_ONCE) {
-        t1 = get_ns();
-        for (int i = 0; i < count; i++) {
-            *p1;
-            *p2;
-            asm volatile("dsb ish;");
-            asm volatile("isb;");
-        }
-        t2 = get_ns();
-    } else if (fence == FENCING_TWICE) {
-        t1 = get_ns();
-        for (int i = 0; i < count; i++) {
-            *p1;
-            asm volatile("dsb ish;");
-            asm volatile("isb;");
-            *p2;
-            asm volatile("dsb ish;");
-            asm volatile("isb;");
-        }
-        t2 = get_ns();
+    t1 = get_ns();
+    for (int i = 0; i < count; i++) {
+        *p1;
+        *p2;
     }
+    t2 = get_ns();
     
-    asm volatile("dsb ish;");
-    asm volatile("isb;");
 
     return (t2 - t1) / count / 2;
    
@@ -336,6 +301,73 @@ static inline size_t get_Slab(void) { return read_meminfo("Slab"); }
 static inline size_t get_SReclaimable(void) { return read_meminfo("SReclaimable"); }
 static inline size_t get_SUnreclaim(void) { return read_meminfo("SUnreclaim"); }
 
+static std::ifstream buddyinfo("/proc/buddyinfo");
+
+
+template<typename Out>
+static inline void split(const std::string &s, char delim, Out result) {
+    std::stringstream ss(s);
+    std::string item;
+    while (getline(ss, item, delim)) {
+        if (!item.empty()) *(result++) = item;
+    }
+}
+
+static inline std::vector<std::string> split(const std::string &s, char delim) {
+    std::vector<std::string> elems;
+    split(s, delim, std::back_inserter(elems));
+    return elems;
+}
+
+static inline size_t get_FreeContigMem(size_t minlen) {
+    std::map<int,int> chunksOfOrder;
+
+    buddyinfo.clear();
+    buddyinfo.seekg(0, std::ios::beg);
+    for (std::string line; getline(buddyinfo, line); ) {
+//      lprint("line: %s\n", line.c_str());
+        if (line.find("Node") != std::string::npos) {
+
+            std::vector<std::string> columns = split(line, ' ');
+            int order = 0;
+            for (auto col: columns) {
+                /* A line looks like:
+                 *
+                 * Node 0, zone  HighMem    116    304    223     72      0      0      0      0      0      0
+                 *
+                 * After splitting, we try to convert each column to an integer value and add it to the appropriate order. 
+                 * We assume that there are always 4K blocks available. This way, we can find the first column that 
+                 * we should parse by simply converting each column and continue until the value != 0
+                 */
+                int intValue = std::atoi(col.c_str());
+                if (intValue == 0 && order == 0) 
+                    continue;
+
+                if (chunksOfOrder.count(order) == 0)
+                    chunksOfOrder[order] = 0;
+
+                chunksOfOrder[order] += intValue;
+//              lprint("chunksOfOrder[%d] = %d\n", order, chunksOfOrder[order]);
+                order++;
+            }
+        }
+    }
+
+    size_t available_bytes = 0;
+    int minOrder = B_TO_ORDER(minlen);
+//  lprint("Looking for any chunks equal or larger than %d bytes == order %d\n", minlen, minOrder);
+    for (auto it: chunksOfOrder) {
+        int order = it.first;
+        int chunks = it.second;
+
+        if (order >= minOrder) {
+            available_bytes += ORDER_TO_B(order) * chunks;
+        }
+//      lprint("available_bytes is now: %zu\n", available_bytes);
+    }
+    return available_bytes;
+
+}
 
 
 

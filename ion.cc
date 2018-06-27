@@ -115,26 +115,6 @@ int ION_mmap(struct ion_data *data, int prot, int flags, void *addr) {
     return 0;
 }
 
-int ION_alloc_mmap(struct ion_data *data, int len, int id) {
-    data->handle = 0;
-
-    int MAX_TRIES = 10;
-    
-    for (int tries = 0; tries < MAX_TRIES; tries++) {
-        lprint("[ION] Trying to allocate %d bytes (try %d/%d) with id %d\n", len, tries, MAX_TRIES, id);
-        data->handle = ION_alloc(len, id);
-        if (data->handle != 0) {
-            data->len = len;
-            return ION_mmap(data);
-        }
-        lprint("[ION] Could not allocate chunk: %s\n",strerror(errno));
-        lprint("[ION] Running defrag(%d)\n", tries);
-        if (defrag(tries+1, id)) 
-            break;
-    }
-    return -1;
-}
-
 
 /**********************************************
  * Free a struct ion_data 
@@ -259,3 +239,115 @@ void ION_init(void) {
     }
 }
 
+void ION_alloc2(int len, struct ion_data *data, int ion_heap) {
+    len = M(256);
+    ion_fd = open("/dev/ion", O_RDONLY);
+    if (!ion_fd) {
+        perror("Could not open /dev/ion");
+        exit(EXIT_FAILURE);
+    }
+
+
+    /* allocate */ 
+    struct ion_allocation_data allocation_data;
+    allocation_data.heap_id_mask = 0x1 << ion_heap;
+    allocation_data.len = len;
+    allocation_data.flags = 0;
+    allocation_data.align = 0;
+    allocation_data.handle = 0;
+    
+    
+    ion_user_handle_t handle1, handle2, handle3;
+
+    printf("--------------------------------------------------------------\n");
+    printf("--------------------------------------------------------------\n");
+    printf("--------------------------------------------------------------\n");
+    printf("--------------------------------------------------------------\n");
+    printf("--------------------------------------------------------------\n");
+
+    dumpfile("/proc/pagetypeinfo");
+
+
+
+    lprint("[ION] ION_IOC_ALLOC for %d bytes on heap %d... ", len, ion_heap);
+    int err = ioctl(ion_fd, ION_IOC_ALLOC, &allocation_data);
+    if (err) {
+        lprint("Failed: %s\n", strerror(errno));
+        sleep(1000);
+        exit(EXIT_FAILURE);
+    } 
+    lprint("Success\n");
+    handle1 = allocation_data.handle;
+    
+    
+    
+    dumpfile("/proc/pagetypeinfo");
+    
+    
+    lprint("[ION] ION_IOC_ALLOC for %d bytes on heap %d... ", len, ion_heap);
+    err = ioctl(ion_fd, ION_IOC_ALLOC, &allocation_data);
+    if (err) {
+        lprint("Failed: %s\n", strerror(errno));
+        sleep(1000);
+        exit(EXIT_FAILURE);
+    } 
+    lprint("Success\n");
+    handle2 = allocation_data.handle;
+    
+    
+    dumpfile("/proc/pagetypeinfo");
+    
+    
+    lprint("[ION] ION_IOC_ALLOC for %d bytes on heap %d... ", len, ion_heap);
+    err = ioctl(ion_fd, ION_IOC_ALLOC, &allocation_data);
+    if (err) {
+        lprint("Failed: %s\n", strerror(errno));
+        sleep(1000);
+        exit(EXIT_FAILURE);
+    } 
+    lprint("Success\n");
+    handle3 = allocation_data.handle;
+
+
+
+    dumpfile("/proc/pagetypeinfo");
+
+    lprint("[ION] ION_IOC_FREE FOR ALL...\n");
+    ION_free(handle1);
+    ION_free(handle2);
+    ION_free(handle3);
+    
+    
+    dumpfile("/proc/pagetypeinfo");
+
+    exit(0);
+
+
+    /* share */
+    struct ion_fd_data fd_data;
+    fd_data.fd = 0;
+    fd_data.handle = allocation_data.handle;
+    lprint("[ION] ION_IOC_SHARE... ");
+    err = ioctl(ion_fd, ION_IOC_SHARE, &fd_data);
+    if (err) {
+        lprint("Failed: %s\n", strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+    lprint("Success\n");
+
+    /* mmap */
+    lprint("[ION] mmap... ");
+    void *p = mmap(NULL, allocation_data.len, PROT_READ | PROT_WRITE, MAP_SHARED, fd_data.fd, 0);
+    if (p == MAP_FAILED) {
+        lprint("Failed: %s\n", strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+    lprint("Success\n");
+
+    data->handle = allocation_data.handle;
+    data->fd = fd_data.fd;
+    data->len = allocation_data.len;
+    data->mapping = p;
+    data->virt = (uintptr_t) p;
+    data->phys = 0;
+}
